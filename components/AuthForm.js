@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesome } from '@expo/vector-icons';
-import useGoogleAuth from '../utils/firebaseGoogleAuth';
-
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { signIn } from '../utils/firebaseGoogleAuth';
 
 const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
     const [visibility, setVisibility] = useState(false);
-    const { promptAsync } = useGoogleAuth();
     const {
         control,
         handleSubmit,
@@ -82,19 +81,16 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
             >
                 <Text className="text-lg font-bold text-white">{isSubmitting ? 'Loading...' : buttonText}</Text>
             </TouchableOpacity>
+
             {children}
+
             <View className="flex-row items-center my-4">
                 <View className="flex-1 ml-4 h-[1px] bg-gray-400"></View>
                 <Text className="mx-4 text-gray-400">or</Text>
                 <View className="flex-1 mr-4 h-[1px] bg-gray-400"></View>
             </View>
-            <TouchableOpacity
-                onPress={() => promptAsync()}
-                className="bg-gray-200 border border-gray-400 rounded-lg h-[50px] flex-row items-center justify-center px-4 shadow-sm"
-            >
-                <FontAwesome name="google" size={20} />
-                <Text className="font-bold text-center ml-3 text-gray-800">Continue with Google</Text>
-            </TouchableOpacity>
+
+            <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={signIn} />
         </View>
     );
 };
