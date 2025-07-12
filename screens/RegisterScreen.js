@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { register } from '../utils/firebaseAuth';
+import { register } from '../utils/firebaseEmailAndPasswordAuth';
 import { authValidationRules } from '../utils/authValidationRules';
 import AuthForm from '../components/AuthForm';
 import { useState } from 'react';
@@ -40,10 +40,11 @@ const RegisterScreen = () => {
             <Text className="text-2xl font-bold">
                 Join our community!
             </Text>
-            <AuthForm inputs={inputs} buttonText="Sign Up" onSubmit={handleRegister} validationRules={rules} submitError={error} />
-            <Text className="text-lg font-bold">
-                Already have an account? <Text onPress={() => navigation.navigate("Login")} className="text-[#3D99F5]">Login</Text>
-            </Text>
+            <AuthForm inputs={inputs} buttonText="Sign Up" onSubmit={handleRegister} validationRules={rules} submitError={error}>
+                <Text className="text-lg font-bold text-center mt-4">
+                    Already have an account? <Text onPress={() => navigation.navigate("Login")} className="text-[#3D99F5]">Login</Text>
+                </Text>
+            </AuthForm>
         </View>
     );
 }

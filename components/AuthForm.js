@@ -1,13 +1,26 @@
+import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+import { FontAwesome } from '@expo/vector-icons';
+import useGoogleAuth from '../utils/firebaseGoogleAuth';
 
-const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError }) => {
+
+const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
+    const [visibility, setVisibility] = useState(false);
+    const { promptAsync } = useGoogleAuth();
     const {
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
         getValues,
     } = useForm();
+
+    const toggleVisibility = (id) => {
+        setVisibility((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
 
     return (
         <View className="w-full p-5 mb-4">
@@ -28,14 +41,28 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError }
                             name={input.id}
                             rules={processedRules}
                             render={({ field: { onChange, value } }) => (
-                                <TextInput
-                                    className="rounded-lg bg-[#E8EDF5] p-5 h-[50px]"
-                                    placeholder={input.placeholder}
-                                    keyboardType={input.keyboardType}
-                                    secureTextEntry={input.secureTextEntry}
-                                    value={value}
-                                    onChangeText={onChange}
-                                />
+                                <View className="relative">
+                                    <TextInput
+                                        className="rounded-lg bg-[#E8EDF5] p-5 h-[50px] pr-12"
+                                        placeholder={input.placeholder}
+                                        keyboardType={input.keyboardType}
+                                        secureTextEntry={input.secureTextEntry && !visibility[input.id]}
+                                        value={value}
+                                        onChangeText={onChange}
+                                    />
+                                    {input.secureTextEntry && (
+                                        <TouchableOpacity
+                                            className="absolute right-4 top-[14px]"
+                                            onPress={() => toggleVisibility(input.id)}
+                                        >
+                                            <FontAwesome
+                                                name={visibility[input.id] ? 'eye-slash' : 'eye'}
+                                                size={20}
+                                                color="#555"
+                                            />
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
                             )}
                         />
                         {errors[input.id] && (
@@ -54,6 +81,19 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError }
                 style={{ opacity: isSubmitting ? 0.6 : 1 }}
             >
                 <Text className="text-lg font-bold text-white">{isSubmitting ? 'Loading...' : buttonText}</Text>
+            </TouchableOpacity>
+            {children}
+            <View className="flex-row items-center my-4">
+                <View className="flex-1 ml-4 h-[1px] bg-gray-400"></View>
+                <Text className="mx-4 text-gray-400">or</Text>
+                <View className="flex-1 mr-4 h-[1px] bg-gray-400"></View>
+            </View>
+            <TouchableOpacity
+                onPress={() => promptAsync()}
+                className="bg-gray-200 border border-gray-400 rounded-lg h-[50px] flex-row items-center justify-center px-4 shadow-sm"
+            >
+                <FontAwesome name="google" size={20} />
+                <Text className="font-bold text-center ml-3 text-gray-800">Continue with Google</Text>
             </TouchableOpacity>
         </View>
     );

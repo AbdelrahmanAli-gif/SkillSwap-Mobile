@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { login } from '../utils/firebaseAuth';
+import { login } from '../utils/firebaseEmailAndPasswordAuth';
 import { authValidationRules } from '../utils/authValidationRules';
 import AuthForm from '../components/AuthForm';
-import { useState } from 'react';
 
 const inputs = [
     { id: "email", placeholder: "Email address", keyboardType: "email-address" },
@@ -33,10 +33,11 @@ const LoginScreen = () => {
             <Text className="text-2xl font-bold">
                 Welcome to SkillSwap!
             </Text>
-            <AuthForm inputs={inputs} buttonText="Login" onSubmit={handleLogin} validationRules={rules} submitError={error} />
-            <Text className="text-lg font-bold">
-                Don't have an account? <Text onPress={() => navigation.navigate("Register")} className="text-[#3D99F5]">Sign up</Text>
-            </Text>
+            <AuthForm inputs={inputs} buttonText="Login" onSubmit={handleLogin} validationRules={rules} submitError={error}>
+                <Text className="text-lg font-bold text-center mt-4">
+                    Don't have an account? <Text onPress={() => navigation.navigate("Register")} className="text-[#3D99F5]">Sign up</Text>
+                </Text>
+            </AuthForm>
         </View>
     );
 }

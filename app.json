@@ -2,6 +2,7 @@
   "expo": {
     "name": "skill-swap-mobile",
     "slug": "skill-swap-mobile",
+    "owner": "skillswapapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,6 +17,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.skillswap.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +27,13 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": ["expo-web-browser"],
+    "extra": {
+      "eas": {
+        "projectId": "5ab442f1-3f4b-4950-bf64-a9db4808eb16"
+      }
+    },
+    "scheme": "skillswap"
   }
 }
