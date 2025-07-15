@@ -8,6 +8,9 @@ export const signIn = async () => {
 
     try {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+        await GoogleSignin.signOut();
+
         const signInResult = await GoogleSignin.signIn();
 
         const idToken = signInResult?.idToken || signInResult?.data?.idToken;
@@ -26,6 +29,6 @@ export const signIn = async () => {
 
         return authResult;
     } catch (error) {
-        console.error("Google Sign-In error", error);
+        throw new Error('Google Sign-In error', error);
     }
 };

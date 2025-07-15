@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { signIn } from '../utils/firebaseGoogleAuth';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
     const [visibility, setVisibility] = useState(false);
@@ -30,7 +31,8 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
         } catch (error) {
             Toast.show({
                 type: 'error',
-                text1: 'Something went wrong',
+                text1: 'Google Sign-In Failed',
+                text2: 'Something went wrong. Please try again.',
             });
         }
     };
