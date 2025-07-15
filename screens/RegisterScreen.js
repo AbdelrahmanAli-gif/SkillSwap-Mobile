@@ -5,13 +5,7 @@ import { authValidationRules } from '../utils/authValidationRules';
 import AuthForm from '../components/AuthForm';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-
-const inputs = [
-    { id: "name", placeholder: "Name" },
-    { id: "email", placeholder: "Email address", keyboardType: "email-address" },
-    { id: "password", placeholder: "Password", secureTextEntry: true },
-    { id: "confirm-password", placeholder: "Confirm password", secureTextEntry: true }
-]
+import { useTranslation } from 'react-i18next';
 
 const { name, email, password, 'confirm-password': confirmPassword } = authValidationRules;
 const rules = { name, email, password, 'confirm-password': confirmPassword };
@@ -19,6 +13,14 @@ const rules = { name, email, password, 'confirm-password': confirmPassword };
 const RegisterScreen = () => {
     const navigation = useNavigation();
     const [error, setError] = useState(null);
+    const { t } = useTranslation();
+
+    const inputs = [
+        { id: "name", placeholder: t("name") },
+        { id: "email", placeholder: t("email"), keyboardType: "email-address" },
+        { id: "password", placeholder: t("password"), secureTextEntry: true },
+        { id: "confirm-password", placeholder: t("confirm-password"), secureTextEntry: true }
+    ]
 
     const handleRegister = async ({ email, password, name }) => {
         setError(null);
@@ -38,11 +40,11 @@ const RegisterScreen = () => {
     return (
         <View className="flex-1 items-center bg-white pt-5">
             <Text className="text-2xl font-bold">
-                Join our community!
+                {t("RegisterScreen.title")}
             </Text>
-            <AuthForm inputs={inputs} buttonText="Sign Up" onSubmit={handleRegister} validationRules={rules} submitError={error}>
+            <AuthForm inputs={inputs} buttonText={t("RegisterScreen.register")} onSubmit={handleRegister} validationRules={rules} submitError={error}>
                 <Text className="text-lg font-bold text-center mt-4">
-                    Already have an account? <Text onPress={() => navigation.navigate("Login")} className="text-[#3D99F5]">Login</Text>
+                    {t("RegisterScreen.alreadyHaveAccount")} <Text onPress={() => navigation.navigate("Login")} className="text-[#3D99F5]">{t("RegisterScreen.login")}</Text>
                 </Text>
             </AuthForm>
         </View>

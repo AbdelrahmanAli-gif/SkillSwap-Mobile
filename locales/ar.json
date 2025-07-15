@@ -1,0 +1,20 @@
+{
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "name": "الاسم",
+  "confirm-password": "تأكيد كلمة المرور",
+  "or": "أو",
+  "google": "متابعة بواسطة جوجل",
+  "LoginScreen": {
+    "title": "مرحبا بك في SkillSwap!",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "dontHaveAccount": "ليس لديك حساب؟"
+  },
+  "RegisterScreen": {
+    "title": "انضم لمجتمعنا!",
+    "register": "إنشاء حساب",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "login": "تسجيل الدخول"
+  }
+}

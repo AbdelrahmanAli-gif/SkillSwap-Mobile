@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { FontAwesome } from '@expo/vector-icons';
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { signIn } from '../utils/firebaseGoogleAuth';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
 const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
     const [visibility, setVisibility] = useState(false);
+    const { t, i18n } = useTranslation();
     const navigation = useNavigation();
     const {
         control,
@@ -56,18 +57,19 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
                             name={input.id}
                             rules={processedRules}
                             render={({ field: { onChange, value } }) => (
-                                <View className="relative">
+                                <View View className="relative">
                                     <TextInput
-                                        className="rounded-lg bg-[#E8EDF5] p-5 h-[50px] pr-12"
+                                        className={`rounded-lg bg-[#E8EDF5] p-5 h-[50px] ${i18n.language === 'ar' ? 'pl-12' : 'pr-12'}`}
                                         placeholder={input.placeholder}
                                         keyboardType={input.keyboardType}
                                         secureTextEntry={input.secureTextEntry && !visibility[input.id]}
                                         value={value}
                                         onChangeText={onChange}
+                                        textAlign={i18n.language === 'ar' ? 'right' : 'left'} // ⬅️ optional
                                     />
                                     {input.secureTextEntry && (
                                         <TouchableOpacity
-                                            className="absolute right-4 top-[14px]"
+                                            className={`absolute ${i18n.language === 'ar' ? 'left-4' : 'right-4'} top-[14px]`}
                                             onPress={() => toggleVisibility(input.id)}
                                         >
                                             <FontAwesome
@@ -78,13 +80,16 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
                                         </TouchableOpacity>
                                     )}
                                 </View>
-                            )}
+                            )
+                            }
                         />
-                        {errors[input.id] && (
-                            <Text className="text-red-500 text-sm mt-1 px-2">
-                                {errors[input.id]?.message}
-                            </Text>
-                        )}
+                        {
+                            errors[input.id] && (
+                                <Text className="text-red-500 text-sm mt-1 px-2">
+                                    {errors[input.id]?.message}
+                                </Text>
+                            )
+                        }
                     </View>
                 );
             })}
@@ -102,14 +107,28 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
 
             <View className="flex-row items-center my-4">
                 <View className="flex-1 ml-2 h-[1px] bg-gray-400"></View>
-                <Text className="mx-4 text-gray-400">or</Text>
+                <Text className="mx-4 text-gray-400">{t('or')}</Text>
                 <View className="flex-1 mr-2 h-[1px] bg-gray-400"></View>
             </View>
 
-            <View className="flex-row items-center justify-center">
-                <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={onGoogleSubmit} />
+            <View className="flex-col items-center justify-center">
+                <TouchableOpacity
+                    className="relative bg-[#3D99F5] w-full flex-row items-center justify-center rounded-lg py-3 px-4 shadow-md"
+                    onPress={onGoogleSubmit}
+                >
+                    <View className="absolute h-[45px] w-12 bg-white flex items-center justify-center rounded-l-lg left-0">
+                        <Image
+                            source={{ uri: 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw' }}
+                            className="w-8 h-8"
+                            resizeMode="center"
+                        />
+                    </View>
+                    <Text className="font-bold text-white">
+                        {t('google')}
+                    </Text>
+                </TouchableOpacity>
             </View>
-        </View>
+        </View >
     );
 };
 
