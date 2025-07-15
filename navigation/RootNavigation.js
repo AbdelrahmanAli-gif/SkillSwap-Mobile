@@ -8,12 +8,11 @@ const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
     return (
-        <Stack.Navigator screenOptions={{ title: "Skill Swap", headerTitleAlign: "center", headerBackVisible: false }}>
-          
+        <Stack.Navigator screenOptions={{ title: "SkillSwap", headerTitleAlign: "center", headerBackVisible: false }}>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Landing" component={Landing} />
             <Stack.Screen name="App" component={AppScreen} />
-            <Stack.Screen name="Landing" component={Landing}/>
         </Stack.Navigator>
     );
 }
