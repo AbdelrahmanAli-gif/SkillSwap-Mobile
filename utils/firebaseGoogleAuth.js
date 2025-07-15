@@ -8,18 +8,27 @@ export const signIn = async () => {
 
     try {
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+        await GoogleSignin.signOut();
+
         const signInResult = await GoogleSignin.signIn();
 
-        console.log("Google Sign-In result:", signInResult);
-
-        let idToken = signInResult?.idToken || signInResult?.data?.idToken;
+        const idToken = signInResult?.idToken || signInResult?.data?.idToken;
         if (!idToken) {
             throw new Error('No ID token found');
         }
 
         const googleCredential = GoogleAuthProvider.credential(idToken);
-        return signInWithCredential(getAuth(), googleCredential);
+        const authResult = await signInWithCredential(getAuth(), googleCredential);
+
+        const user = authResult.user;
+
+        if (!user.displayName) {
+            await user.updateProfile({ displayName: signInResult.data.user.name });
+        }
+
+        return authResult;
     } catch (error) {
-        console.error("Google Sign-In error", error);
+        throw new Error('Google Sign-In error', error);
     }
 };

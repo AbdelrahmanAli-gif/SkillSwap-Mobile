@@ -4,9 +4,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { FontAwesome } from '@expo/vector-icons';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { signIn } from '../utils/firebaseGoogleAuth';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
     const [visibility, setVisibility] = useState(false);
+    const navigation = useNavigation();
     const {
         control,
         handleSubmit,
@@ -19,6 +22,19 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
             ...prev,
             [id]: !prev[id],
         }));
+    };
+
+    const onGoogleSubmit = async () => {
+        try {
+            await signIn();
+            navigation.navigate('App');
+        } catch (error) {
+            Toast.show({
+                type: 'error',
+                text1: 'Google Sign-In Failed',
+                text2: 'Something went wrong. Please try again.',
+            });
+        }
     };
 
     return (
@@ -85,12 +101,14 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
             {children}
 
             <View className="flex-row items-center my-4">
-                <View className="flex-1 ml-4 h-[1px] bg-gray-400"></View>
+                <View className="flex-1 ml-2 h-[1px] bg-gray-400"></View>
                 <Text className="mx-4 text-gray-400">or</Text>
-                <View className="flex-1 mr-4 h-[1px] bg-gray-400"></View>
+                <View className="flex-1 mr-2 h-[1px] bg-gray-400"></View>
             </View>
 
-            <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={signIn} />
+            <View className="flex-row items-center justify-center">
+                <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={onGoogleSubmit} />
+            </View>
         </View>
     );
 };
