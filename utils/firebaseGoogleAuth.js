@@ -1,5 +1,7 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, getAuth, signInWithCredential } from '@react-native-firebase/auth';
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 
 export const signIn = async () => {
     GoogleSignin.configure({
@@ -25,6 +27,19 @@ export const signIn = async () => {
 
         if (!user.displayName) {
             await user.updateProfile({ displayName: signInResult.data.user.name });
+        }
+
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (!docSnap.exists()) {
+            await setDoc(userRef, {
+                uid: user.uid,
+                name: user.displayName,
+                email: user.email,
+                createdAt: new Date().toISOString(),
+                provider: "google",
+            });
         }
 
         return authResult;
