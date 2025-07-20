@@ -1,60 +1,42 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { getAllOtherUsers } from '../utils/usersCollection';
-import { logout } from '../utils/firebaseEmailAndPasswordAuth';
 import { useAuth } from '../contexts/AuthContext';
 import { generateFromGemini } from '../api/gemini';
 import { skillMatch } from '../helpers/prompts';
-import Toast from 'react-native-toast-message';
 import MatchingUserCard from '../components/MatchingUserCard';
 
 const MatchesScreen = () => {
     const [matches, setMatches] = useState([]);
-    const navigation = useNavigation();
+    const [loading, setLoading] = useState(true);
     const { user } = useAuth();
 
     useEffect(() => {
         const fetchUsers = async () => {
+            setLoading(true);
             const users = await getAllOtherUsers(user.uid);
             const results = await generateFromGemini(skillMatch(user, users));
             setMatches(JSON.parse(results.replace("```json", "").replace("```", "")));
+            setLoading(false);
         };
 
         fetchUsers();
     }, []);
 
-    const handleLogout = async () => {
-        try {
-            await logout();
-            Toast.show({
-                type: 'success',
-                text1: 'Logged out successfully',
-            });
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
-        } catch (error) {
-            console.error(error);
-            Toast.show({
-                type: 'error',
-                text1: 'Logout failed',
-            });
-        }
-    };
-
     return (
         <View className="flex-1 px-5 pt-5">
-            <TouchableOpacity onPress={handleLogout}>
-                <Text>Sign Out</Text>
-            </TouchableOpacity>
-            <Text className="text-3xl font-medium">Potential Matches</Text>
-            <FlatList
-                data={matches}
-                keyExtractor={(item) => item.uid}
-                renderItem={({ item }) => <MatchingUserCard user={item} />}
-            />
+            <Text className="text-3xl font-medium my-3">Potential Matches</Text>
+            {loading ?
+                <View className="flex-1 items-center justify-center">
+                    <ActivityIndicator size="large" color="#3D99F5" />
+                </View>
+                :
+                <FlatList
+                    data={matches}
+                    keyExtractor={(item) => item.uid}
+                    renderItem={({ item }) => <MatchingUserCard user={item} />}
+                />
+            }
         </View>
     );
 
