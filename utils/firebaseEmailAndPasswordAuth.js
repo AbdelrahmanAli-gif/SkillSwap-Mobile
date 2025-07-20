@@ -28,6 +28,6 @@ export const login = (email, password) => {
     }
 }
 
-export const logout = () => {
-    return signOut(auth);
+export const logout = async () => {
+    return await signOut(auth);
 }
