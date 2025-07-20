@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../services/firebase';
 import { login } from '../utils/firebaseEmailAndPasswordAuth';
 import { authValidationRules } from '../utils/authValidationRules';
+import { useAuth } from '../contexts/AuthContext';
 import AuthForm from '../components/AuthForm';
-import { useTranslation } from 'react-i18next';
 
 const { email, password } = authValidationRules;
 const rules = { email, password };
@@ -12,6 +15,7 @@ const rules = { email, password };
 const LoginScreen = () => {
     const navigation = useNavigation();
     const [error, setError] = useState(null);
+    const { setUser } = useAuth();
     const { t } = useTranslation();
 
     const inputs = [
@@ -22,7 +26,10 @@ const LoginScreen = () => {
     const handleLogin = async ({ email, password }) => {
         setError(null);
         try {
-            await login(email, password);
+            const userCredentials = await login(email, password);
+            const user = userCredentials.user;
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            setUser({ uid: user.uid, ...userDoc.data() });
             navigation.navigate("App");
         } catch (error) {
             console.log(error);

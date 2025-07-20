@@ -6,9 +6,11 @@ import { signIn } from '../utils/firebaseGoogleAuth';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
+import { useAuth } from '../contexts/AuthContext';
 
 const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
     const [visibility, setVisibility] = useState(false);
+    const { setUser } = useAuth();
     const { t, i18n } = useTranslation();
     const navigation = useNavigation();
     const {
@@ -27,7 +29,8 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
 
     const onGoogleSubmit = async () => {
         try {
-            await signIn();
+            const user = await signIn();
+            setUser(user);
             navigation.navigate('App');
         } catch (error) {
             Toast.show({
