@@ -10,7 +10,7 @@ const Messages = ({ userName, img, content, time }) => {
         </View>
         <View className="ml-3 flex">
             <Text className="font-medium text-lg">{userName}</Text>
-            <Text className="text-slate-500">{content}</Text>
+            <Text numberOfLines={2} className="text-slate-500">{content}</Text>
         </View>
         <View className="w-1/12 ">
         <Text>{time}</Text>
