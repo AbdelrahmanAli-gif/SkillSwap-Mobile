@@ -7,7 +7,6 @@ import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
-import MessagesScreen from '../screens/MessagesScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +38,6 @@ const AppNavigation = () => {
             headerTitleAlign: "center",
             headerRight: () => <MaterialIcons onPress={handleLogout} name="logout" size={24} color="black" />
         }}>
-            <Tab.Screen name='Messages' component={MessagesScreen}/>
             <Tab.Screen name="Home" component={LandingScreen} />
             <Tab.Screen name="Matches" component={MatchesScreen} />
             <Tab.Screen name="Messages" component={MessagesScreen} />
