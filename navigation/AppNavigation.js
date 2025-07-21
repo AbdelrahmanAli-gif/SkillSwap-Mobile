@@ -3,6 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { logout } from '../utils/firebaseEmailAndPasswordAuth';
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
+import MessagesScreen from '../screens/MessagesScreen';
+import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
 import MessagesScreen from '../screens/MessagesScreen';
@@ -40,6 +42,8 @@ const AppNavigation = () => {
             <Tab.Screen name='Messages' component={MessagesScreen}/>
             <Tab.Screen name="Home" component={LandingScreen} />
             <Tab.Screen name="Matches" component={MatchesScreen} />
+            <Tab.Screen name="Messages" component={MessagesScreen} />
+            <Tab.Screen name="Search" component={SearchScreen} />
         </Tab.Navigator>
     );
 }

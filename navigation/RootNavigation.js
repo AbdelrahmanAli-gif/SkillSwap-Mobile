@@ -1,13 +1,12 @@
-import { Button, View } from "react-native"
+import { Button } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useTranslation } from "react-i18next"
 import { AuthProvider } from "../contexts/AuthContext"
 import LoginScreen from "../screens/LoginScreen"
 import RegisterScreen from "../screens/RegisterScreen"
 import AppNavigation from "./AppNavigation"
-import MessagesScreen from "../screens/MessagesScreen"
 import PictureBio from "../screens/RegisterSteps/PictureBio"
-import { SafeAreaView } from "react-native-safe-area-context"
 import Icon from "react-native-vector-icons/Ionicons"
 
 const Stack = createNativeStackNavigator()
@@ -35,8 +34,8 @@ const RootNavigation = () => {
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="Register" component={RegisterScreen} />
-                    <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen
             name="PictureBio"
             component={PictureBio}
