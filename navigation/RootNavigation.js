@@ -35,7 +35,6 @@ const RootNavigation = () => {
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name='Messages' component={MessagesScreen}></Stack.Screen>
                     <Stack.Screen name="Register" component={RegisterScreen} />
                     <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen
