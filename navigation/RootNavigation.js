@@ -8,6 +8,7 @@ import AppNavigation from "./AppNavigation"
 import MessagesScreen from "../screens/MessagesScreen"
 import PictureBio from "../screens/RegisterSteps/PictureBio"
 import { SafeAreaView } from "react-native-safe-area-context"
+import Icon from "react-native-vector-icons/Ionicons"
 
 const Stack = createNativeStackNavigator()
 
@@ -33,16 +34,17 @@ const RootNavigation = () => {
             headerBackVisible: false,
           }}
         >
-          {/* <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
                     <Stack.Screen name='Messages' component={MessagesScreen}></Stack.Screen>
                     <Stack.Screen name="Register" component={RegisterScreen} />
-                    <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
+                    <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen
             name="PictureBio"
             component={PictureBio}
             options={{
               title: "Tell us about yourself",
               headerBackVisible: true,
+              headerLeft: () => <Icon name="arrow-back" size={24} color="black"></Icon>,
             }}
           />
         </Stack.Navigator>
