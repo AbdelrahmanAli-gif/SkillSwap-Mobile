@@ -1,4 +1,5 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import Button from './Button';
 
 const MatchingUserCard = ({ user }) => {
     return (
@@ -26,9 +27,7 @@ const MatchingUserCard = ({ user }) => {
                 }
             </View>
 
-            <TouchableOpacity className="bg-gray-200 px-3 py-1 rounded-lg self-start">
-                <Text className="text-gray-800 text-sm font-medium">Connect</Text>
-            </TouchableOpacity>
+            <Button text={"Connect"} />
         </View>
     );
 }
