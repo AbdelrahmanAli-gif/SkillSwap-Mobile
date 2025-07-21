@@ -5,7 +5,7 @@ const Messages = ({ userName, img, content, time }) => {
   return (
     <View className="w-full flex-row mt-5  ">
       <View className="w-9/12 flex-row">
-        <View className="mt-1" >
+        <View>
             <Image className="rounded-full w-[55px] h-[55px]" source={img? require(`../assets/u1.png`):require("../assets/icon.png")}></Image>
         </View>
         <View className="ml-3 flex">
