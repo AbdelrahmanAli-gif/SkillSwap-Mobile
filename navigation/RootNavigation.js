@@ -5,6 +5,7 @@ import { AuthProvider } from '../contexts/AuthContext';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import AppNavigation from './AppNavigation';
+import MessagesScreen from '../screens/MessagesScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const RootNavigation = () => {
             <AuthProvider>
                 <Stack.Navigator screenOptions={{ title: "SkillSwap", headerTitleAlign: "center", headerBackVisible: false }}>
                     <Stack.Screen name="Login" component={LoginScreen} />
+                    <Stack.Screen name='Messages' component={MessagesScreen}></Stack.Screen>
                     <Stack.Screen name="Register" component={RegisterScreen} />
                     <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
                 </Stack.Navigator>
