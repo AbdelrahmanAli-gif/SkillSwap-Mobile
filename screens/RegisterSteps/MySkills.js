@@ -6,17 +6,37 @@ import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
 import Tag from "../../components/Tag"
 
-export default function MySkills() {
+export default function MySkills({ info, setInfo }) {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
   const [skillsToTeachInput, setSkillsToTeachInput] = useState("")
   const [skillsList, setSkillsList] = useState([])
   const [skillsToLearnSearchQuery, setSkillsToLearnSearchQuery] = useState("")
   const [skillsToTeachSearchQuery, setSkillsToTeachSearchQuery] = useState("")
   const [filteredSkills, setFilteredSkills] = useState([])
-  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState([])
-  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState([])
+  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState(info.learnSkills || [])
+  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.teachSkills || [])
   const [newTeachSkills, setNewTeachSkills] = useState([])
   const [newLearnSkills, setNewLearnSkills] = useState([])
+
+  const handleSkillChange = (skill, list) => {
+    if (list === "learn") {
+      setSelectedSkillToLearn((prev) => [...prev, skill])
+      setInfo((prev) => ({ ...prev, learnSkills: [...prev.learnSkills, skill] }))
+    } else {
+      setSelectedSkillToTeach((prev) => [...prev, skill])
+      setInfo((prev) => ({ ...prev, teachSkills: [...prev.teachSkills, skill] }))
+    }
+  }
+
+  const handleSkillRemove = (skill, list) => {
+    if (list === "learn") {
+      setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== skill.id))
+      setInfo((prev) => ({ ...prev, learnSkills: prev.learnSkills.filter((s) => s.id !== skill.id) }))
+    } else {
+      setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== skill.id))
+      setInfo((prev) => ({ ...prev, teachSkills: prev.teachSkills.filter((s) => s.id !== skill.id) }))
+    }
+  }
 
   useEffect(() => {
     const getSkills = async () => {
@@ -31,7 +51,7 @@ export default function MySkills() {
     const query = skillsToLearnInput
     setTimeout(() => {
       setSkillsToLearnSearchQuery(query)
-    }, 1000)
+    }, 500)
   }, [skillsToLearnInput])
 
   useEffect(() => {
@@ -55,7 +75,7 @@ export default function MySkills() {
     const query = skillsToTeachInput
     setTimeout(() => {
       setSkillsToTeachSearchQuery(query)
-    }, 1000)
+    }, 500)
   }, [skillsToTeachInput])
 
   useEffect(() => {
@@ -100,7 +120,7 @@ export default function MySkills() {
   }
 
   return (
-    <View className="bg-[#F7FAFC] flex-1 p-6 relative">
+    <View className="bg-[#F7FAFC] flex-1 p-6">
       <Text className="font-medium text-2xl">Skills I want to learn</Text>
       <View>
         <SearchInput
@@ -119,7 +139,7 @@ export default function MySkills() {
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
-                  setSelectedSkillToLearn((prev) => [...prev, item])
+                  handleSkillChange(item, "learn")
                   setFilteredSkills([])
                   setSkillsToLearnInput("")
                 }}
@@ -142,7 +162,7 @@ export default function MySkills() {
             <Tag
               onPressFunc={() => {
                 console.log("Removing skill:", item.skillName)
-                setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== item.id))
+                handleSkillRemove(item, "learn")
               }}
             >
               {item.skillName}
@@ -186,7 +206,7 @@ export default function MySkills() {
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
-                  setSelectedSkillToTeach((prev) => [...prev, item])
+                  handleSkillChange(item, "teach")
                   setFilteredSkills([])
                   setSkillsToTeachInput("")
                 }}
@@ -208,7 +228,7 @@ export default function MySkills() {
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
-                setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== item.id))
+                handleSkillRemove(item, "teach")
               }}
             >
               {item.skillName}
@@ -233,13 +253,6 @@ export default function MySkills() {
           )}
         ></FlatList>
       </View>
-
-      <Pressable
-        className="absolute bottom-6 bg-[#3B82F6] p-4 rounded-full w-full left-6 flex items-center"
-        // onPress={() => navigation.navigate("MySkills")}
-      >
-        <Text className="text-white font-bold text-lg">Continue</Text>
-      </Pressable>
     </View>
   )
 }

@@ -1,13 +1,10 @@
 import { Image, Pressable, Text, TextInput, View } from "react-native"
-import React, { useState } from "react"
+import { useState } from "react"
 import * as ImagePicker from "expo-image-picker"
 import Toast from "react-native-toast-message"
-import { useNavigation } from "@react-navigation/native"
 
-export default function PictureBio() {
+export default function PictureBio({ info, setInfo }) {
   const [photo, setPhoto] = useState(null)
-  const navigation = useNavigation()
-  const [bio, setBio] = useState("")
 
   const pickImage = async () => {
     // Ask for permission
@@ -22,7 +19,8 @@ export default function PictureBio() {
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      // mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaType,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -30,11 +28,16 @@ export default function PictureBio() {
 
     if (!result.canceled) {
       setPhoto(result.assets[0].uri)
+      setInfo((prev) => ({ ...prev, photo: result.assets[0].uri }));
     }
   }
 
+  const handleBioChange = (text) => {
+    setInfo((prev) => ({ ...prev, bio: text }));
+  }
+
   return (
-    <View className="bg-[#F7FAFC] flex-1 p-6 relative">
+    <View className="bg-[#F7FAFC] flex-1 p-6">
       <Pressable className="flex-row items-center justify-start gap-6" onPress={pickImage}>
         <Image source={require("../../assets/avatar.png")} className="w-16 h-16"></Image>
         <Text className="text-xl font-normal">Upload a profile picture</Text>
@@ -46,16 +49,9 @@ export default function PictureBio() {
         placeholder="Write a bio"
         placeholderTextColor={"#46586D"}
         textAlignVertical="top"
-        value={bio}
-        onChangeText={setBio}
+        value={info.bio}
+        onChangeText={(text) => handleBioChange(text)}
       ></TextInput>
-
-      <Pressable
-        className="absolute bottom-6 bg-[#3B82F6] p-4 rounded-full w-full left-6 flex items-center"
-        onPress={() => navigation.navigate("MySkills")}
-      >
-        <Text className="text-white font-bold text-lg">Continue</Text>
-      </Pressable>
     </View>
   )
 }
