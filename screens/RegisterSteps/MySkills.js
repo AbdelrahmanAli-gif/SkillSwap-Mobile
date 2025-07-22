@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
+import Tag from "../../components/Tag"
 
 export default function MySkills() {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
@@ -37,7 +38,6 @@ export default function MySkills() {
     setFilteredSkills([])
     if (skillsToLearnSearchQuery === skillsToLearnInput && skillsToLearnInput.trim() !== "") {
       const prompt = filterSkillPrompt(skillsToLearnInput.toLowerCase(), JSON.stringify(skillsList))
-      console.log("Prompt for Gemini:", prompt)
       generateFromGemini(prompt).then((res) => {
         console.log(res)
         const parsedRes = JSON.parse(res)
@@ -74,10 +74,6 @@ export default function MySkills() {
       })
     }
   }, [skillsToTeachSearchQuery])
-
-  useEffect(() => {
-    console.log("Filtered Skills Updated:", filteredSkills)
-  }, [filteredSkills])
 
   function handleSearchForSkillsToLearn() {
     if (skillsToLearnInput.trim() !== "") {
@@ -116,7 +112,7 @@ export default function MySkills() {
 
         {skillsToLearnInput.trim() !== "" && (
           <FlatList
-            className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg mt-2 bg-white"
+            className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg bg-white mt-2"
             data={filteredSkills}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
@@ -135,6 +131,41 @@ export default function MySkills() {
             )}
           ></FlatList>
         )}
+
+        <FlatList
+          className="mt-1 w-full"
+          ItemSeparatorComponent={() => <View className="w-2"></View>}
+          horizontal
+          data={selectedSkillToLearn}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Tag
+              onPressFunc={() => {
+                console.log("Removing skill:", item.skillName)
+                setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== item.id))
+              }}
+            >
+              {item.skillName}
+            </Tag>
+          )}
+        ></FlatList>
+
+        <FlatList
+          className="mt-1 w-full"
+          ItemSeparatorComponent={() => <View className="w-2"></View>}
+          horizontal
+          data={newLearnSkills}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Tag
+              onPressFunc={() => {
+                setNewLearnSkills((prev) => prev.filter((s) => s !== item))
+              }}
+            >
+              {item}
+            </Tag>
+          )}
+        ></FlatList>
       </View>
 
       <Text className="font-medium text-2xl mt-12">Skills I want to teach</Text>
@@ -167,7 +198,48 @@ export default function MySkills() {
             )}
           ></FlatList>
         )}
+
+        <FlatList
+          className="mt-1 w-full"
+          ItemSeparatorComponent={() => <View className="w-2"></View>}
+          horizontal
+          data={selectedSkillToTeach}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Tag
+              onPressFunc={() => {
+                setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== item.id))
+              }}
+            >
+              {item.skillName}
+            </Tag>
+          )}
+        ></FlatList>
+
+        <FlatList
+          className="mt-1 w-full"
+          ItemSeparatorComponent={() => <View className="w-2"></View>}
+          horizontal
+          data={newTeachSkills}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Tag
+              onPressFunc={() => {
+                setNewTeachSkills((prev) => prev.filter((s) => s !== item))
+              }}
+            >
+              {item}
+            </Tag>
+          )}
+        ></FlatList>
       </View>
+
+      <Pressable
+        className="absolute bottom-6 bg-[#3B82F6] p-4 rounded-full w-full left-6 flex items-center"
+        // onPress={() => navigation.navigate("MySkills")}
+      >
+        <Text className="text-white font-bold text-lg">Continue</Text>
+      </Pressable>
     </View>
   )
 }
