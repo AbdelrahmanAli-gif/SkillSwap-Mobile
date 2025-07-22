@@ -33,9 +33,9 @@ const RootNavigation = () => {
             ),
           }}
         >
+          <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
         </Stack.Navigator>
       </AuthProvider >
