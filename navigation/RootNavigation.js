@@ -8,6 +8,7 @@ import RegisterScreen from "../screens/RegisterScreen"
 import AppNavigation from "./AppNavigation"
 import PictureBio from "../screens/RegisterSteps/PictureBio"
 import Icon from "react-native-vector-icons/Ionicons"
+import MySkills from "../screens/RegisterSteps/MySkills"
 
 const Stack = createNativeStackNavigator()
 
@@ -33,9 +34,9 @@ const RootNavigation = () => {
             headerBackVisible: false,
           }}
         >
-          <Stack.Screen name="Login" component={LoginScreen} />
+          {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
+          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
           <Stack.Screen
             name="PictureBio"
             component={PictureBio}
@@ -43,6 +44,14 @@ const RootNavigation = () => {
               title: "Tell us about yourself",
               headerBackVisible: true,
               headerLeft: () => <Icon name="arrow-back" size={24} color="black"></Icon>,
+            }}
+          />
+          <Stack.Screen
+            name="MySkills"
+            component={MySkills}
+            options={{
+              title: "My Skills",
+              headerBackVisible: true,
             }}
           />
         </Stack.Navigator>
