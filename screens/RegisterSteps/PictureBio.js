@@ -52,7 +52,7 @@ export default function PictureBio() {
 
       <Pressable
         className="absolute bottom-6 bg-[#3B82F6] p-4 rounded-full w-full left-6 flex items-center"
-        // onPress={() => navigation.navigate("")}
+        onPress={() => navigation.navigate("MySkills")}
       >
         <Text className="text-white font-bold text-lg">Continue</Text>
       </Pressable>
