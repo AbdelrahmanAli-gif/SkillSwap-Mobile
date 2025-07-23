@@ -1,5 +1,11 @@
 import React from "react";
-import { Button, Pressable, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  Button,
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { Image } from "react-native";
 import { StyleSheet, View } from "react-native";
 import DropdownComponent from "../components/DropdownComponent";
@@ -35,17 +41,34 @@ const ScheduleSessionsScreen = ({ name, job, img }) => {
           <Text className="text-black font-bold text-lg">Pay for a lesson</Text>
         </TouchableOpacity>
       </View>
-      <View className="mt-3">
+      <View className="mt-3 ">
         <DropdownComponent></DropdownComponent>
       </View>
-      <View className="w-full mt-2 items-center h-[7%]"> 
-      <View className="w-[94%]  items-center h-full">
-        <TextInput placeholderTextColor={"#7593B4"}  placeholder="Propose a time" className="bg-gray-100 w-full rounded-lg border  h-full border-[#7593B4] placeholder:text-xl" >
-
-        </TextInput>
+      <View className="w-full mt-3 items-center h-[7%]">
+        <View className="w-[94%]  items-center h-full">
+          <TextInput
+            placeholderTextColor={"#7593B4"}
+            placeholder="Propose a time"
+            className="bg-gray-100 w-full rounded-lg border  h-full border-[#7593B4] placeholder:text-xl"
+          ></TextInput>
+        </View>
       </View>
+      <View className="w-full mt-6 items-center h-[20%] ">
+        <View className="w-[94%]  items-center h-full">
+          <TextInput
+            textAlignVertical="top"
+            multiline={true}
+            placeholderTextColor={"#7593B4"}
+            placeholder="Add a note"
+            className="bg-gray-100 w-full rounded-lg border  h-full border-[#7593B4] placeholder:text-xl "
+          ></TextInput>
+        </View>
       </View>
-     
+      <View className="w-[100%] items-center h-[5%] mt-9 ">
+        <TouchableOpacity  activeOpacity={0.6} className="w-[94%] bg-blue-500 rounded-full items-center h-full justify-center">
+          <Text className="text-white font-normal text-lg">Send Trade Request</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
