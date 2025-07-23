@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  Button,
-  Pressable,
   Text,
   TextInput,
   TouchableOpacity,
@@ -9,10 +7,10 @@ import {
 import { Image } from "react-native";
 import { StyleSheet, View } from "react-native";
 import DropdownComponent from "../components/DropdownComponent";
-
+import Icon from 'react-native-vector-icons/FontAwesome5';
 const ScheduleSessionsScreen = ({ name, job, img }) => {
   return (
-    <View className="flex-1">
+    <View className="flex-1 relative">
       <View className="w-full h-[18%] items-center mt-4">
         <View className="w-4/12 items-center h-[100%]">
           <Image
@@ -68,6 +66,9 @@ const ScheduleSessionsScreen = ({ name, job, img }) => {
         <TouchableOpacity  activeOpacity={0.6} className="w-[94%] bg-blue-500 rounded-full items-center h-full justify-center">
           <Text className="text-white font-normal text-lg">Send Trade Request</Text>
         </TouchableOpacity>
+      </View>
+      <View className="absolute bottom-9 right-5 w-9 bg-blue-500 items-center h-9 justify-center rounded-full ">
+       <Icon size={18} color={"white"} name="comment-dots"></Icon>
       </View>
     </View>
   );
