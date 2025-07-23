@@ -9,6 +9,7 @@ import AppNavigation from "./AppNavigation"
 import PictureBio from "../screens/RegisterSteps/PictureBio"
 import Icon from "react-native-vector-icons/Ionicons"
 import MySkills from "../screens/RegisterSteps/MySkills"
+import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -37,7 +38,7 @@ const RootNavigation = () => {
           {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="PictureBio"
             component={PictureBio}
             options={{
@@ -53,7 +54,8 @@ const RootNavigation = () => {
               title: "My Skills",
               headerBackVisible: true,
             }}
-          />
+          /> */}
+          <Stack.Screen name="Schedule" component={ScheduleSessionsScreen}/>
         </Stack.Navigator>
       </AuthProvider>
     </SafeAreaView>
