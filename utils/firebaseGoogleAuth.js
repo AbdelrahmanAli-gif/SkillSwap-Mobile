@@ -31,19 +31,24 @@ export const signIn = async () => {
         let userData;
         if (!docSnap.exists()) {
             userData = {
+                bio: user.bio ? user.bio : null,
                 createdAt: new Date().toISOString(),
                 email: user.email,
-                isAvailableForPaid: false,
-                isAvailableForTrade: false,
+                isAvailableForPaid: user.isAvailableForPaid ? user.isAvailableForPaid : null,
+                isAvailableForTrade: user.isAvailableForTrade ? user.isAvailableForTrade : null,
+                location: user.location ? user.location : { city: null, country: null },
                 name: user.displayName,
-                profilePicture: null,
+                phone: user.phone ? user.phone : null,
+                rating: user.rating ? user.rating : null,
                 uid: user.uid,
+                profilePicture: user.photoURL
             }
             await setDoc(userRef, userData);
         } else userData = docSnap.data();
 
         return { uid: user.uid, ...userData };
     } catch (error) {
+        console.log(error);
         throw new Error('Google Sign-In error', error);
     }
 };

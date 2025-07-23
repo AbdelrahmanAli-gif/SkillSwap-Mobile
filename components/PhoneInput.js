@@ -1,86 +1,112 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-    View, Text, TextInput, TouchableOpacity, FlatList, Modal,
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    FlatList,
 } from 'react-native';
 
-const PhoneInput = () => {
+const getFlagEmoji = (countryCode) =>
+    countryCode
+        ?.toUpperCase()
+        .replace(/./g, (char) =>
+            String.fromCodePoint(127397 + char.charCodeAt())
+        );
+
+const PhoneInput = ({ value, onChange }) => {
     const [countries, setCountries] = useState([]);
-    const [selectedCode, setSelectedCode] = useState('+1'); // default
-    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState({
+        dial_code: '+20',
+        code: 'EG',
+        name: 'Egypt',
+    });
     const [search, setSearch] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
 
     useEffect(() => {
-        const fetchDialCodes = async () => {
-            try {
-                const res = await fetch('https://countriesnow.space/api/v0.1/countries/codes');
-                const data = await res.json();
+        const fetchCodes = async () => {
+            const res = await fetch('https://countriesnow.space/api/v0.1/countries/codes');
+            const data = await res.json();
+            if (data?.data) {
                 setCountries(data.data);
-            } catch (error) {
-                console.error('Failed to fetch country codes:', error);
             }
         };
-
-        fetchDialCodes();
+        fetchCodes();
     }, []);
 
-    const filteredCountries = countries.filter((country) =>
-        country.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const handleSelect = (country) => {
+        setSelectedCountry(country);
+        setShowDropdown(false);
+        setSearch('');
+
+        // Update full phone number with new dial code
+        const numericPart = value.replace(/^\+\d+\s?/, '');
+        onChange(`${country.dial_code} ${numericPart}`);
+    };
+
+    const handlePhoneChange = (text) => {
+        // Only store the numeric part after the dial code
+        const clean = text.replace(/[^0-9]/g, '');
+        onChange(`${selectedCountry.dial_code} ${clean}`);
+    };
+
+    const getFlagEmoji = (countryCode) =>
+        countryCode
+            ?.toUpperCase()
+            .replace(/./g, (char) =>
+                String.fromCodePoint(127397 + char.charCodeAt())
+            );
 
     return (
         <View className="px-4 py-2">
             <View className="flex-row items-center bg-gray-200 rounded-lg overflow-hidden">
                 <TouchableOpacity
-                    onPress={() => setModalVisible(true)}
-                    className="px-4 py-3 bg-gray-300"
+                    className="px-3 py-3 bg-gray-300"
+                    onPress={() => setShowDropdown(!showDropdown)}
                 >
-                    <Text>{selectedCode}</Text>
+                    <Text className="text-lg">
+                        {getFlagEmoji(selectedCountry.code)} {selectedCountry.dial_code}
+                    </Text>
                 </TouchableOpacity>
                 <TextInput
-                    value={phoneNumber}
-                    onChangeText={setPhoneNumber}
+                    value={value.replace(/^\+\d+\s?/, '')} // only show numeric part
+                    onChangeText={handlePhoneChange}
                     placeholder="Phone number"
                     keyboardType="phone-pad"
                     className="flex-1 px-4 py-3"
                 />
             </View>
 
-            {/* Modal for selecting country code */}
-            <Modal visible={modalVisible} animationType="slide">
-                <View className="flex-1 p-4 bg-white">
-                    <Text className="text-xl font-bold mb-4">Select your country</Text>
+            {showDropdown && (
+                <View className="mt-2 bg-white rounded-lg border max-h-60">
                     <TextInput
-                        placeholder="Search country"
-                        className="p-3 border rounded mb-4"
                         value={search}
                         onChangeText={setSearch}
+                        placeholder="Search country"
+                        className="p-3 border-b"
                     />
                     <FlatList
-                        data={filteredCountries}
+                        data={countries.filter(c =>
+                            c.name.toLowerCase().includes(search.toLowerCase())
+                        )}
                         keyExtractor={(item) => item.code}
                         renderItem={({ item }) => (
                             <TouchableOpacity
-                                className="py-3 border-b"
-                                onPress={() => {
-                                    setSelectedCode(item.dial_code);
-                                    setModalVisible(false);
-                                }}
+                                className="px-3 py-2 border-b border-gray-100"
+                                onPress={() => handleSelect(item)}
                             >
-                                <Text>{item.name} ({item.dial_code})</Text>
+                                <Text className="text-base">
+                                    {getFlagEmoji(item.code)} {item.name} ({item.dial_code})
+                                </Text>
                             </TouchableOpacity>
                         )}
                     />
-                    <TouchableOpacity
-                        className="mt-4 p-3 bg-red-500 rounded"
-                        onPress={() => setModalVisible(false)}
-                    >
-                        <Text className="text-white text-center">Cancel</Text>
-                    </TouchableOpacity>
                 </View>
-            </Modal>
+            )}
         </View>
     );
 };
+
 
 export default PhoneInput;

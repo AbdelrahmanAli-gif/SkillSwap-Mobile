@@ -30,7 +30,8 @@ const LoginScreen = () => {
             const user = userCredentials.user;
             const userDoc = await getDoc(doc(db, "users", user.uid));
             setUser({ uid: user.uid, ...userDoc.data() });
-            navigation.navigate("App");
+            if (userDoc.data().bio === null) navigation.navigate('Complete Profile');
+            else navigation.navigate("App");
         } catch (error) {
             console.log(error);
             setError("Invalid email or password");

@@ -6,37 +6,17 @@ import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
 import Tag from "../../components/Tag"
 
-export default function MySkills({ info, setInfo }) {
+export default function MySkills() {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
   const [skillsToTeachInput, setSkillsToTeachInput] = useState("")
   const [skillsList, setSkillsList] = useState([])
   const [skillsToLearnSearchQuery, setSkillsToLearnSearchQuery] = useState("")
   const [skillsToTeachSearchQuery, setSkillsToTeachSearchQuery] = useState("")
   const [filteredSkills, setFilteredSkills] = useState([])
-  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState(info.learnSkills || [])
-  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.teachSkills || [])
+  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState([])
+  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState([])
   const [newTeachSkills, setNewTeachSkills] = useState([])
   const [newLearnSkills, setNewLearnSkills] = useState([])
-
-  const handleSkillChange = (skill, list) => {
-    if (list === "learn") {
-      setSelectedSkillToLearn((prev) => [...prev, skill])
-      setInfo((prev) => ({ ...prev, learnSkills: [...prev.learnSkills, skill] }))
-    } else {
-      setSelectedSkillToTeach((prev) => [...prev, skill])
-      setInfo((prev) => ({ ...prev, teachSkills: [...prev.teachSkills, skill] }))
-    }
-  }
-
-  const handleSkillRemove = (skill, list) => {
-    if (list === "learn") {
-      setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== skill.id))
-      setInfo((prev) => ({ ...prev, learnSkills: prev.learnSkills.filter((s) => s.id !== skill.id) }))
-    } else {
-      setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== skill.id))
-      setInfo((prev) => ({ ...prev, teachSkills: prev.teachSkills.filter((s) => s.id !== skill.id) }))
-    }
-  }
 
   useEffect(() => {
     const getSkills = async () => {
@@ -51,7 +31,7 @@ export default function MySkills({ info, setInfo }) {
     const query = skillsToLearnInput
     setTimeout(() => {
       setSkillsToLearnSearchQuery(query)
-    }, 500)
+    }, 1000)
   }, [skillsToLearnInput])
 
   useEffect(() => {
@@ -75,7 +55,7 @@ export default function MySkills({ info, setInfo }) {
     const query = skillsToTeachInput
     setTimeout(() => {
       setSkillsToTeachSearchQuery(query)
-    }, 500)
+    }, 1000)
   }, [skillsToTeachInput])
 
   useEffect(() => {
@@ -120,7 +100,7 @@ export default function MySkills({ info, setInfo }) {
   }
 
   return (
-    <View className="bg-[#F7FAFC] flex-1 p-6">
+    <View className="bg-[#F7FAFC] flex-1 p-6 relative">
       <Text className="font-medium text-2xl">Skills I want to learn</Text>
       <View>
         <SearchInput
@@ -139,7 +119,7 @@ export default function MySkills({ info, setInfo }) {
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
-                  handleSkillChange(item, "learn")
+                  setSelectedSkillToLearn((prev) => [...prev, item])
                   setFilteredSkills([])
                   setSkillsToLearnInput("")
                 }}
@@ -162,7 +142,7 @@ export default function MySkills({ info, setInfo }) {
             <Tag
               onPressFunc={() => {
                 console.log("Removing skill:", item.skillName)
-                handleSkillRemove(item, "learn")
+                setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== item.id))
               }}
             >
               {item.skillName}
@@ -206,7 +186,7 @@ export default function MySkills({ info, setInfo }) {
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
-                  handleSkillChange(item, "teach")
+                  setSelectedSkillToTeach((prev) => [...prev, item])
                   setFilteredSkills([])
                   setSkillsToTeachInput("")
                 }}
@@ -228,7 +208,7 @@ export default function MySkills({ info, setInfo }) {
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
-                handleSkillRemove(item, "teach")
+                setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== item.id))
               }}
             >
               {item.skillName}

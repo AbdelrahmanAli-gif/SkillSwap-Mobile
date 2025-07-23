@@ -1,57 +1,73 @@
-import { Image, Pressable, Text, TextInput, View } from "react-native"
-import { useState } from "react"
-import * as ImagePicker from "expo-image-picker"
-import Toast from "react-native-toast-message"
+import { Image, Pressable, Text, TextInput, View } from "react-native";
+import { useEffect, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import * as ImagePicker from "expo-image-picker";
+import Toast from "react-native-toast-message";
 
-export default function PictureBio({ info, setInfo }) {
-  const [photo, setPhoto] = useState(null)
+export default function PictureBio({ info, setInfo, setIsStepValid }) {
+  const [photo, setPhoto] = useState(info.photo || null);
+  const { control, formState: { errors, isValid } } = useForm({
+    defaultValues: { bio: info.bio || "" },
+    mode: "onChange", // allows real-time validation feedback
+  });
+
+  useEffect(() => {
+    setIsStepValid(isValid);
+  }, [isValid]);
 
   const pickImage = async () => {
-    // Ask for permission
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       Toast.show({
         type: "error",
         text1: "Permission required",
         text2: "Permission to access gallery is required!",
-      })
-      return
+      });
+      return;
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      // mediaTypes: ImagePicker.MediaTypeOptions.Images,
       mediaTypes: ImagePicker.MediaType,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    })
+    });
 
     if (!result.canceled) {
-      setPhoto(result.assets[0].uri)
+      setPhoto(result.assets[0].uri);
       setInfo((prev) => ({ ...prev, photo: result.assets[0].uri }));
     }
-  }
-
-  const handleBioChange = (text) => {
-    setInfo((prev) => ({ ...prev, bio: text }));
-  }
+  };
 
   return (
     <View className="bg-[#F7FAFC] flex-1 p-6">
       <Pressable className="flex-row items-center justify-start gap-6" onPress={pickImage}>
-        <Image source={require("../../assets/avatar.png")} className="w-16 h-16"></Image>
+        <Image source={require("../../assets/avatar.png")} className="w-16 h-16" />
         <Text className="text-xl font-normal">Upload a profile picture</Text>
       </Pressable>
 
-      <TextInput
-        className="mt-6 p-4 bg-[#E8EDF5] rounded-lg text-base h-48 text-black overflow-y-scroll"
-        multiline
-        placeholder="Write a bio"
-        placeholderTextColor={"#46586D"}
-        textAlignVertical="top"
-        value={info.bio}
-        onChangeText={(text) => handleBioChange(text)}
-      ></TextInput>
+      <Controller
+        control={control}
+        name="bio"
+        rules={{ required: "Bio is required." }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            className="mt-6 p-4 bg-[#E8EDF5] rounded-lg text-base h-48 text-black"
+            multiline
+            placeholder="Write a bio"
+            placeholderTextColor={"#46586D"}
+            textAlignVertical="top"
+            value={value}
+            onChangeText={(text) => {
+              onChange(text);
+              setInfo((prev) => ({ ...prev, bio: text }));
+            }}
+          />
+        )}
+      />
+      {errors.bio && (
+        <Text className="text-red-500 mt-2">{errors.bio.message}</Text>
+      )}
     </View>
-  )
+  );
 }

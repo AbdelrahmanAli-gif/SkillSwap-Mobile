@@ -10,10 +10,12 @@ const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details",
 
 const CompleteProfileScreen = () => {
     const [steps, setSteps] = useState(0);
+    const [isStepValid, setIsStepValid] = useState(true);
     const [info, setInfo] = useState({});
     const navigation = useNavigation();
 
     console.log(info);
+    console.log(isStepValid);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -28,12 +30,16 @@ const CompleteProfileScreen = () => {
 
     const getProfileStep = () => {
         switch (steps) {
-            case 0: return <PictureBio info={info} setInfo={setInfo} />;
-            case 1: return <MySkills info={info} setInfo={setInfo} />;
-            case 2: return <LocationPhone info={info} setInfo={setInfo} />;
-            case 3: return <Review info={info} />;
+            case 0:
+                return <PictureBio info={info} setInfo={setInfo} setIsStepValid={setIsStepValid} />;
+            case 1:
+                return <MySkills info={info} setInfo={setInfo} setIsStepValid={setIsStepValid} />;
+            case 2:
+                return <LocationPhone info={info} setInfo={setInfo} setIsStepValid={setIsStepValid} />;
+            case 3:
+                return <Review info={info} />;
         }
-    }
+    };
 
     return (
         <View className="flex-1 px-5 py-5">
@@ -48,7 +54,8 @@ const CompleteProfileScreen = () => {
                             <Text>Previous</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            className="bg-[#3D99F5] px-4 py-2 rounded-lg"
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-[#3D99F5]' : 'bg-gray-400'}`}
+                            disabled={!isStepValid}
                             onPress={() => handleChangeSteps(1)}
                         >
                             <Text className="text-white">{steps === 3 ? "Finish" : "Next"}</Text>
@@ -57,10 +64,11 @@ const CompleteProfileScreen = () => {
                 ) : (
                     <View className="flex-1 items-end">
                         <TouchableOpacity
-                            className="bg-[#3D99F5] px-4 py-2 rounded-lg"
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-[#3D99F5]' : 'bg-gray-400'}`}
+                            disabled={!isStepValid}
                             onPress={() => handleChangeSteps(1)}
                         >
-                            <Text className="text-white">Next</Text>
+                            <Text className="text-white">{steps === 3 ? "Finish" : "Next"}</Text>
                         </TouchableOpacity>
                     </View>
                 )}

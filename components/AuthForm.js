@@ -31,7 +31,8 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
         try {
             const user = await signIn();
             setUser(user);
-            navigation.navigate('App');
+            if (user.bio === null) navigation.navigate('Complete Profile');
+            else navigation.navigate('App');
         } catch (error) {
             Toast.show({
                 type: 'error',

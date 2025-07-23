@@ -36,7 +36,7 @@ const Review = ({ info }) => {
             </View>
             <View className="my-2">
                 <Text className="text-lg font-bold mt-2">Phone number</Text>
-                <Text>{info.phoneNumber}</Text>
+                <Text>{info.phone}</Text>
             </View>
         </ScrollView>
     );
