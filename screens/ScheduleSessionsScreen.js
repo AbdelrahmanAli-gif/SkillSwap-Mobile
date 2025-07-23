@@ -64,7 +64,7 @@ const ScheduleSessionsScreen = ({ name, job, img }) => {
           ></TextInput>
         </View>
       </View>
-      <View className="w-[100%] items-center h-[5%] mt-9 ">
+      <View className="w-[100%] items-center h-[6%] mt-9 ">
         <TouchableOpacity  activeOpacity={0.6} className="w-[94%] bg-blue-500 rounded-full items-center h-full justify-center">
           <Text className="text-white font-normal text-lg">Send Trade Request</Text>
         </TouchableOpacity>
