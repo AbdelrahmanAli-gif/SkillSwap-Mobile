@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, ScrollView, Text, TouchableOpacity, } from 'react-native';
 
 const LocationInput = ({ value, onChange }) => {
-    // replace input state
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [locations, setLocations] = useState([]);
@@ -13,7 +12,9 @@ const LocationInput = ({ value, onChange }) => {
             const data = await response.json();
             const list = [];
             data.data.forEach(item =>
-                item.cities.forEach(city => list.push({ city, country: item.country }))
+                item.cities.forEach(city =>
+                    list.push({ city, country: item.country })
+                )
             );
             setLocations(list);
         };
@@ -47,15 +48,15 @@ const LocationInput = ({ value, onChange }) => {
             />
             {showDropdown && filteredLocations.length > 0 && (
                 <View className="bg-white mt-2 rounded-lg max-h-60 border border-gray-300">
-                    <FlatList
-                        data={filteredLocations}
-                        keyExtractor={(_, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleSelect(item)}>
-                                <Text className="p-2 border-b border-gray-100">{`${item.city}, ${item.country}`}</Text>
+                    <ScrollView className="max-h-48">
+                        {filteredLocations.map((item, index) => (
+                            <TouchableOpacity key={index} onPress={() => handleSelect(item)}>
+                                <Text className="p-2 border-b border-gray-100">
+                                    {`${item.city}, ${item.country}`}
+                                </Text>
                             </TouchableOpacity>
-                        )}
-                    />
+                        ))}
+                    </ScrollView>
                 </View>
             )}
         </View>

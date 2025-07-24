@@ -1,22 +1,32 @@
 import { View, Text, FlatList, Pressable } from "react-native"
-import SearchInput from "../../components/SearchInput"
 import { useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
+import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
 
-export default function MySkills() {
+export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
   const [skillsToTeachInput, setSkillsToTeachInput] = useState("")
   const [skillsList, setSkillsList] = useState([])
   const [skillsToLearnSearchQuery, setSkillsToLearnSearchQuery] = useState("")
   const [skillsToTeachSearchQuery, setSkillsToTeachSearchQuery] = useState("")
   const [filteredSkills, setFilteredSkills] = useState([])
-  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState([])
-  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState([])
-  const [newTeachSkills, setNewTeachSkills] = useState([])
-  const [newLearnSkills, setNewLearnSkills] = useState([])
+  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState(info.skillsToLearn || [])
+  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.skillsToTeach || [])
+  const [newTeachSkills, setNewTeachSkills] = useState(info.newSkillsToTeach || [])
+  const [newLearnSkills, setNewLearnSkills] = useState(info.newSkillsToLearn || [])
+
+  useEffect(() => {
+    const isValid =
+      (selectedSkillToLearn.length > 0) ||
+      (selectedSkillToTeach.length > 0) ||
+      (newTeachSkills.length > 0) ||
+      (newLearnSkills.length > 0);
+
+    setIsStepValid(isValid);
+  }, [info]);
 
   useEffect(() => {
     const getSkills = async () => {
@@ -81,7 +91,8 @@ export default function MySkills() {
         !skillsList.find((skill) => skill.skillName === skillsToLearnInput.trim()) &&
         !newLearnSkills.includes(skillsToLearnInput.trim())
       ) {
-        setNewLearnSkills((prev) => [...prev, skillsToLearnInput.trim()])
+        setNewLearnSkills((prev) => [...prev, { skillName: skillsToLearnInput.trim() }])
+        setInfo((prev) => ({ ...prev, newSkillsToLearn: prev.newSkillsToLearn ? [...prev.newSkillsToLearn, { skillName: skillsToLearnInput.trim(), experience: "beginner" }] : [{ skillName: skillsToLearnInput.trim(), experience: "beginner" }] }))
         setSkillsToLearnInput("")
       }
     }
@@ -93,7 +104,8 @@ export default function MySkills() {
         !skillsList.find((skill) => skill.skillName === skillsToTeachInput.trim()) &&
         !newTeachSkills.includes(skillsToTeachInput.trim())
       ) {
-        setNewTeachSkills((prev) => [...prev, skillsToTeachInput.trim()])
+        setNewTeachSkills((prev) => [...prev, { skillName: skillsToTeachInput.trim() }])
+        setInfo((prev) => ({ ...prev, newSkillsToTeach: prev.newSkillsToTeach ? [...prev.newSkillsToTeach, { skillName: skillsToTeachInput.trim(), experience: "beginner" }] : [{ skillName: skillsToTeachInput.trim(), experience: "beginner" }] }))
         setSkillsToTeachInput("")
       }
     }
@@ -120,6 +132,7 @@ export default function MySkills() {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToLearn((prev) => [...prev, item])
+                  setInfo((prev) => ({ ...prev, skillsToLearn: prev.skillsToLearn ? [...prev.skillsToLearn, { skillId: item.skillId, skillName: item.skillName, experience: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, experience: "beginner" }] }))
                   setFilteredSkills([])
                   setSkillsToLearnInput("")
                 }}
@@ -143,6 +156,10 @@ export default function MySkills() {
               onPressFunc={() => {
                 console.log("Removing skill:", item.skillName)
                 setSelectedSkillToLearn((prev) => prev.filter((s) => s.skillId !== item.skillId))
+                setInfo((prev) => {
+                  const newSkillsToLearn = prev.skillsToLearn.filter((s) => s.skillId !== item.skillId)
+                  return { ...prev, skillsToLearn: newSkillsToLearn }
+                })
               }}
             >
               {item.skillName}
@@ -155,14 +172,18 @@ export default function MySkills() {
           ItemSeparatorComponent={() => <View className="w-2"></View>}
           horizontal
           data={newLearnSkills}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.skillName}
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
                 setNewLearnSkills((prev) => prev.filter((s) => s !== item))
+                setInfo((prev) => {
+                  const newSkillsToLearn = prev.newSkillsToLearn.filter((s) => s !== item)
+                  return { ...prev, newSkillsToLearn }
+                })
               }}
             >
-              {item}
+              {item.skillName}
             </Tag>
           )}
         ></FlatList>
@@ -187,6 +208,7 @@ export default function MySkills() {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToTeach((prev) => [...prev, item])
+                  setInfo((prev) => ({ ...prev, skillsToTeach: prev.skillsToTeach ? [...prev.skillsToTeach, { skillId: item.skillId, skillName: item.skillName, experience: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, experience: "beginner" }] }))
                   setFilteredSkills([])
                   setSkillsToTeachInput("")
                 }}
@@ -209,6 +231,10 @@ export default function MySkills() {
             <Tag
               onPressFunc={() => {
                 setSelectedSkillToTeach((prev) => prev.filter((s) => s.skillId !== item.skillId))
+                setInfo((prev) => {
+                  const newSkillsToTeach = prev.skillsToTeach.filter((s) => s.skillId !== item.skillId)
+                  return { ...prev, skillsToTeach: newSkillsToTeach }
+                })
               }}
             >
               {item.skillName}
@@ -221,14 +247,18 @@ export default function MySkills() {
           ItemSeparatorComponent={() => <View className="w-2"></View>}
           horizontal
           data={newTeachSkills}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.skillName}
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
                 setNewTeachSkills((prev) => prev.filter((s) => s !== item))
+                setInfo((prev) => {
+                  const newSkillsToTeach = prev.newSkillsToTeach.filter((s) => s !== item)
+                  return { ...prev, newSkillsToTeach }
+                })
               }}
             >
-              {item}
+              {item.skillName}
             </Tag>
           )}
         ></FlatList>

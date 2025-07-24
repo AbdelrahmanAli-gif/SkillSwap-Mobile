@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    FlatList,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 
 const getFlagEmoji = (countryCode) =>
     countryCode
@@ -40,23 +34,14 @@ const PhoneInput = ({ value, onChange }) => {
         setShowDropdown(false);
         setSearch('');
 
-        // Update full phone number with new dial code
         const numericPart = value.replace(/^\+\d+\s?/, '');
         onChange(`${country.dial_code} ${numericPart}`);
     };
 
     const handlePhoneChange = (text) => {
-        // Only store the numeric part after the dial code
         const clean = text.replace(/[^0-9]/g, '');
         onChange(`${selectedCountry.dial_code} ${clean}`);
     };
-
-    const getFlagEmoji = (countryCode) =>
-        countryCode
-            ?.toUpperCase()
-            .replace(/./g, (char) =>
-                String.fromCodePoint(127397 + char.charCodeAt())
-            );
 
     return (
         <View className="px-4 py-2">
@@ -70,7 +55,7 @@ const PhoneInput = ({ value, onChange }) => {
                     </Text>
                 </TouchableOpacity>
                 <TextInput
-                    value={value.replace(/^\+\d+\s?/, '')} // only show numeric part
+                    value={value.replace(/^\+\d+\s?/, '')}
                     onChangeText={handlePhoneChange}
                     placeholder="Phone number"
                     keyboardType="phone-pad"
@@ -86,27 +71,27 @@ const PhoneInput = ({ value, onChange }) => {
                         placeholder="Search country"
                         className="p-3 border-b"
                     />
-                    <FlatList
-                        data={countries.filter(c =>
-                            c.name.toLowerCase().includes(search.toLowerCase())
-                        )}
-                        keyExtractor={(item) => item.code}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                className="px-3 py-2 border-b border-gray-100"
-                                onPress={() => handleSelect(item)}
-                            >
-                                <Text className="text-base">
-                                    {getFlagEmoji(item.code)} {item.name} ({item.dial_code})
-                                </Text>
-                            </TouchableOpacity>
-                        )}
-                    />
+                    <ScrollView className="max-h-48">
+                        {countries
+                            .filter(c =>
+                                c.name.toLowerCase().includes(search.toLowerCase())
+                            )
+                            .map((item) => (
+                                <TouchableOpacity
+                                    key={item.code}
+                                    className="px-3 py-2 border-b border-gray-100"
+                                    onPress={() => handleSelect(item)}
+                                >
+                                    <Text className="text-base">
+                                        {getFlagEmoji(item.code)} {item.name} ({item.dial_code})
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                    </ScrollView>
                 </View>
             )}
         </View>
     );
 };
-
 
 export default PhoneInput;

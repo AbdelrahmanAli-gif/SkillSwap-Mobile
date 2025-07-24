@@ -20,16 +20,22 @@ const Review = ({ info }) => {
             <View className="my-2">
                 <Text className="text-lg font-bold mt-2">Skills to learn</Text>
                 <View className="flex-row flex-wrap gap-2 mt-2">
-                    {info.learnSkills?.map((skill) => (
-                        <Button key={skill.id} text={skill.skillName} />
+                    {info.skillsToLearn?.map((skill) => (
+                        <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                    ))}
+                    {info.newSkillsToLearn?.map((skill, index) => (
+                        <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
                     ))}
                 </View>
             </View>
             <View className="my-2">
                 <Text className="text-lg font-bold mt-2">Skills to teach</Text>
                 <View className="flex-row flex-wrap gap-2 mt-2">
-                    {info.learnSkills?.map((skill) => (
-                        <Button key={skill.id} text={skill.skillName} />
+                    {info.skillsToTeach?.map((skill) => (
+                        <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                    ))}
+                    {info.newSkillsToTeach?.map((skill, index) => (
+                        <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
                     ))}
                 </View>
             </View>

@@ -1,10 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import PictureBio from './RegisterSteps/PictureBio';
 import MySkills from './RegisterSteps/MySkills';
 import Review from './RegisterSteps/Review';
 import LocationPhone from './RegisterSteps/LocationPhone';
-import { useNavigation } from '@react-navigation/native';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 

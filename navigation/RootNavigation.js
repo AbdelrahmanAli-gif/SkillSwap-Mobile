@@ -34,25 +34,8 @@ const RootNavigation = () => {
         >
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
-          {/* <Stack.Screen
-            name="PictureBio"
-            component={PictureBio}
-            options={{
-              title: "Tell us about yourself",
-              headerBackVisible: true,
-              headerLeft: () => <Icon name="arrow-back" size={24} color="black"></Icon>,
-            }}
-          />
-          <Stack.Screen
-            name="MySkills"
-            component={MySkills}
-            options={{
-              title: "My Skills",
-              headerBackVisible: true,
-            }}
-          /> */}
-          <Stack.Screen name="Schedule" component={ScheduleSessionsScreen} />
+          <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
+          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
         </Stack.Navigator>
       </AuthProvider >
     </>
