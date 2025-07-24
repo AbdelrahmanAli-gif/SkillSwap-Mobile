@@ -12,16 +12,19 @@ export const fetchSkillsList = async () => {
 };
 
 export const createSkillDoc = async (skillName) => {
-  const category = await generateFromGemini(getSkillCategory(skillName, await getSkillCategories()));
-
   try {
-    const skillDocRef = addDoc(collection(db, "skills"), {
-      skillName: skillName,
+    const category = await generateFromGemini(getSkillCategory(skillName, await getSkillCategories()));
+
+    const skillDocRef = await addDoc(collection(db, "skills"), {
+      skillName,
       createdAt: new Date(),
-      category: category,
-    })
+      category,
+    });
+
+    return skillDocRef.id;
   } catch (error) {
     console.error("Error creating skill document:", error);
+    return null;
   }
 }
 

@@ -17,28 +17,32 @@ const Review = ({ info }) => {
                     {info.bio}
                 </Text>
             </View>
-            <View className="my-2">
-                <Text className="text-lg font-bold mt-2">Skills to learn</Text>
-                <View className="flex-row flex-wrap gap-2 mt-2">
-                    {info.skillsToLearn?.map((skill) => (
-                        <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
-                    ))}
-                    {info.newSkillsToLearn?.map((skill, index) => (
-                        <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
-                    ))}
+            {(info.skillsToLearn?.length > 0 || info.newSkillsToLearn?.length) > 0 && (
+                <View className="my-2">
+                    <Text className="text-lg font-bold mt-2">Skills to learn</Text>
+                    <View className="flex-row flex-wrap gap-2 mt-2">
+                        {info.skillsToLearn?.map((skill) => (
+                            <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                        ))}
+                        {info.newSkillsToLearn?.map((skill, index) => (
+                            <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                        ))}
+                    </View>
                 </View>
-            </View>
-            <View className="my-2">
-                <Text className="text-lg font-bold mt-2">Skills to teach</Text>
-                <View className="flex-row flex-wrap gap-2 mt-2">
-                    {info.skillsToTeach?.map((skill) => (
-                        <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
-                    ))}
-                    {info.newSkillsToTeach?.map((skill, index) => (
-                        <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
-                    ))}
+            )}
+            {(info.skillsToTeach?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
+                <View className="my-2">
+                    <Text className="text-lg font-bold mt-2">Skills to teach</Text>
+                    <View className="flex-row flex-wrap gap-2 mt-2">
+                        {info.skillsToTeach?.map((skill) => (
+                            <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                        ))}
+                        {info.newSkillsToTeach?.map((skill, index) => (
+                            <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                        ))}
+                    </View>
                 </View>
-            </View>
+            )}
             <View className="my-2">
                 <Text className="text-lg font-bold mt-2">Location</Text>
                 <Text>{info.location}</Text>
