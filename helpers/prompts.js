@@ -36,6 +36,6 @@ Skills List:
 ${skillList}
 
 Respond with only an array of matching skill IDs, like:
-["id corrosponding to guitar", "id corrosponding to piano"]
+["skillId corrosponding to guitar", "skillId corrosponding to piano"]
 `
 }

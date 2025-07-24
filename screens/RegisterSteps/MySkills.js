@@ -42,7 +42,7 @@ export default function MySkills() {
         console.log(res)
         const parsedRes = JSON.parse(res)
         parsedRes.forEach((id) => {
-          const skill = skillsList.find((skill) => skill.id === id)
+          const skill = skillsList.find((skill) => skill.skillId === id)
           if (skill && !filteredSkills.includes(skill) && !selectedSkillToLearn.includes(skill)) {
             setFilteredSkills((prev) => [...prev, skill])
           }
@@ -66,7 +66,7 @@ export default function MySkills() {
         console.log(res)
         const parsedRes = JSON.parse(res)
         parsedRes.forEach((id) => {
-          const skill = skillsList.find((skill) => skill.id === id)
+          const skill = skillsList.find((skill) => skill.skillId === id)
           if (skill && !filteredSkills.includes(skill) && !selectedSkillToTeach.includes(skill)) {
             setFilteredSkills((prev) => [...prev, skill])
           }
@@ -114,7 +114,7 @@ export default function MySkills() {
           <FlatList
             className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg bg-white mt-2"
             data={filteredSkills}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.skillId}
             renderItem={({ item }) => (
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
@@ -137,12 +137,12 @@ export default function MySkills() {
           ItemSeparatorComponent={() => <View className="w-2"></View>}
           horizontal
           data={selectedSkillToLearn}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.skillId}
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
                 console.log("Removing skill:", item.skillName)
-                setSelectedSkillToLearn((prev) => prev.filter((s) => s.id !== item.id))
+                setSelectedSkillToLearn((prev) => prev.filter((s) => s.skillId !== item.skillId))
               }}
             >
               {item.skillName}
@@ -181,7 +181,7 @@ export default function MySkills() {
           <FlatList
             className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg mt-2 bg-white"
             data={filteredSkills}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.skillId}
             renderItem={({ item }) => (
               <Pressable
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
@@ -204,11 +204,11 @@ export default function MySkills() {
           ItemSeparatorComponent={() => <View className="w-2"></View>}
           horizontal
           data={selectedSkillToTeach}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.skillId}
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
-                setSelectedSkillToTeach((prev) => prev.filter((s) => s.id !== item.id))
+                setSelectedSkillToTeach((prev) => prev.filter((s) => s.skillId !== item.skillId))
               }}
             >
               {item.skillName}

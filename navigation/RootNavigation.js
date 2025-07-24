@@ -38,7 +38,7 @@ const RootNavigation = () => {
           {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="PictureBio"
             component={PictureBio}
             options={{
@@ -54,8 +54,8 @@ const RootNavigation = () => {
               title: "My Skills",
               headerBackVisible: true,
             }}
-          /> */}
-          <Stack.Screen name="Schedule" component={ScheduleSessionsScreen}/>
+          />
+          {/* <Stack.Screen name="Schedule" component={ScheduleSessionsScreen}/> */}
         </Stack.Navigator>
       </AuthProvider>
     </SafeAreaView>
