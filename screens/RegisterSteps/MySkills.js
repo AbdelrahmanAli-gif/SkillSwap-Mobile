@@ -2,7 +2,7 @@ import { View, Text, FlatList, Pressable } from "react-native"
 import { useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
-import { fetchSkillsList } from "../../utils/skillsCollections"
+import { createSkillDoc, fetchSkillsList } from "../../utils/skillsCollections"
 import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
 
