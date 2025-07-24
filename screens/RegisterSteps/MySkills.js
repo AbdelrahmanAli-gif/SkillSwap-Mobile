@@ -3,7 +3,7 @@ import SearchInput from "../../components/SearchInput"
 import { useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
-import { fetchSkillsList } from "../../utils/skillsCollections"
+import { createSkillDoc, fetchSkillsList } from "../../utils/skillsCollections"
 import Tag from "../../components/Tag"
 
 export default function MySkills() {
