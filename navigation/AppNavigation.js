@@ -7,7 +7,7 @@ import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
-import ScheduleSessionsScreen from '../screens/ScheduleSessionsScreen';
+import ChatScreen from '../screens/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +43,7 @@ const AppNavigation = () => {
             <Tab.Screen name="Matches" component={MatchesScreen} />
             <Tab.Screen name="Messages" component={MessagesScreen} />
             <Tab.Screen name="Search" component={SearchScreen} />
-            <Tab.Screen name='ScheduleSessions' component={ScheduleSessionsScreen} />
+            <Tab.Screen name="Chat" component={ChatScreen} />
         </Tab.Navigator>
     );
 }

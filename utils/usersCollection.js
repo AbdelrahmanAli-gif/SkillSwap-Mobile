@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../services/firebase';
 
 export const getAllOtherUsers = async (userId) => {
@@ -19,3 +19,13 @@ export const getAllOtherUsers = async (userId) => {
         throw error;
     }
 };
+
+export const getUserById = async (userId) => {
+    try {
+        const userDoc = await getDoc(doc(db, 'users', userId));
+        return { id: userDoc.id, ...userDoc.data() };
+    } catch (error) {
+        console.error('Error getting user by ID:', error);
+        throw error;
+    }
+}

@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text, ImageBackground, TouchableOpacity, ScrollView, StyleSheet, TextInput } from "react-native";
-import {
-  getOrCreateChatRoom,
-  sendMessage,
-  subscribeToMessages,
-} from "../utils/chatUtils";
+import { View, Text, ScrollView } from "react-native";
+import { getOrCreateChatRoom, sendMessage, subscribeToMessages } from "../utils/chatUtils";
 import ChatMessage from "../components/ChatMessage";
-import ChatInput from "./ChatInput";
+import ChatInput from "../components/ChatInput";
+
 export default function ChatScreen() {
- const currentUser="mzDsZPF6pveVcKqG2WOCyydhWzF3"
- const otherUser="b547GyxjpdVsTPgmz9bAFYHRtTP2"
+  const currentUser = "mzDsZPF6pveVcKqG2WOCyydhWzF3";
+  const otherUser = "b547GyxjpdVsTPgmz9bAFYHRtTP2"; // Can be replaced with user object later
   const [messages, setMessages] = useState([]);
   const [chatId, setChatId] = useState(null);
 
@@ -31,87 +28,31 @@ export default function ChatScreen() {
   if (!otherUser) return <Text>Loading chat partner...</Text>;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.mainContainer}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Chat with {otherUser.name}</Text>
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Text style={styles.backButtonText}>🔙 Back</Text>
-          </TouchableOpacity>
+    <View className="flex-1 flex-row bg-white">
+      <View className="flex-1 px-5">
+        <View className="bg-gray-100 p-4 border-b border-gray-900 flex-row justify-between items-center">
+          <Text className="text-lg font-semibold text-black">
+            Chat with {otherUser.name || "User"}
+          </Text>
         </View>
 
-        {/* Messages */}
-          <ScrollView 
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-          >
-            {messages.map((msg) => (
-              <ChatMessage
-                key={msg.id}
-                message={msg}
-                isCurrentUser={msg.senderId === currentUser}
-                otherUserName={otherUser.name}
-              />
-            ))}
-          </ScrollView>
-    
+        <ScrollView
+          className="py-7"
+          contentContainerStyle={{ rowGap: 12 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {messages.map((msg) => (
+            <ChatMessage
+              key={msg.id}
+              message={msg}
+              isCurrentUser={msg.senderId === currentUser}
+              otherUserName={otherUser.name}
+            />
+          ))}
+        </ScrollView>
 
-        {/* Input */}
-       <ChatInput onSend={handleSend} />
+        <ChatInput onSend={handleSend} />
       </View>
-
-      {/* Sidebar */}
-      
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-  },
-  mainContainer: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  header: {
-    backgroundColor: 'var(--input-bg)', // Replace with actual color
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#1f2937', // gray-900 equivalent
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#d1d5db', // gray-300 equivalent
-  },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    backgroundColor: 'transparent',
-  },
-  backButtonText: {
-    color: 'var(--color-text-light)', // Replace with actual color
-  },
-  messagesContainer: {
-    flex: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 28,
-  },
-  scrollContent: {
-    gap: 12,
-  },
-});

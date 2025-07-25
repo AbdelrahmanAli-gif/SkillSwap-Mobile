@@ -1,61 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from "react-native";
 
 export default function ChatMessage({ message, isCurrentUser, otherUserName }) {
+  const bubbleBase = "px-4 py-2 rounded-2xl max-w-[80%] shadow";
+  const userBubble = isCurrentUser
+    ? "bg-indigo-600 self-end rounded-tr-none"
+    : "bg-gray-200 self-start rounded-tl-none";
+
+  const textClass = isCurrentUser ? "text-white" : "text-gray-900";
+
   return (
-    <View style={[
-      styles.container,
-      isCurrentUser ? styles.currentUserContainer : styles.otherUserContainer
-    ]}>
-      {/* Display name */}
-      <Text style={styles.userName}>
+    <View className={`flex ${isCurrentUser ? "items-end" : "items-start"}`}>
+      <Text className="text-xs text-gray-400 mb-1">
         {isCurrentUser ? "You" : otherUserName || "User"}
       </Text>
-
-      {/* Message bubble */}
-      <View style={[
-        styles.messageBubble,
-        isCurrentUser ? styles.currentUserBubble : styles.otherUserBubble
-      ]}>
-        <Text style={isCurrentUser ? styles.currentUserText : styles.otherUserText}>
-          {message.text}
-        </Text>
+      <View className={`${bubbleBase} ${userBubble}`}>
+        <Text className={`text-base ${textClass}`}>{message.text}</Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 8,
-  },
-  currentUserContainer: {
-    alignItems: 'flex-end',
-  },
-  otherUserContainer: {
-    alignItems: 'flex-start',
-  },
-  userName: {
-    fontSize: 12,
-    color: '#6b7280', // equivalent to text-gray-500
-    marginBottom: 4,
-  },
-  messageBubble: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    maxWidth: '70%',
-    backgroundColor:"red"
-  },
-  currentUserBubble: {
-    backgroundColor: 'red', // Replace with your actual color
-  },
-  otherUserBubble: {
-    backgroundColor: 'var(--color-skill-learn-bg)', // Replace with your actual color
-  },
-  currentUserText: {
-    color: 'white', // Assuming light text on your teach background
-  },
-  otherUserText: {
-    color: 'black',
-  },
-});
