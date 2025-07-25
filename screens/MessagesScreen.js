@@ -1,28 +1,23 @@
 import { useEffect, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
-import Messages from '../components/Messages';
 import { useAuth } from '../contexts/AuthContext';
-import { getUserChats } from '../utils/chatUtils';
+import { subscribeToUserChats } from '../utils/chatUtils';
+import Messages from '../components/Messages';
 
 const MessagesScreen = () => {
     const [isClicked, setIsClicked] = useState("All");
     const [chats, setChats] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const { user } = useAuth();
 
     useEffect(() => {
-        const loadChats = async () => {
-            try {
-                setLoading(true);
-                const chats = await getUserChats(user.uid);
-                setChats(chats);
-                setLoading(false);
-            } finally {
-                setLoading(false);
-            }
-        }
-        loadChats();
-    }, [])
+        const unsubscribe = subscribeToUserChats(user.uid, (fetchedChats) => {
+            setChats(fetchedChats);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     if (loading) {
         return (
@@ -64,19 +59,14 @@ const MessagesScreen = () => {
                     <ScrollView className="flex-1">
                         {
                             chats.map((chat) => {
-                                if (chat.Status == "Unread") {
-                                    return <Messages key={chat.id} chat={chat}></Messages>
-                                }
-                                else {
-                                    return
-                                }
-
+                                if (chat.Status == "Unread")
+                                    return <Messages key={chat.id} chat={chat} />
+                                return
                             })
                         }
                     </ScrollView>
                 )
             }
-
         </View>
     );
 }

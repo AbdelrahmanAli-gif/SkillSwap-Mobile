@@ -1,31 +1,37 @@
 import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import { getOrCreateChatRoom, sendMessage, subscribeToMessages } from "../utils/chatUtils";
+import { useAuth } from "../contexts/AuthContext";
 import ChatMessage from "../components/ChatMessage";
 import ChatInput from "../components/ChatInput";
 
 export default function ChatScreen() {
-  const currentUser = "mzDsZPF6pveVcKqG2WOCyydhWzF3";
-  const otherUser = "b547GyxjpdVsTPgmz9bAFYHRtTP2"; // Can be replaced with user object later
   const [messages, setMessages] = useState([]);
   const [chatId, setChatId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  const route = useRoute();
+  const currentUser = user.uid;
+  const { otherUser } = route.params;
 
   useEffect(() => {
     const init = async () => {
-      const id = await getOrCreateChatRoom(currentUser, otherUser);
+      setLoading(true);
+      const id = await getOrCreateChatRoom(currentUser, otherUser.uid);
       setChatId(id);
-      const unsub = subscribeToMessages(id, setMessages);
-      return () => unsub();
+      const unsubscribe = subscribeToMessages(id, setMessages);
+      setLoading(false);
+      return () => unsubscribe();
     };
     init();
-  }, []);
+  }, [currentUser, otherUser.uid]);
 
   const handleSend = (text) => {
     if (chatId) sendMessage(chatId, currentUser, text);
   };
 
-  if (!currentUser) return <Text>Loading current user...</Text>;
-  if (!otherUser) return <Text>Loading chat partner...</Text>;
+  if (loading) return <Text>Loading...</Text>;
 
   return (
     <View className="flex-1 flex-row bg-white">

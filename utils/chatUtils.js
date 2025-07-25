@@ -83,23 +83,3 @@ export const subscribeToUserChats = (userId, callback) => {
     callback(chats);
   });
 };
-
-export const getUserChats = async (userId) => {
-  try {
-    const chatsRef = collection(db, "chats");
-    const q = query(chatsRef, where("participants", "array-contains", userId));
-    const querySnapshot = await getDocs(q);
-
-    const chatRooms = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-
-    console.log("Chat rooms:", chatRooms);
-
-    return chatRooms;
-  } catch (error) {
-    console.error("Error fetching user chats:", error);
-    return [];
-  }
-};

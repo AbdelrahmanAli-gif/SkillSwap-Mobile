@@ -43,7 +43,7 @@ const AppNavigation = () => {
             <Tab.Screen name="Matches" component={MatchesScreen} />
             <Tab.Screen name="Messages" component={MessagesScreen} />
             <Tab.Screen name="Search" component={SearchScreen} />
-            <Tab.Screen name="Chat" component={ChatScreen} />
+            {/* <Tab.Screen name="Chat" component={ChatScreen} /> */}
         </Tab.Navigator>
     );
 }

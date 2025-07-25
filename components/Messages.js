@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { getUserById } from "../utils/usersCollection";
+import { useNavigation } from "@react-navigation/native";
 
 const Messages = ({ chat }) => {
-  const { userName, content, time, img } = chat;
-  const [otherUser, setOtherUser] = useState(null);
+  const [otherUser, setOtherUser] = useState({});
   const { user } = useAuth();
-  console.log("user", user);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getUser = async () => {
@@ -18,23 +18,24 @@ const Messages = ({ chat }) => {
     getUser();
   }, [chat]);
 
-  console.log("otherUser", otherUser);
-
   return (
-    <View className="w-full flex-row mt-5  ">
-      <View className="w-9/12 flex-row">
+    <TouchableOpacity onPress={() => navigation.navigate("Chat", { otherUser })} className="w-full flex-row mt-5  ">
+      <View className="flex-row">
         <View>
-          <Image className="rounded-full w-[55px] h-[55px]" source={img ? require(`../assets/u1.png`) : require("../assets/icon.png")}></Image>
+          {otherUser.profilePicture ? (
+            <Image className="rounded-full w-[55px] h-[55px]" source={{ uri: otherUser.profilePicture }} />
+          ) : (
+            <View className="bg-gray-400 rounded-full w-[55px] h-[55px] items-center justify-center">
+              <Text className="text-white text-center text-3xl">{otherUser.name?.charAt(0).toUpperCase()}</Text>
+            </View>
+          )}
         </View>
         <View className="ml-3 flex">
-          <Text className="font-medium text-lg">{userName}</Text>
-          <Text numberOfLines={1} className="text-slate-500">{content}</Text>
-        </View>
-        <View className="w-1/12 ">
-          <Text>{time}</Text>
+          <Text className="font-medium text-lg">{otherUser.name}</Text>
+          <Text numberOfLines={1} className="text-slate-500">{chat.lastMessage?.text}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

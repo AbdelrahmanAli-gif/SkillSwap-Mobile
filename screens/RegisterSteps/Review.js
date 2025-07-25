@@ -22,7 +22,7 @@ const Review = ({ info }) => {
                     <Text className="text-lg font-bold mt-2">Skills to learn</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.skillsToLearn?.map((skill) => (
-                            <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                            <Button key={skill.skillId} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
                         ))}
                         {info.newSkillsToLearn?.map((skill, index) => (
                             <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
@@ -35,7 +35,7 @@ const Review = ({ info }) => {
                     <Text className="text-lg font-bold mt-2">Skills to teach</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.skillsToTeach?.map((skill) => (
-                            <Button key={skill.id} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
+                            <Button key={skill.skillId} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />
                         ))}
                         {info.newSkillsToTeach?.map((skill, index) => (
                             <Button key={index + skill.skillName} text={skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)} />

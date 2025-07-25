@@ -6,6 +6,7 @@ import LoginScreen from "../screens/LoginScreen"
 import RegisterScreen from "../screens/RegisterScreen"
 import AppNavigation from "./AppNavigation"
 import CompleteProfileScreen from "../screens/CompleteProfileScreen"
+import ChatScreen from "../screens/ChatScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -36,6 +37,7 @@ const RootNavigation = () => {
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
         </Stack.Navigator>
       </AuthProvider >
     </>
