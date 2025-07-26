@@ -36,22 +36,48 @@ const AppNavigation = () => {
     };
 
     return (
-        <Tab.Navigator screenOptions={{
-            headerTitleAlign: "center",
-            headerRight: () => <MaterialIcons onPress={handleLogout} name="logout" size={24} color="black" />
-        }}>
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerTitleAlign: "center",
+                headerRight: () => (
+                    <MaterialIcons
+                        onPress={handleLogout}
+                        name="logout"
+                        size={24}
+                        color="black"
+                        style={{ marginRight: 15 }}
+                    />
+                ),
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') iconName = 'home';
+                    else if (route.name === 'Matches') iconName = 'favorite';
+                    else if (route.name === 'Messages') iconName = 'message';
+                    else if (route.name === 'Search') iconName = 'search';
+
+                    return <MaterialIcons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: '#007AFF',
+                tabBarInactiveTintColor: 'gray',
+            })}
+        >
             <Tab.Screen name="Home" component={LandingScreen} />
             <Tab.Screen name="Matches" component={MatchesScreen} />
-            <Tab.Screen name="Messages" component={MessagesScreen}
+            <Tab.Screen
+                name="Messages"
+                component={MessagesScreen}
                 options={{
                     tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
                     tabBarBadgeStyle: {
                         backgroundColor: 'red',
                         color: 'white',
                     },
-                }} />
+                }}
+            />
             <Tab.Screen name="Search" component={SearchScreen} />
         </Tab.Navigator>
+
     );
 }
 
