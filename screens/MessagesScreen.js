@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
-import { subscribeToUserChats } from '../utils/chatUtils';
+import { getUnreadCount, subscribeToUserChats } from '../utils/chatUtils';
 import Messages from '../components/Messages';
 
 const MessagesScreen = () => {
@@ -37,32 +37,29 @@ const MessagesScreen = () => {
                 <Text className="font-light text-gray-700">Communicate with potential matches, discuss details of the skill exchange, and schedule sessions. </Text>
             </View>
 
-            <View className="w-full m-2 h-12 flex-row border-b-[1px] border-b-slate-500">
+            <View className="w-full h-12 flex-row border-b-[1px] border-b-slate-500">
                 <TouchableOpacity onPress={() => { setIsClicked("All") }}
-                    className={isClicked == "All" ? "ml-4 mr-6 h-full items-center justify-center border-b-[2px]" : "ml-4 mr-6 h-full items-center justify-center"}>
+                    className={isClicked == "All" ? "ml-4 mr-4 h-full items-center justify-center border-b-[2px]" : "ml-4 mr-4 h-full items-center justify-center"}>
                     <Text className="font-bold text-lg">All</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { setIsClicked("Unread") }}
-                    className={isClicked == "Unread" ? " ml-4 mr-6 h-full items-center justify-center border-b-[2px]" : "ml-4 mr-6 h-full items-center justify-center "}>
+                    className={isClicked == "Unread" ? " ml-4 mr-4 h-full items-center justify-center border-b-[2px]" : "ml-4 mr-4 h-full items-center justify-center "}>
                     <Text className="font-bold text-lg">Unread</Text>
                 </TouchableOpacity>
             </View>
 
             {
-                isClicked == "All" ? (<ScrollView className="flex-1">
-                    {
-                        chats.map((chat) => {
-                            return <Messages key={chat.id} chat={chat} />
-                        })
-                    }
-                </ScrollView>) : (
+                isClicked == "All" ? (
                     <ScrollView className="flex-1">
-                        {
-                            chats.map((chat) => {
-                                if (chat.Status == "Unread")
-                                    return <Messages key={chat.id} chat={chat} />
-                                return
-                            })
+                        {chats.map((chat) => {
+                            return <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />
+                        })
+                        }
+                    </ScrollView>) : (
+                    <ScrollView className="flex-1">
+                        {chats
+                            .filter(chat => getUnreadCount(chat, user.uid) > 0)
+                            .map(chat => <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />)
                         }
                     </ScrollView>
                 )

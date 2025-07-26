@@ -1,18 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../utils/firebaseEmailAndPasswordAuth';
+import { useUnreadCount } from '../hooks/useUnreadCount';
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
-import ChatScreen from '../screens/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = () => {
     const navigation = useNavigation();
+    const unreadCount = useUnreadCount();
 
     const handleLogout = async () => {
         try {
@@ -41,9 +42,15 @@ const AppNavigation = () => {
         }}>
             <Tab.Screen name="Home" component={LandingScreen} />
             <Tab.Screen name="Matches" component={MatchesScreen} />
-            <Tab.Screen name="Messages" component={MessagesScreen} />
+            <Tab.Screen name="Messages" component={MessagesScreen}
+                options={{
+                    tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
+                    tabBarBadgeStyle: {
+                        backgroundColor: 'red',
+                        color: 'white',
+                    },
+                }} />
             <Tab.Screen name="Search" component={SearchScreen} />
-            {/* <Tab.Screen name="Chat" component={ChatScreen} /> */}
         </Tab.Navigator>
     );
 }

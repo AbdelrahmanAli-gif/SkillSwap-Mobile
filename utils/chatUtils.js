@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, getDoc, serverTimestamp, setDoc, updateDoc, query, where, orderBy, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, serverTimestamp, setDoc, updateDoc, query, where, orderBy, onSnapshot, addDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 export const getOrCreateChatRoom = async (user1Id, user2Id) => {
@@ -27,16 +27,17 @@ export const sendMessage = async (chatId, senderId, text) => {
     text,
     senderId,
     timestamp: serverTimestamp(),
+    readBy: [senderId],
   };
 
   await addDoc(messageRef, messageData);
 
-  // Optionally update last message in chat doc
   await updateDoc(doc(db, "chats", chatId), {
     lastMessage: {
       text,
       senderId,
       timestamp: serverTimestamp(),
+      readBy: [senderId],
     },
   });
 };
@@ -82,4 +83,36 @@ export const subscribeToUserChats = (userId, callback) => {
     }));
     callback(chats);
   });
+};
+
+export const markMessagesAsRead = async (chatId, userId) => {
+  const q = query(collection(db, "chats", chatId, "messages"));
+  const snapshot = await getDocs(q);
+
+  const unreadMessages = snapshot.docs.filter((docSnap) => {
+    const readBy = docSnap.data().readBy || [];
+    return !readBy.includes(userId);
+  });
+
+  const batch = [];
+
+  unreadMessages.forEach((docSnap) => {
+    const messageRef = doc(db, "chats", chatId, "messages", docSnap.id);
+    batch.push(updateDoc(messageRef, {
+      readBy: arrayUnion(userId)
+    }));
+  });
+
+  const chatRef = doc(db, "chats", chatId);
+  batch.push(updateDoc(chatRef, {
+    "lastMessage.readBy": arrayUnion(userId)
+  }));
+
+  await Promise.all(batch);
+};
+
+
+export const getUnreadCount = (chat, userId) => {
+  if (!chat.lastMessage || !chat.lastMessage.readBy) return 0;
+  return chat.lastMessage.readBy.includes(userId) ? 0 : 1;
 };

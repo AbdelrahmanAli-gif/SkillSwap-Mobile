@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
-import { getOrCreateChatRoom, sendMessage, subscribeToMessages } from "../utils/chatUtils";
+import { getOrCreateChatRoom, markMessagesAsRead, sendMessage, subscribeToMessages } from "../utils/chatUtils";
 import { useAuth } from "../contexts/AuthContext";
 import ChatMessage from "../components/ChatMessage";
 import ChatInput from "../components/ChatInput";
@@ -14,6 +14,7 @@ export default function ChatScreen() {
   const route = useRoute();
   const currentUser = user.uid;
   const { otherUser } = route.params;
+  const scrollRef = useRef();
 
   useEffect(() => {
     const init = async () => {
@@ -21,6 +22,7 @@ export default function ChatScreen() {
       const id = await getOrCreateChatRoom(currentUser, otherUser.uid);
       setChatId(id);
       const unsubscribe = subscribeToMessages(id, setMessages);
+      await markMessagesAsRead(id, currentUser);
       setLoading(false);
       return () => unsubscribe();
     };
@@ -46,6 +48,10 @@ export default function ChatScreen() {
           className="py-7"
           contentContainerStyle={{ rowGap: 12 }}
           showsVerticalScrollIndicator={false}
+          ref={scrollRef}
+          onContentSizeChange={() => {
+            scrollRef.current?.scrollToEnd({ animated: true });
+          }}
         >
           {messages.map((msg) => (
             <ChatMessage
