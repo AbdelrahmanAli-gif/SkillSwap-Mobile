@@ -63,3 +63,18 @@ New Skill:
 ${skillName}
 `
 }
+
+
+export const translateSkillToArabic = (skillName) => {
+  return `
+  You are a professional translator.
+
+Translate the following skill name from English to Arabic.
+
+Only return the Arabic translation, with no extra explanation or punctuation.
+
+Skill Name: ${skillName}
+
+Your response:
+`
+}

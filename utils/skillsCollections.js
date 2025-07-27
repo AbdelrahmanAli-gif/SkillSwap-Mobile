@@ -1,7 +1,7 @@
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { generateFromGemini } from "../api/gemini";
-import { getSkillCategory } from "../helpers/prompts";
+import { getSkillCategory, translateSkillToArabic } from "../helpers/prompts";
 
 export const fetchSkillsList = async () => {
   const qSnap = await getDocs(collection(db, "skills"));
@@ -11,20 +11,19 @@ export const fetchSkillsList = async () => {
   }));
 };
 
-export const createSkillDoc = async (skillName) => {
+export const createSkillDoc = async (skillName) => {  
   try {
     const category = await generateFromGemini(getSkillCategory(skillName, await getSkillCategories()));
-
-    const skillDocRef = await addDoc(collection(db, "skills"), {
-      skillName,
+    const skillNameArabic = await generateFromGemini(translateSkillToArabic(skillName));
+    
+    const skillDocRef = addDoc(collection(db, "skills"), {
+      skillName: skillName,
+      skillNameArabic: skillNameArabic,
       createdAt: new Date(),
-      category,
-    });
-
-    return skillDocRef.id;
+      category: category,
+    })
   } catch (error) {
     console.error("Error creating skill document:", error);
-    return null;
   }
 }
 
