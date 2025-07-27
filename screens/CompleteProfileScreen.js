@@ -52,24 +52,25 @@ const CompleteProfileScreen = () => {
                 );
             }
 
+            const location = info.location.split(",");
             const userRef = doc(db, "users", user.uid);
             const userData = {
                 bio: info.bio,
-                location: info.location,
+                location: { city: location[0]?.trim(), country: location[1]?.trim() },
                 phone: info.phone,
             };
 
             if (info.skillsToLearn?.length > 0)
-                userData.hasSkills = info.skillsToLearn;
+                userData.needSkills = info.skillsToLearn;
 
             if (updatedNewSkillsToLearn?.length > 0)
-                userData.hasSkills = userData.hasSkills ? [...userData.hasSkills, ...updatedNewSkillsToLearn] : updatedNewSkillsToLearn;
+                userData.needSkills = userData.needSkills ? [...userData.needSkills, ...updatedNewSkillsToLearn] : updatedNewSkillsToLearn;
 
             if (info.skillsToTeach?.length > 0)
-                userData.needSkills = info.skillsToTeach;
+                userData.hasSkills = info.skillsToTeach;
 
             if (updatedNewSkillsToTeach?.length > 0)
-                userData.needSkills = userData.needSkills ? [...userData.needSkills, ...updatedNewSkillsToTeach] : updatedNewSkillsToTeach;
+                userData.hasSkills = userData.hasSkills ? [...userData.hasSkills, ...updatedNewSkillsToTeach] : updatedNewSkillsToTeach;
 
             await updateDoc(userRef, userData);
             const updatedUserSnap = await getDoc(userRef);
