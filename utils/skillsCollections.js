@@ -16,7 +16,7 @@ export const createSkillDoc = async (skillName) => {
     const category = await generateFromGemini(getSkillCategory(skillName, await getSkillCategories()));
     const skillNameArabic = await generateFromGemini(translateSkillToArabic(skillName));
     
-    const skillDocRef = addDoc(collection(db, "skills"), {
+    const skillDocRef = await addDoc(collection(db, "skills"), {
       skillName: skillName,
       skillNameArabic: skillNameArabic,
       createdAt: new Date(),
