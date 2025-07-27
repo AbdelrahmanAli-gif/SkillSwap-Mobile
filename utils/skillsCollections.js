@@ -22,8 +22,11 @@ export const createSkillDoc = async (skillName) => {
       createdAt: new Date(),
       category: category,
     })
+
+    return skillDocRef.id;
   } catch (error) {
     console.error("Error creating skill document:", error);
+    return null;
   }
 }
 
