@@ -8,16 +8,22 @@ export const register = async (email, password, name) => {
         const user = userCredentials.user;
         await updateProfile(user, { displayName: name });
         await setDoc(doc(db, "users", user.uid), {
-            bio: null,
-            createdAt: new Date().toISOString(),
-            email,
-            isAvailableForPaid: null,
-            isAvailableForTrade: null,
-            location: { city: null, country: null },
-            name,
-            phone: null,
-            rating: null,
             uid: user.uid,
+            name,
+            email,
+            createdAt: new Date().toISOString(),
+            profilePicture: null,
+            bio: null,
+            phone: null,
+            location: { city: null, country: null },
+            availability: true,
+            isAvailableForTrade: true,
+            isAvailableForPaid: true,
+            rating: null,
+            reviews: [],
+            totalSessions: 0,
+            hasSkills: [],
+            needSkills: [],
         });
         signOut(auth);
     } catch (error) {

@@ -31,17 +31,22 @@ export const signIn = async () => {
         let userData;
         if (!docSnap.exists()) {
             userData = {
-                bio: user.bio ? user.bio : null,
-                createdAt: new Date().toISOString(),
-                email: user.email,
-                isAvailableForPaid: user.isAvailableForPaid ? user.isAvailableForPaid : null,
-                isAvailableForTrade: user.isAvailableForTrade ? user.isAvailableForTrade : null,
-                location: user.location ? user.location : { city: null, country: null },
-                name: user.displayName,
-                phone: user.phone ? user.phone : null,
-                rating: user.rating ? user.rating : null,
                 uid: user.uid,
-                profilePicture: user.photoURL
+                name: user.displayName,
+                email: user.email,
+                createdAt: new Date().toISOString(),
+                profilePicture: user.photoURL,
+                bio: user.bio ? user.bio : null,
+                phone: user.phone ? user.phone : null,
+                location: user.location ? user.location : { city: null, country: null },
+                availability: true,
+                isAvailableForTrade: user.isAvailableForTrade ? user.isAvailableForTrade : true,
+                isAvailableForPaid: user.isAvailableForPaid ? user.isAvailableForPaid : true,
+                rating: user.rating ? user.rating : null,
+                reviews: user.reviews ? user.reviews : [],
+                totalSessions: user.totalSessions ? user.totalSessions : 0,
+                hasSkills: user.hasSkills ? user.hasSkills : [],
+                needSkills: user.needSkills ? user.needSkills : [],
             }
             await setDoc(userRef, userData);
         } else userData = docSnap.data();

@@ -75,13 +75,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
-                                value={skill.experience || 'beginner'}
+                                value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
                                     const updatedSkills = [...info.skillsToLearn];
                                     updatedSkills[index] = {
                                         ...updatedSkills[index],
-                                        experience: item.value,
+                                        skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
@@ -107,13 +107,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
-                                value={skill.experience || 'beginner'}
+                                value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
                                     const updatedNewSkills = [...info.newSkillsToLearn];
                                     updatedNewSkills[index] = {
                                         ...updatedNewSkills[index],
-                                        experience: item.value,
+                                        skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
@@ -145,13 +145,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
-                                value={skill.experience || 'beginner'}
+                                value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
                                     const updatedSkills = [...info.skillsToTeach];
                                     updatedSkills[index] = {
                                         ...updatedSkills[index],
-                                        experience: item.value,
+                                        skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
@@ -177,13 +177,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
-                                value={skill.experience || 'beginner'}
+                                value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
                                     const updatedNewSkills = [...info.newSkillsToTeach];
                                     updatedNewSkills[index] = {
                                         ...updatedNewSkills[index],
-                                        experience: item.value,
+                                        skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
