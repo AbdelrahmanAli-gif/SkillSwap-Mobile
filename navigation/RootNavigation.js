@@ -8,6 +8,7 @@ import AppNavigation from "./AppNavigation"
 import CompleteProfileScreen from "../screens/CompleteProfileScreen"
 import ChatScreen from "../screens/ChatScreen"
 import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
+import { theme } from "../theme"
 const Stack = createNativeStackNavigator()
 
 const RootNavigation = () => {
@@ -23,12 +24,16 @@ const RootNavigation = () => {
       <AuthProvider AuthProvider >
         <Stack.Navigator
           screenOptions={{
-            title: "SkillSwap",
+            title: "Swapoo",
             headerTitleAlign: "center",
             headerBackVisible: false,
+            headerStyle: { backgroundColor: "#20201c" },
+            headerTitleStyle: { color: theme.colors.main, },
             headerRight: () => (
               <TouchableOpacity onPress={switchLang}>
-                <Text>{i18n.language === "en" ? "Arabic" : "الإنجليزية"}</Text>
+                <Text style={{ color: theme.colors.main, marginRight: 10 }}>
+                  {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
+                </Text>
               </TouchableOpacity>
             ),
           }}
@@ -38,7 +43,7 @@ const RootNavigation = () => {
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />
-          <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen}/>
+          <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
         </Stack.Navigator>
       </AuthProvider >
     </>

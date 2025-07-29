@@ -1,5 +1,6 @@
 import { View, Pressable, TextInput } from "react-native"
 import Icon from "react-native-vector-icons/Feather"
+import { theme } from "../theme"
 
 export default function SearchInput({
   searchFunction,
@@ -8,17 +9,17 @@ export default function SearchInput({
   setInputState,
 }) {
   return (
-    <View className="mt-6 bg-[#E8EDF5] rounded-lg p-2 px-4 flex-row items-center justify-start">
+    <View className="mt-4 mb-2 bg-input-bg rounded-lg py-2 px-4 flex-row items-center justify-start">
       <Pressable onPress={searchFunction}>
-        <Icon name="search" size={30} color="#4A709C"></Icon>
+        <Icon name="search" size={20} color={theme.colors.textSecondary} />
       </Pressable>
       <TextInput
         placeholder={placeholderText}
-        placeholderTextColor="#4A709C"
-        className="flex-1 ml-4 text-xl text-black"
+        placeholderTextColor={theme.colors.textSecondary}
+        className="flex-1 ml-4 text-text-primary"
         value={inputState}
         onChangeText={setInputState}
-      ></TextInput>
+      />
     </View>
   )
 }

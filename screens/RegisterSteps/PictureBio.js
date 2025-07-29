@@ -1,6 +1,7 @@
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { theme } from "../../theme";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
 
@@ -40,10 +41,10 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
   };
 
   return (
-    <View className="bg-[#F7FAFC] flex-1 p-6">
+    <View className="flex-1 p-6">
       <Pressable className="flex-row items-center justify-start gap-6" onPress={pickImage}>
         <Image source={require("../../assets/avatar.png")} className="w-16 h-16" />
-        <Text className="text-xl font-normal">Upload a profile picture</Text>
+        <Text className="text-xl font-normal text-text-primary">Upload a profile picture</Text>
       </Pressable>
 
       <Controller
@@ -52,10 +53,10 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
         rules={{ required: "Bio is required." }}
         render={({ field: { onChange, value } }) => (
           <TextInput
-            className="mt-6 p-4 bg-[#E8EDF5] rounded-lg text-base h-48 text-black"
+            className="mt-6 p-4 bg-input-bg rounded-lg text-base h-48 text-text-primary"
             multiline
             placeholder="Write a bio"
-            placeholderTextColor={"#46586D"}
+            placeholderTextColor={theme.colors.textSecondary}
             textAlignVertical="top"
             value={value}
             onChangeText={(text) => {

@@ -2,7 +2,7 @@ import { View, Text, FlatList, Pressable } from "react-native"
 import { useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
-import { createSkillDoc, fetchSkillsList } from "../../utils/skillsCollections"
+import { fetchSkillsList } from "../../utils/skillsCollections"
 import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
 
@@ -112,15 +112,15 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   }
 
   return (
-    <View className="bg-[#F7FAFC] flex-1 p-6 relative">
-      <Text className="font-medium text-2xl">Skills I want to learn</Text>
+    <View className="flex-1 p-6 relative">
+      <Text className="font-medium text-2xl text-text-primary">Skills I want to learn</Text>
       <View>
         <SearchInput
           placeholderText="Search for skills"
           searchFunction={handleSearchForSkillsToLearn}
           inputState={skillsToLearnInput}
           setInputState={setSkillsToLearnInput}
-        ></SearchInput>
+        />
 
         {skillsToLearnInput.trim() !== "" && (
           <FlatList
@@ -142,7 +142,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 </Text>
               </Pressable>
             )}
-          ></FlatList>
+          />
         )}
 
         <FlatList
@@ -165,7 +165,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               {item.skillName}
             </Tag>
           )}
-        ></FlatList>
+        />
 
         <FlatList
           className="mt-1 w-full"
@@ -186,17 +186,17 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               {item.skillName}
             </Tag>
           )}
-        ></FlatList>
+        />
       </View>
 
-      <Text className="font-medium text-2xl mt-12">Skills I want to teach</Text>
+      <Text className="font-medium text-2xl mt-12 text-text-primary">Skills I want to teach</Text>
       <View>
         <SearchInput
           placeholderText="Search for skills"
           searchFunction={handleSearchForSkillsToTeach}
           inputState={skillsToTeachInput}
           setInputState={setSkillsToTeachInput}
-        ></SearchInput>
+        />
 
         {skillsToTeachInput.trim() !== "" && (
           <FlatList
@@ -218,7 +218,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 </Text>
               </Pressable>
             )}
-          ></FlatList>
+          />
         )}
 
         <FlatList
@@ -229,6 +229,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
           keyExtractor={(item) => item.skillId}
           renderItem={({ item }) => (
             <Tag
+              teaching={true}
               onPressFunc={() => {
                 setSelectedSkillToTeach((prev) => prev.filter((s) => s.skillId !== item.skillId))
                 setInfo((prev) => {
@@ -240,7 +241,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               {item.skillName}
             </Tag>
           )}
-        ></FlatList>
+        />
 
         <FlatList
           className="mt-1 w-full"
@@ -250,6 +251,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
           keyExtractor={(item) => item.skillName}
           renderItem={({ item }) => (
             <Tag
+              teaching={true}
               onPressFunc={() => {
                 setNewTeachSkills((prev) => prev.filter((s) => s !== item))
                 setInfo((prev) => {
@@ -261,7 +263,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               {item.skillName}
             </Tag>
           )}
-        ></FlatList>
+        />
       </View>
     </View>
   )

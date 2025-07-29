@@ -8,6 +8,7 @@ import { login } from '../utils/firebaseEmailAndPasswordAuth';
 import { authValidationRules } from '../utils/authValidationRules';
 import { useAuth } from '../contexts/AuthContext';
 import AuthForm from '../components/AuthForm';
+import GradientBackground from '../components/GradientBackground';
 
 const { email, password } = authValidationRules;
 const rules = { email, password };
@@ -39,13 +40,14 @@ const LoginScreen = () => {
     }
 
     return (
-        <View className="flex-1 items-center bg-white pt-5">
-            <Text className="text-2xl font-bold">
+        <View className="flex-1 items-center pt-5">
+            <GradientBackground />
+            <Text className="text-2xl font-bold text-text-primary">
                 {t("LoginScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("LoginScreen.login")} onSubmit={handleLogin} validationRules={rules} submitError={error}>
-                <Text className="text-lg font-bold text-center mt-4">
-                    {t("LoginScreen.dontHaveAccount")} <Text onPress={() => navigation.navigate("Register")} className="text-[#3D99F5]">{t("LoginScreen.register")}</Text>
+                <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
+                    {t("LoginScreen.dontHaveAccount")} <Text onPress={() => navigation.navigate("Register")} className="text-text-primary">{t("LoginScreen.register")}</Text>
                 </Text>
             </AuthForm>
         </View>

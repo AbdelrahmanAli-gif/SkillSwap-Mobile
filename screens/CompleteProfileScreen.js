@@ -9,6 +9,7 @@ import PictureBio from './RegisterSteps/PictureBio';
 import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
 import Review from './RegisterSteps/Review';
+import GradientBackground from '../components/GradientBackground';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
@@ -97,32 +98,33 @@ const CompleteProfileScreen = () => {
 
     return (
         <View className="flex-1 px-5 py-5">
+            <GradientBackground />
             {getProfileStep()}
             <View className="flex-row justify-between items-center p-6">
                 {steps > 0 ? (
                     <>
                         <TouchableOpacity
-                            className="bg-gray-200 px-4 py-2 rounded-lg"
+                            className="bg-btn-submit-hover px-4 py-2 rounded-lg"
                             onPress={() => handleChangeSteps(-1)}
                         >
-                            <Text>Previous</Text>
+                            <Text className="text-text-light">Previous</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-[#3D99F5]' : 'bg-gray-400'}`}
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg' : 'bg-gray-400'}`}
                             disabled={!isStepValid}
                             onPress={steps < 3 ? () => handleChangeSteps(1) : updateUserProfile}
                         >
-                            <Text className="text-white">{steps === 3 ? "Finish" : "Next"}</Text>
+                            <Text className="text-text-light">{steps === 3 ? "Finish" : "Next"}</Text>
                         </TouchableOpacity>
                     </>
                 ) : (
                     <View className="flex-1 items-end">
                         <TouchableOpacity
-                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-[#3D99F5]' : 'bg-gray-400'}`}
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg' : 'bg-gray-400'}`}
                             disabled={!isStepValid}
                             onPress={() => handleChangeSteps(1)}
                         >
-                            <Text className="text-white">Next</Text>
+                            <Text className="text-text-light">Next</Text>
                         </TouchableOpacity>
                     </View>
                 )}

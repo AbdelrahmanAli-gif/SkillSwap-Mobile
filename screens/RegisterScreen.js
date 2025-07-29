@@ -2,10 +2,11 @@ import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { register } from '../utils/firebaseEmailAndPasswordAuth';
 import { authValidationRules } from '../utils/authValidationRules';
-import AuthForm from '../components/AuthForm';
 import { useState } from 'react';
-import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
+import AuthForm from '../components/AuthForm';
+import Toast from 'react-native-toast-message';
+import GradientBackground from '../components/GradientBackground';
 
 const { name, email, password, 'confirm-password': confirmPassword } = authValidationRules;
 const rules = { name, email, password, 'confirm-password': confirmPassword };
@@ -38,13 +39,14 @@ const RegisterScreen = () => {
     };
 
     return (
-        <View className="flex-1 items-center bg-white pt-5">
-            <Text className="text-2xl font-bold">
+        <View className="flex-1 items-center pt-5">
+            <GradientBackground />
+            <Text className="text-2xl font-bold text-text-primary">
                 {t("RegisterScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("RegisterScreen.register")} onSubmit={handleRegister} validationRules={rules} submitError={error}>
-                <Text className="text-lg font-bold text-center mt-4">
-                    {t("RegisterScreen.alreadyHaveAccount")} <Text onPress={() => navigation.navigate("Login")} className="text-[#3D99F5]">{t("RegisterScreen.login")}</Text>
+                <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
+                    {t("RegisterScreen.alreadyHaveAccount")} <Text onPress={() => navigation.navigate("Login")} className="text-text-primary">{t("RegisterScreen.login")}</Text>
                 </Text>
             </AuthForm>
         </View>

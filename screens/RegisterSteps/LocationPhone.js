@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from 'react-native';
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Dropdown } from 'react-native-element-dropdown';
+import { theme } from '../../theme';
 import LocationInput from '../../components/LocationInput';
 import PhoneInput from '../../components/PhoneInput';
 
@@ -59,19 +60,27 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
             {(info.skillsToLearn?.length > 0 || info.newSkillsToLearn?.length > 0) && (
                 <View className="p-4 gap-2">
-                    <Text className="text-lg font-bold mb-2">Skills to learn</Text>
+                    <Text className="text-lg font-bold mb-2 text-text-primary">Skills to learn</Text>
                     {info.skillsToLearn?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
+                                    backgroundColor: theme.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
                                     paddingHorizontal: 12,
                                     height: 40,
                                 }}
-                                containerStyle={{ borderRadius: 8 }}
+                                placeholderStyle={{
+                                    color: theme.colors.textSecondary,
+                                    fontSize: 14,
+                                }}
+                                selectedTextStyle={{
+                                    color: theme.colors.textPrimary,
+                                    fontSize: 14,
+                                }}
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
@@ -94,16 +103,24 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
                     {info.newSkillsToLearn?.map((skill, index) => (
                         <View key={index} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
+                                    backgroundColor: theme.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
                                     paddingHorizontal: 12,
                                     height: 40,
                                 }}
-                                containerStyle={{ borderRadius: 8 }}
+                                placeholderStyle={{
+                                    color: theme.colors.textSecondary,
+                                    fontSize: 14,
+                                }}
+                                selectedTextStyle={{
+                                    color: theme.colors.textPrimary,
+                                    fontSize: 14,
+                                }}
                                 data={experienceLevels}
                                 labelField="label"
                                 valueField="value"
@@ -129,17 +146,26 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
             {(info.skillsToTeach?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
 
                 <View className="p-4 gap-2">
-                    <Text className="text-lg font-bold mb-2">Skills to teach</Text>
+                    <Text className="text-lg font-bold mb-2 text-text-primary">Skills to teach</Text>
                     {info.skillsToTeach?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
+                                    backgroundColor: theme.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
                                     paddingHorizontal: 12,
                                     height: 40,
+                                }}
+                                placeholderStyle={{
+                                    color: theme.colors.textSecondary,
+                                    fontSize: 14,
+                                }}
+                                selectedTextStyle={{
+                                    color: theme.colors.textPrimary,
+                                    fontSize: 14,
                                 }}
                                 containerStyle={{ borderRadius: 8 }}
                                 data={experienceLevels}
@@ -164,14 +190,23 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
                     {info.newSkillsToTeach?.map((skill, index) => (
                         <View key={index} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
+                                    backgroundColor: theme.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
                                     paddingHorizontal: 12,
                                     height: 40,
+                                }}
+                                placeholderStyle={{
+                                    color: theme.colors.textSecondary,
+                                    fontSize: 14,
+                                }}
+                                selectedTextStyle={{
+                                    color: theme.colors.textPrimary,
+                                    fontSize: 14,
                                 }}
                                 containerStyle={{ borderRadius: 8 }}
                                 data={experienceLevels}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { theme } from '../theme';
 
 const getFlagEmoji = (countryCode) =>
     countryCode
@@ -45,12 +46,12 @@ const PhoneInput = ({ value, onChange }) => {
 
     return (
         <View className="px-4 py-2">
-            <View className="flex-row items-center bg-gray-200 rounded-lg overflow-hidden">
+            <View className="flex-row items-center bg-input-bg rounded-lg overflow-hidden">
                 <TouchableOpacity
-                    className="px-3 py-3 bg-gray-300"
+                    className="px-3 py-3 bg-black/35"
                     onPress={() => setShowDropdown(!showDropdown)}
                 >
-                    <Text className="text-lg">
+                    <Text className="text-lg text-text-primary">
                         {getFlagEmoji(selectedCountry.code)} {selectedCountry.dial_code}
                     </Text>
                 </TouchableOpacity>
@@ -59,7 +60,8 @@ const PhoneInput = ({ value, onChange }) => {
                     onChangeText={handlePhoneChange}
                     placeholder="Phone number"
                     keyboardType="phone-pad"
-                    className="flex-1 px-4 py-3"
+                    className="flex-1 px-4 py-3 text-text-primary"
+                    placeholderTextColor={theme.colors.textSecondary}
                 />
             </View>
 

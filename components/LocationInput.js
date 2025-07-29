@@ -44,7 +44,7 @@ const LocationInput = ({ value, onChange }) => {
                 value={value}
                 onChangeText={handleChange}
                 placeholder="Enter city or country"
-                className="py-4 px-4 rounded-lg bg-gray-200"
+                className="py-4 px-4 rounded-lg bg-input-bg text-text-primary placeholder:text-text-secondary"
             />
             {showDropdown && filteredLocations.length > 0 && (
                 <View className="bg-white mt-2 rounded-lg max-h-60 border border-gray-300">
