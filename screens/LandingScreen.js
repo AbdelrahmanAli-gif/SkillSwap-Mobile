@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, } from "react-native";
 import Review from "../components/Review";
+import GradientBackground from "../components/GradientBackground";
 
 const initialState = [
   {
@@ -38,38 +39,25 @@ const LandingScreen = () => {
 
   return (
     <ScrollView style={{ flex: 1 }}>
+      <GradientBackground />
       <View className="relative w-full" style={{ height: 450 }}>
         <Image
           className="w-full h-full"
           resizeMode="cover"
           source={require("../assets/aloo.png")}
         />
-
         <View className="absolute inset-0 items-center justify-center">
           <View className="w-full h-[95%] justify-evenly items-center">
             <View className="items-center">
-              <Text className="text-center w-full font-extrabold text-white text-5xl">
-                Unlock Your{" "}
-              </Text>
-              <Text className="text-center w-full font-extrabold text-white text-5xl">
-                Potential : Trade{" "}
-              </Text>
-              <Text className="text-center w-full font-extrabold text-white text-5xl">
-                Skill , Connect , and
-              </Text>
-              <Text className="text-center w-full font-extrabold text-white text-5xl">
-                Grow{" "}
+              <Text className="text-center w-full font-extrabold text-text-light text-5xl">
+                Unlock Your{'\n'}Potential: Trade{'\n'}Skills, Connect, and{'\n'}Grow
               </Text>
             </View>
 
             <View className="w-full items-center">
-              <Text className="font-normal text-white">
-                Join our community of learners and experts to
+              <Text className="font-normal text-center text-white">
+                Join our community of learners and experts to{'\n'}exchange skills, discover new passion, and achieve{'\n'}your goals
               </Text>
-              <Text className="font-normal text-white">
-                exchange skills, discover new passion, and achieve
-              </Text>
-              <Text className="font-normal text-white">your goals</Text>
             </View>
 
             <TouchableOpacity className="bg-blue-500 w-32 h-10 items-center justify-center rounded-lg">

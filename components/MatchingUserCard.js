@@ -1,9 +1,8 @@
-import { Image, Text, View } from 'react-native';
-import Button from './Button';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 const MatchingUserCard = ({ user }) => {
     return (
-        <View className="flex-row items-center bg-white rounded-xl shadow p-4 w-full self-center mt-4">
+        <View className="flex-row items-center bg-gray-950/35 rounded-xl p-4 w-full self-center mt-4">
             <View className="w-16 h-16 rounded-full bg-gray-300 items-center justify-center">
                 {user.profilePicture ?
                     <Image className="w-16 h-16 rounded-full" source={{ uri: user.profilePicture }} />
@@ -12,22 +11,24 @@ const MatchingUserCard = ({ user }) => {
             </View>
 
             <View className="flex-1 ml-4">
-                <Text className="text-lg font-medium text-gray-900">{user.name}</Text>
+                <Text className="text-lg font-medium text-text-primary">{user.name}</Text>
                 {user.needSkills &&
-                    <Text className="text-sm text-gray-500">
+                    <Text className="text-sm text-text-secondary">
                         <Text className="font-medium">Wants: </Text>
                         <Text>{user.needSkills.map((skill) => skill.skillName).join(', ')}</Text>
                     </Text>
                 }
                 {user.hasSkills &&
-                    <Text className="text-sm text-gray-500">
+                    <Text className="text-sm text-text-secondary">
                         <Text className="font-medium">Offers: </Text>
                         <Text>{user.hasSkills.map((skill) => skill.skillName).join(', ')}</Text>
                     </Text>
                 }
             </View>
 
-            <Button text={"Connect"} />
+            <TouchableOpacity className="bg-btn-submit-bg px-3 py-1 rounded-lg">
+                <Text className="text-text-light text-sm font-medium">Connect</Text>
+            </TouchableOpacity>
         </View>
     );
 }

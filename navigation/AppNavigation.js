@@ -8,6 +8,7 @@ import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
+import { theme } from '../theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,10 +45,12 @@ const AppNavigation = () => {
                         onPress={handleLogout}
                         name="logout"
                         size={24}
-                        color="black"
+                        color={theme.colors.main}
                         style={{ marginRight: 15 }}
                     />
                 ),
+                headerStyle: { backgroundColor: "#20201c" },
+                headerTitleStyle: { color: theme.colors.main, },
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
 
@@ -58,7 +61,8 @@ const AppNavigation = () => {
 
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: '#007AFF',
+                tabBarStyle: { backgroundColor: '#20201c' },
+                tabBarActiveTintColor: theme.colors.main,
                 tabBarInactiveTintColor: 'gray',
             })}
         >

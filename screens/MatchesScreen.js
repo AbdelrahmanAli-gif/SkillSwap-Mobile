@@ -4,7 +4,9 @@ import { getAllOtherUsers } from '../utils/usersCollection';
 import { useAuth } from '../contexts/AuthContext';
 import { generateFromGemini } from '../api/gemini';
 import { skillMatch } from '../helpers/prompts';
+import { theme } from '../theme';
 import MatchingUserCard from '../components/MatchingUserCard';
+import GradientBackground from '../components/GradientBackground';
 
 const MatchesScreen = () => {
     const [matches, setMatches] = useState([]);
@@ -25,10 +27,11 @@ const MatchesScreen = () => {
 
     return (
         <View className="flex-1 px-5 pt-5">
-            <Text className="text-3xl font-medium my-3">Potential Matches</Text>
+            <GradientBackground />
+            <Text className="text-3xl font-medium my-2 text-text-primary">Potential Matches</Text>
             {loading ?
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#3D99F5" />
+                    <ActivityIndicator size="large" color={theme.colors.main} />
                 </View>
                 :
                 <FlatList
