@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 export default function ChatMessage({ message, isCurrentUser, otherUserName }) {
   const bubbleBase = "px-4 py-2 rounded-2xl max-w-[80%] shadow";
   const userBubble = isCurrentUser
-    ? "bg-main-color self-end rounded-tr-none"
+    ? "bg-gray-600/80 self-end rounded-tr-none"
     : "bg-gray-200 self-start rounded-tl-none";
 
   const textClass = isCurrentUser ? "text-white" : "text-gray-900";

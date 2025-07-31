@@ -118,7 +118,7 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
 
             <View className="flex-col items-center justify-center">
                 <TouchableOpacity
-                    className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg py-3 px-4 shadow-md"
+                    className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg py-3 px-4"
                     onPress={onGoogleSubmit}
                 >
                     <View className="absolute h-[40px] w-12 bg-text-light flex items-center justify-center rounded-l-lg left-0">

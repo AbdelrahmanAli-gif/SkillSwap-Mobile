@@ -28,6 +28,7 @@ const RootNavigation = () => {
             headerTitleAlign: "center",
             headerBackVisible: false,
             headerStyle: { backgroundColor: "#20201c" },
+            headerShadowVisible: false,
             headerTitleStyle: { color: theme.colors.main, },
             headerRight: () => (
               <TouchableOpacity onPress={switchLang}>
