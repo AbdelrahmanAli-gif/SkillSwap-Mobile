@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { getAllOtherUsers } from '../utils/usersCollection';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { getAllOtherUsersFiltered } from '../utils/usersCollection';
 import { useAuth } from '../contexts/AuthContext';
 import { generateFromGemini } from '../api/gemini';
 import { skillMatch } from '../helpers/prompts';
@@ -16,7 +16,7 @@ const MatchesScreen = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
-            const users = await getAllOtherUsers(user.uid);
+            const users = await getAllOtherUsersFiltered(user.uid);
             const results = await generateFromGemini(skillMatch(user, users));
             setMatches(JSON.parse(results.replace("```json", "").replace("```", "")));
             setLoading(false);

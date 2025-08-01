@@ -27,32 +27,32 @@ const successStories = [
   {
     title: "Photography Enthusiast",
     description: "Sarah, a passionate photographer, taught her skills to aspiring artists and gained new perspectives .",
-    image: require("../assets/success-1.png")
+    image: require("../assets/images/success-1.png")
   },
   {
     title: "Coding Mentor",
     description: "Mark, an experienced software developer, mentored beginners and enhanced his teaching.",
-    image: require("../assets/success-2.png")
+    image: require("../assets/images/success-2.png")
   },
   {
     title: "Yoga Instructor",
     description: "Emily, a certified yoga instructor, expanded her reach and connected with students globally.",
-    image: require("../assets/success-3.png")
+    image: require("../assets/images/success-3.png")
   },
   {
     title: "Painting Passion",
     description: "Layla shared her love for watercolor painting, helping beginners express themselves creatively.",
-    image: require("../assets/success-4.jpg")
+    image: require("../assets/images/success-4.jpg")
   },
   {
     title: "Guitar Guru",
     description: "Omar offered beginner guitar lessons to fellow learners and got free singing tips from vocalists .",
-    image: require("../assets/success-5.jpg")
+    image: require("../assets/images/success-5.jpg")
   },
   {
     title: "Swimming Coach",
     description: "Kareem taught swimming techniques online and received nutritional coaching in exchange.",
-    image: require("../assets/success-6.jpg")
+    image: require("../assets/images/success-6.jpg")
   }
 ]
 
@@ -63,7 +63,7 @@ const LandingScreen = () => {
       <GradientBackground />
       <View className="w-full" style={{ height: 350 }}>
         <ImageBackground
-          source={require("../assets/landing.jpeg")}
+          source={require("../assets/images/landing.jpeg")}
           className="w-full h-full"
           resizeMode="cover"
         >

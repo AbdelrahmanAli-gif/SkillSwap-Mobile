@@ -20,6 +20,30 @@ export const getAllOtherUsers = async (userId) => {
     }
 };
 
+export const getAllOtherUsersFiltered = async (userId) => {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+
+        const usersFiltered = [];
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            const isNotCurrentUser = doc.id !== userId;
+            const hasBio = data.bio && data.bio.trim() !== "";
+
+            if (isNotCurrentUser && hasBio) {
+                usersFiltered.push({ id: doc.id, ...data });
+            }
+        });
+
+        return usersFiltered;
+    } catch (error) {
+        console.error('Error getting users with bio:', error);
+        throw error;
+    }
+}
+
 export const getUserById = async (userId) => {
     try {
         const userDoc = await getDoc(doc(db, 'users', userId));

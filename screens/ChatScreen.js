@@ -43,7 +43,7 @@ export default function ChatScreen() {
         </View>
       ) : (
         <>
-          <ImageBackground source={require("../assets/chat.jpg")} className="flex-1">
+          <ImageBackground source={require("../assets/images/chat.jpg")} className="flex-1">
             <View className="p-4 bg-black border-b border-text-light flex-row justify-between items-center">
               <Text className="text-lg font-semibold text-text-primary">
                 Chat with {otherUser.name}

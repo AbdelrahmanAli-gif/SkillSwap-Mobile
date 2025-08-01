@@ -1,55 +1,106 @@
-import { ScrollView, Text, TextInput, View } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Button from '../components/Button';
-import FeaturedSkillCard from '../components/FeaturedSkillCard';
+import { useEffect, useState, useCallback } from "react";
+import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import { getAllOtherUsersFiltered } from "../utils/usersCollection";
+import { useAuth } from "../contexts/AuthContext";
+import { theme } from "../theme";
+import SearchInput from "../components/SearchInput";
+import FilterBar from "../components/FilterBar";
+import UserCard from "../components/UserCard";
+import GradientBackground from "../components/GradientBackground";
 
-const SearchScreen = () => {
+const ITEMS_PER_BATCH = 10;
+
+export default function SearchScreen() {
+    const [users, setUsers] = useState([]);
+    const [searchText, setSearchText] = useState("");
+    const [selectedFilter, setSelectedFilter] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(ITEMS_PER_BATCH);
+    const { user } = useAuth();
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            setLoading(true);
+            const fetchedUsers = await getAllOtherUsersFiltered(user.uid);
+            setUsers(fetchedUsers);
+            setLoading(false);
+        };
+        fetchUsers();
+    }, [user.uid]);
+
+    const handleSearch = useCallback(() => {
+        setVisibleCount(ITEMS_PER_BATCH);
+    }, []);
+
+    const handleFilterClick = (label) => {
+        setSelectedFilter((prev) => (prev === label ? null : label));
+        setVisibleCount(ITEMS_PER_BATCH);
+    };
+
+    const filteredUsers = users.filter((user) => {
+        const search = searchText.toLowerCase();
+        const nameMatch = user.name?.toLowerCase().includes(search);
+        const offeredMatch = user.hasSkills?.some((s) =>
+            s.skillName.toLowerCase().includes(search)
+        );
+        const desiredMatch = user.needSkills?.some((s) =>
+            s.skillName.toLowerCase().includes(search)
+        );
+
+        if (selectedFilter === "Skills Offered") return offeredMatch;
+        if (selectedFilter === "Skills Desired") return desiredMatch;
+
+        return nameMatch || offeredMatch || desiredMatch;
+    });
+
+    const visibleUsers = filteredUsers.slice(0, visibleCount);
+
+    const handleLoadMore = () => {
+        if (visibleCount < filteredUsers.length) {
+            setLoadingMore(true);
+            setTimeout(() => {
+                setVisibleCount((prev) => prev + ITEMS_PER_BATCH);
+                setLoadingMore(false);
+            }, 500);
+        }
+    };
+
     return (
-        <ScrollView className="flex-1 px-5 pt-5">
-            <View className="flex-row items-center bg-gray-200 rounded-xl px-4 mb-2">
-                <MaterialIcons name="search" size={24} color="black" />
-                <TextInput
-                    placeholder="Search for skills"
-                    placeholderTextColor="#6b7280"
-                    className="ml-2 text-base text-gray-600 flex-1"
+        <View className="flex-1 px-4 py-2">
+            <GradientBackground />
+            <SearchInput
+                searchFunction={handleSearch}
+                placeholderText="Search by user name or skills..."
+                inputState={searchText}
+                setInputState={setSearchText}
+            />
+
+            <FilterBar selected={selectedFilter} onFilterClick={handleFilterClick} />
+
+            {loading ? (
+                <View className="flex-1 items-center justify-center">
+                    <ActivityIndicator size="large" color={theme.colors.main} />
+                </View>
+            ) : (
+                <FlatList
+                    data={visibleUsers}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => <UserCard user={item} />}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.6}
+                    ListFooterComponent={
+                        loadingMore ? (
+                            <ActivityIndicator size="large" color={theme.colors.main} />
+                        ) : null
+                    }
+                    ListEmptyComponent={
+                        <Text className="text-text-primary text-center mt-10 text-lg">
+                            No users found
+                        </Text>
+                    }
                 />
-            </View>
-            <Text className="text-3xl font-medium my-3">Categories</Text>
-            <View className="flex-row flex-wrap gap-4 mb-3">
-                <Button text={"Music"} />
-                <Button text={"Sports"} />
-                <Button text={"Languages"} />
-                <Button text={"Arts"} />
-                <Button text={"Tech"} />
-                <Button text={"Cooking"} />
-            </View>
-            <Text className="text-3xl font-medium my-3">Featured Skills</Text>
-            <FeaturedSkillCard
-                type={"Trending"}
-                title={"Guitar Lessons"}
-                description={"Learn to play guitar with experienced instructors."}
-                image={"https://via.placeholder.com/150"}
-            />
-            <FeaturedSkillCard
-                type={"Trending"}
-                title={"Guitar Lessons"}
-                description={"Learn to play guitar with experienced instructors."}
-                image={"https://via.placeholder.com/150"}
-            />
-            <FeaturedSkillCard
-                type={"Trending"}
-                title={"Guitar Lessons"}
-                description={"Learn to play guitar with experienced instructors."}
-                image={"https://via.placeholder.com/150"}
-            />
-            <FeaturedSkillCard
-                type={"Trending"}
-                title={"Guitar Lessons"}
-                description={"Learn to play guitar with experienced instructors."}
-                image={"https://via.placeholder.com/150"}
-            />
-        </ScrollView>
+            )}
+        </View>
     );
 }
-
-export default SearchScreen;
