@@ -13,13 +13,13 @@ const MatchingUserCard = ({ user }) => {
             <View className="flex-1 ml-4">
                 <Text className="text-lg font-medium text-text-primary">{user.name}</Text>
                 {user.needSkills &&
-                    <Text className="text-sm text-text-secondary">
+                    <Text className="text-sm text-text-secondary capitalize">
                         <Text className="font-medium">Wants: </Text>
                         <Text>{user.needSkills.map((skill) => skill.skillName).join(', ')}</Text>
                     </Text>
                 }
                 {user.hasSkills &&
-                    <Text className="text-sm text-text-secondary">
+                    <Text className="text-sm text-text-secondary capitalize">
                         <Text className="font-medium">Offers: </Text>
                         <Text>{user.hasSkills.map((skill) => skill.skillName).join(', ')}</Text>
                     </Text>

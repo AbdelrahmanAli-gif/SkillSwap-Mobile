@@ -8,7 +8,13 @@ const Review = ({ info }) => {
     return (
         <ScrollView className="flex-1 px-5">
             <View className="flex items-center justify-center py-2 px-4 rounded-xl mt-2">
-                <Image source={require("../../assets/avatar.png")} className="w-28 h-28 rounded-full" />
+                {info.photo ?
+                    <Image source={{ uri: info.photo }} className="w-16 h-16 rounded-full" />
+                    :
+                    <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
+                        <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>
+                    </View>
+                }
                 <Text className="text-2xl font-bold mt-2 text-main-color">{user.name}</Text>
             </View>
             <View className="my-2">

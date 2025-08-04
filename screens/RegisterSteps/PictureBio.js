@@ -4,9 +4,11 @@ import { useForm, Controller } from "react-hook-form";
 import { theme } from "../../theme";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function PictureBio({ info, setInfo, setIsStepValid }) {
-  const [photo, setPhoto] = useState(info.photo || null);
+  const { user } = useAuth();
+  const [photo, setPhoto] = useState(info.photo || user.profilePicture || null);
   const { control, formState: { errors, isValid } } = useForm({
     defaultValues: { bio: info.bio || "" },
     mode: "onChange", // allows real-time validation feedback
@@ -43,7 +45,13 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
   return (
     <View className="flex-1 p-6">
       <Pressable className="flex-row items-center justify-start gap-6" onPress={pickImage}>
-        <Image source={require("../../assets/avatar.png")} className="w-16 h-16" />
+        {photo ?
+          <Image source={{ uri: photo }} className="w-16 h-16 rounded-full" />
+          :
+          <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
+            <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>
+          </View>
+        }
         <Text className="text-xl font-normal text-text-primary">Upload a profile picture</Text>
       </Pressable>
 
