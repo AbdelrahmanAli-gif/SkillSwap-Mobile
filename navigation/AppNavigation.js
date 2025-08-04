@@ -2,13 +2,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../utils/firebaseEmailAndPasswordAuth';
 import { useUnreadCount } from '../hooks/useUnreadCount';
+import { theme } from '../theme';
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Toast from 'react-native-toast-message';
-import { theme } from '../theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +50,7 @@ const AppNavigation = () => {
                     />
                 ),
                 headerStyle: { backgroundColor: "#20201c" },
+                headerShadowVisible: false,
                 headerTitleStyle: { color: theme.colors.main, },
                 tabBarIcon: ({ color, size }) => {
                     let iconName;

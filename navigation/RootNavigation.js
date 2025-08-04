@@ -2,13 +2,14 @@ import { Text, TouchableOpacity } from "react-native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useTranslation } from "react-i18next"
 import { AuthProvider } from "../contexts/AuthContext"
+import { theme } from "../theme"
 import LoginScreen from "../screens/LoginScreen"
 import RegisterScreen from "../screens/RegisterScreen"
 import AppNavigation from "./AppNavigation"
 import CompleteProfileScreen from "../screens/CompleteProfileScreen"
 import ChatScreen from "../screens/ChatScreen"
 import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
-import { theme } from "../theme"
+
 const Stack = createNativeStackNavigator()
 
 const RootNavigation = () => {

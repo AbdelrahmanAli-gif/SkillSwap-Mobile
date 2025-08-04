@@ -1,9 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 import RootNavigation from "./navigation/RootNavigation";
 import Toast from "react-native-toast-message";
 import "./global.css";
 import "./i18n";
-import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   return (
