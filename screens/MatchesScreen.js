@@ -37,6 +37,7 @@ const MatchesScreen = () => {
                 <FlatList
                     data={matches}
                     keyExtractor={(item) => item.uid}
+                    contentContainerStyle={{ paddingBottom: 20 }}
                     renderItem={({ item }) => <MatchingUserCard user={item} />}
                 />
             }

@@ -41,7 +41,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
     const query = skillsToLearnInput
     setTimeout(() => {
       setSkillsToLearnSearchQuery(query)
-    }, 1000)
+    }, 300)
   }, [skillsToLearnInput])
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
     const query = skillsToTeachInput
     setTimeout(() => {
       setSkillsToTeachSearchQuery(query)
-    }, 1000)
+    }, 300)
   }, [skillsToTeachInput])
 
   useEffect(() => {

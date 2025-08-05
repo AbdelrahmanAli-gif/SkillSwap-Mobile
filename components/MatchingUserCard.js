@@ -11,7 +11,7 @@ const MatchingUserCard = ({ user }) => {
             </View>
 
             <View className="flex-1 ml-4">
-                <Text className="text-lg font-medium text-text-primary">{user.name}</Text>
+                <Text className="text-lg font-medium text-text-primary capitalize">{user.name}</Text>
                 {user.needSkills &&
                     <Text className="text-sm text-text-secondary capitalize">
                         <Text className="font-medium">Wants: </Text>
