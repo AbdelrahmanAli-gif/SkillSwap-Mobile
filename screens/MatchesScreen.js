@@ -38,6 +38,7 @@ const MatchesScreen = () => {
                     data={matches}
                     keyExtractor={(item) => item.uid}
                     contentContainerStyle={{ paddingBottom: 20 }}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => <MatchingUserCard user={item} />}
                 />
             }
