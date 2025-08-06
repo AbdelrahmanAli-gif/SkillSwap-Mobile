@@ -89,6 +89,7 @@ export default function SearchScreen() {
                     renderItem={({ item }) => <UserCard user={item} />}
                     onEndReached={handleLoadMore}
                     onEndReachedThreshold={0.6}
+                    showsVerticalScrollIndicator={false}
                     ListFooterComponent={
                         loadingMore ? (
                             <ActivityIndicator size="large" color={theme.colors.main} />

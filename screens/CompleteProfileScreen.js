@@ -59,6 +59,7 @@ const CompleteProfileScreen = () => {
                 bio: info.bio,
                 location: { city: location[0]?.trim(), country: location[1]?.trim() },
                 phone: info.phone,
+                profilePicture: info.photo ? info.photo : user.profilePicture ? user.profilePicture : null,
             };
 
             if (info.skillsToLearn?.length > 0)

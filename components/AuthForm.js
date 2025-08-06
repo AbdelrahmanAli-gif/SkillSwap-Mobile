@@ -118,10 +118,10 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
 
             <View className="flex-col items-center justify-center">
                 <TouchableOpacity
-                    className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg py-3 px-4"
+                    className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg h-[50px]"
                     onPress={onGoogleSubmit}
                 >
-                    <View className="absolute h-[40px] w-12 bg-text-light flex items-center justify-center rounded-l-lg left-0">
+                    <View className="absolute h-[50px] w-12 bg-text-light flex items-center justify-center rounded-l-lg left-0">
                         <Image
                             source={{ uri: 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw' }}
                             className="w-8 h-8"
