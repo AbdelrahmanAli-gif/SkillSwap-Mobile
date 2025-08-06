@@ -33,13 +33,13 @@ const RootNavigation = () => {
             headerStyle: { backgroundColor: "#20201c" },
             headerShadowVisible: false,
             headerTitleStyle: { color: theme.colors.main, },
-            headerRight: () => (
-              <TouchableOpacity onPress={switchLang}>
-                <Text style={{ color: theme.colors.main, marginRight: 10 }}>
-                  {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
-                </Text>
-              </TouchableOpacity>
-            ),
+            // headerRight: () => (
+            //   <TouchableOpacity onPress={switchLang}>
+            //     <Text style={{ color: theme.colors.main, marginRight: 10 }}>
+            //       {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
+            //     </Text>
+            //   </TouchableOpacity>
+            // ),
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -48,9 +48,8 @@ const RootNavigation = () => {
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen}/>
-          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/>
-          
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen} />
         </Stack.Navigator>
       </AuthProvider >
     </>
