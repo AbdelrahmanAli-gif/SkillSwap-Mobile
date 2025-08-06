@@ -14,7 +14,7 @@ const Reviews = ({name,rating,content,img}) => {
           ></Image>
         </View>
         <View className="ml-2">
-          <Text className="font-bold">Sophie bernat</Text>
+          <Text className="font-bold">{name}</Text>
           <Text className="mt-1 text-gray-600">2 weeks ago</Text>
         </View>
       </View>
@@ -208,7 +208,7 @@ const Reviews = ({name,rating,content,img}) => {
      
       <View className="pl-4 mt-2">
         <Text>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+       {content}
         </Text>
       </View>
     </View>

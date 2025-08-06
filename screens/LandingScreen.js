@@ -76,7 +76,7 @@ const LandingScreen = () => {
             </View>
 
             <View className="w-full items-center">
-              <TouchableOpacity onPress={() => navigate.navigate("Matches")} className="bg-btn-submit-bg mb-10 w-32 h-10 items-center justify-center rounded-lg">
+              <TouchableOpacity onPress={() => navigate.navigate("Profile")} className="bg-btn-submit-bg mb-10 w-32 h-10 items-center justify-center rounded-lg">
                 <Text className="text-white">Get Started</Text>
               </TouchableOpacity>
             </View>

@@ -9,6 +9,8 @@ import AppNavigation from "./AppNavigation"
 import CompleteProfileScreen from "../screens/CompleteProfileScreen"
 import ChatScreen from "../screens/ChatScreen"
 import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
+import ProfileScreen from "../screens/ProfileScreen"
+import UpdateSkillsScreen from "../screens/UpdateSkillsScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -46,6 +48,9 @@ const RootNavigation = () => {
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen}/>
+          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/>
+          
         </Stack.Navigator>
       </AuthProvider >
     </>
