@@ -11,6 +11,7 @@ import ChatScreen from "../screens/ChatScreen"
 import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
 import ProfileScreen from "../screens/ProfileScreen"
 import UpdateSkillsScreen from "../screens/UpdateSkillsScreen"
+import MilestoneScreen from "../screens/MilestoneScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -50,6 +51,7 @@ const RootNavigation = () => {
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen}/>
           <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/>
+          <Stack.Screen name="Milestones" component={MilestoneScreen}/>
           
         </Stack.Navigator>
       </AuthProvider >
