@@ -1,352 +1,128 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  ScrollView,
-  ProgressBarAndroidBase,
-} from "react-native";
-import SkillsIoffer from "../components/SkillsIoffer";
-import { useAuth } from "../contexts/AuthContext";
-import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
+import { View, Image, Text, ScrollView } from "react-native";
+import { theme } from "../theme";
+import { useRoute } from "@react-navigation/native";
 import * as Progress from "react-native-progress";
+import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
 import Reviews from "../components/Reviews";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import GradientBackground from "../components/GradientBackground";
+import Tag from "../components/Tag";
+
 const ProfileScreen = () => {
-  const [userState, setUserState] = useState({});
-  const { user } = useAuth();
-  const fiveStarsReview=(user.reviews.filter((r)=> r.rating==5).length/user.reviews.length)*100
-  const fourStarsReview=(user.reviews.filter((r)=> r.rating==4).length/user.reviews.length)*100
-  const threeStartReview=(user.reviews.filter((r)=> r.rating==3).length/user.reviews.length)*100
-  const twoStarReview=(user.reviews.filter((r)=> r.rating==2).length/user.reviews.length)*100
-  const oneStarReview=(user.reviews.filter((r)=> r.rating==1).length/user.reviews.length)*100
-  useEffect(() => {
-    const fetchUser = async () => {
-      const db = getFirestore();
-      const userId = user.uid;
-      const userRef = doc(db, "users", userId);
-      const userSnap = await getDoc(userRef);
-      setUserState(userSnap.data());
-    };
-    fetchUser();
-  }, []);
+  const route = useRoute();
+  const { user } = route.params;
+  const reviewsCount = user.reviews.length;
+  const reviewsPercentage = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  const userRating = user.rating ? user.rating : 0;
+
+  if (reviewsCount !== 0) {
+    user.reviews.forEach((review) => {
+      if (reviewsPercentage[review.rating]) reviewsPercentage[review.rating] += 1;
+      else reviewsPercentage[review.rating] = 1;
+    });
+  }
+
+  console.log(reviewsPercentage);
 
   return (
-    <ScrollView className="flex-1 bg-[#F7FBFD] relative ">
-      <View className="h-[300] justify-evenly ">
-        <View className="w-full h-[40%] items-center ">
-          <View className="w-[30%] items-center h-[100%]">
-            <Image
-              className="rounded-full w-full h-full"
-              source={{uri:userState.profilePicture}}
-            ></Image>
+    <View className="flex-1 pb-8">
+      <GradientBackground />
+      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        <View className="w-full items-center p-4">
+          <View className="w-32 h-32 rounded-full bg-gray-300 mb-2 items-center justify-center">
+            {user.profilePicture ?
+              <Image className="w-32 h-32 rounded-full" source={{ uri: user.profilePicture }} />
+              : <Text className="text-6xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>}
           </View>
+          <Text className="font-bold text-2xl capitalize text-text-primary">{user.name}</Text>
+          <Text className="text-xl text-center font-normal text-text-secondary">{user.bio}</Text>
         </View>
-        <View className="w-full items-center ">
-          <Text className="font-bold text-2xl">{userState.name}</Text>
-          <Text className="text-[#6185A8] text-lg">Skill Trader</Text>
-        </View>
-        <View className="w-full items-center ">
-          <Text className="w-[80%] text-xl text-center font-normal">
-            {userState.bio}
-          </Text>
-        </View>
-      </View>
-      <View className="pl-3 w-full mt-2">
-        <Text className="text-2xl font-semibold">Skills I Offer</Text>
-      </View>
-      <View className="w-full items-center mt-5 ">
-        {userState.hasSkills?.map((s) => (
-          <SkillsIoffer
-            user={user}
-            key={s.skillId}
-            skill={s.skillName}
-            skillType={true}
-          />
-        ))}
-      </View>
-      <View className="pl-3 w-full mt-2">
-        <Text className="text-2xl font-semibold">Skills I Want to Learn</Text>
-      </View>
-      <View className="w-full items-center mt-5 ">
-        {userState.needSkills?.map((s) => (
-          <SkillsIoffer
-            user={user}
-            key={s.skillId}
-            skill={s.skillName}
-            skillType={false}
-          />
-        ))}
-      </View>
-      <View className="pl-3 w-full mt-2">
-        <Text className="text-2xl font-semibold">Ratings & Reviews</Text>
-      </View>
-      <View className="w-full mt-5 flex-row justify-between">
-        <View className="w-4/12 ">
-          <View className="w-full items-center">
-            <Text className="text-3xl font-semibold">
-              {userState.rating ? userState.rating : 0}
-            </Text>
-          </View>
-          {userState.rating == 5 ? (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          ) : userState.rating < 5 && userState.rating >= 4 ? (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          ) : userState.rating < 4 && userState.rating >= 3 ? (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          ) : userState.rating < 3 && userState.rating >= 2 ? (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          ) : userState.rating < 2 && userState.rating >= 1 ? (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                solid
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          ) : (
-            <View className="w-full flex-row justify-evenly ml-2 mt-2">
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-              <FontAwesome6Icon
-                size={15}
-                color={"#6185A8"}
-                name="star"
-              ></FontAwesome6Icon>
-            </View>
-          )}
 
-          <View className="w-full items-center mt-2">
-            <Text className="text-lg font-normal">
-              {userState.reviews?.length} Reviews
+        {user.location && (
+          <View className="w-full px-4 py-2">
+            <Text className="text-xl font-semibold text-text-primary">Location: {" "}
+              <Text className="text-base text-text-secondary">{user.location.city}, {user.location.country}</Text>
             </Text>
           </View>
+        )}
+
+        {user.phone && (
+          <View className="w-full px-4 py-2">
+            <Text className="text-xl font-semibold text-text-primary">Phone: {" "}
+              <Text className="text-base text-text-secondary">{user.phone}</Text>
+            </Text>
+          </View>
+        )}
+
+        {user.hasSkills?.length > 0 && (
+          <View className="w-full gap-2 px-4 py-2">
+            <Text className="text-xl font-semibold text-text-primary">Skills I Offer</Text>
+            {user.hasSkills?.map((s) => (
+              <Tag key={s.skillId} teaching={true}>{s.skillName}</Tag>
+            ))}
+          </View>
+        )}
+
+        {user.needSkills?.length > 0 && (
+          <View className="w-full gap-2 px-4 py-2">
+            <Text className="text-xl font-semibold text-text-primary">Skills I Want to Learn</Text>
+            {user.needSkills?.map((s) => (
+              <Tag key={s.skillId}>{s.skillName}</Tag>
+            ))}
+          </View>
+        )}
+
+        <View className="w-full px-4 py-2">
+          <Text className="text-xl font-semibold text-text-primary">Ratings & Reviews</Text>
+          <View className="w-full flex-row justify-center items-center mt-2">
+            <View className="flex-1 gap-2 items-center justify-center">
+              <Text className="text-3xl font-bold text-text-primary">{userRating}</Text>
+              <View className="flex-row gap-1 justify-center items-center">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <FontAwesome6Icon
+                    key={index}
+                    solid={index < userRating}
+                    size={18}
+                    color={theme.colors.main}
+                    name={userRating - index > 0 && userRating - index < 1 ? "star-half-alt" : "star"}
+                  />
+                ))}
+              </View>
+              <Text className="text-lg text-text-secondary">{user.reviews?.length} Reviews</Text>
+            </View>
+            <View className="flex-1">
+              {[5, 4, 3, 2, 1].map((key) => (
+                <View key={key} className="flex-row items-center mb-2">
+                  <Text className="w-4 text-text-primary text-sm">{key}</Text>
+                  <Progress.Bar
+                    height={10}
+                    width={150}
+                    progress={reviewsPercentage[key] / reviewsCount}
+                    color={theme.colors.main}
+                    unfilledColor="transparent"
+                    borderColor={theme.colors.main}
+                    borderWidth={1}
+                    className="mx-2"
+                  />
+                  <Text className="text-text-secondary text-sm">{reviewsPercentage[key]}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
         </View>
-        <View className="w-8/12  ">
-          <View className="w-full flex-row justify-evenly  ">
-            <Text className="mr-1">5</Text>
-            <Progress.Bar
-              className="h-[10] mt-1"
-              height={10}
-              width={150}
-              progress={fiveStarsReview/100}
+
+        <View className="w-full px-4 py-2">
+          {user.reviews?.map((review) => {
+            return <Reviews
+              key={review.reviewId}
+              name={review.authorName}
+              content={review.text}
+              rating={review.rating}
             />
-            <Text>{fiveStarsReview}</Text>
-          </View>
-          <View className="w-full flex-row justify-evenly mt-2 ">
-            <Text className="mr-1">4</Text>
-            <Progress.Bar
-              className="h-[10] mt-1"
-              height={10}
-              width={150}
-              progress={fourStarsReview/100}
-            />
-            <Text>{fourStarsReview}</Text>
-          </View>
-          <View className="w-full flex-row justify-evenly mt-2 ">
-            <Text className="mr-1">3</Text>
-            <Progress.Bar
-              className="h-[10] mt-1"
-              height={10}
-              width={150}
-              progress={threeStartReview/100}
-            />
-            <Text>{threeStartReview}</Text>
-          </View>
-          <View className="w-full flex-row justify-evenly mt-2 ">
-            <Text className="mr-1">2</Text>
-            <Progress.Bar
-              className="h-[10] mt-1"
-              height={10}
-              width={150}
-              progress={twoStarReview/100}
-            />
-            <Text>{twoStarReview}</Text>
-          </View>
-          <View className="w-full flex-row justify-evenly mt-2 ">
-            <Text className="mr-1">1</Text>
-            <Progress.Bar
-              className="h-[10] mt-1"
-              height={10}
-              width={150}
-              progress={oneStarReview/100}
-            />
-            <Text>{oneStarReview}</Text>
-          </View>
+          })}
         </View>
-      </View>
-      <View className="w-ful mt-4">
-        {userState.reviews?.map((r) => {
-         return <Reviews
-            key={r.reviewId}
-            name={r.authorName}
-            content={r.text}
-            rating={r.rating}
-          />;
-        })}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default ProfileScreen;

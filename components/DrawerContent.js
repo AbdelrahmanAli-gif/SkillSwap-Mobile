@@ -36,6 +36,10 @@ const DrawerContent = (props) => {
                 </View>
                 <Text className="text-text-primary text-lg font-semibold mt-2">{user.name}</Text>
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile', { user })} className="p-4 border-b border-zinc-700">
+                <Text className="text-text-secondary text-base">Profile</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={switchLang} className="p-4 border-b border-zinc-700">
                 <Text className="text-text-secondary text-base">Change Language</Text>
             </TouchableOpacity>

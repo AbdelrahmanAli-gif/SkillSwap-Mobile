@@ -34,13 +34,13 @@ const RootNavigation = () => {
             headerStyle: { backgroundColor: "#20201c" },
             headerShadowVisible: false,
             headerTitleStyle: { color: theme.colors.main, },
-            headerRight: () => (
-              <TouchableOpacity onPress={switchLang}>
-                <Text style={{ color: theme.colors.main, marginRight: 10 }}>
-                  {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
-                </Text>
-              </TouchableOpacity>
-            ),
+            // headerRight: () => (
+            //   <TouchableOpacity onPress={switchLang}>
+            //     <Text style={{ color: theme.colors.main, marginRight: 10 }}>
+            //       {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
+            //     </Text>
+            //   </TouchableOpacity>
+            // ),
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
