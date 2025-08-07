@@ -49,10 +49,9 @@ const RootNavigation = () => {
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen}/>
-          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/>
-          <Stack.Screen name="Milestones" component={MilestoneScreen}/>
-          
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen} />
+          <Stack.Screen name="Milestones" component={MilestoneScreen} />
         </Stack.Navigator>
       </AuthProvider >
     </>

@@ -5,23 +5,22 @@ import { createSkillDoc } from '../utils/skillsCollections';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { useAuth } from '../contexts/AuthContext';
+import { uploadImage } from '../api/cloudinary';
 import PictureBio from './RegisterSteps/PictureBio';
 import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
 import Review from './RegisterSteps/Review';
 import GradientBackground from '../components/GradientBackground';
-import { uploadImage } from '../api/cloudinary';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
-const CompleteProfileScreen = () => {
+const CompleteProfileScreen = ({ navigationRoute }) => {
+    console.log(navigationRoute);
     const [steps, setSteps] = useState(0);
     const [isStepValid, setIsStepValid] = useState(true);
     const { user, setUser } = useAuth();
     const [info, setInfo] = useState(user);
     const navigation = useNavigation();
-
-    console.log(info);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -56,7 +55,7 @@ const CompleteProfileScreen = () => {
                 );
             }
 
-            if (info.profilePicture.slice(0, 4) !== "http") {
+            if (info.profilePicture && info.profilePicture.slice(0, 4) !== "http") {
                 const profilePictureUrl = await uploadImage(info.profilePicture);
                 info.profilePicture = profilePictureUrl;
             }
@@ -86,7 +85,8 @@ const CompleteProfileScreen = () => {
             const updatedUserSnap = await getDoc(userRef);
             setUser({ uid: user.uid, ...updatedUserSnap.data() });
 
-            navigation.replace("App");
+            if (navigationRoute) navigation.replace(navigationRoute, { user: { uid: user.uid, ...updatedUserSnap.data() } });
+            else navigation.replace("App");
         } catch (error) {
             console.error("Error updating user profile:", error);
         }
