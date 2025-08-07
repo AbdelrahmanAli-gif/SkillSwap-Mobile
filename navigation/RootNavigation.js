@@ -12,6 +12,7 @@ import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
 import ProfileScreen from "../screens/ProfileScreen"
 import UpdateSkillsScreen from "../screens/UpdateSkillsScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -45,6 +46,7 @@ const RootNavigation = () => {
         >
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />

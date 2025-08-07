@@ -9,12 +9,19 @@
     "title": "Welcome to Swapoo!",
     "login": "Login",
     "register": "Register",
-    "dontHaveAccount": "Don't have an account?"
+    "dontHaveAccount": "Don't have an account?",
+    "forgotPassword": "Forgot password?"
   },
   "RegisterScreen": {
     "title": "Join our community!",
     "register": "Register",
     "alreadyHaveAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "ForgotPasswordScreen": {
+    "title": "Reset Password",
+    "resetPassword": "Reset Password",
+    "backTo": "Back to",
     "login": "Login"
   },
   "HeroSection": {
