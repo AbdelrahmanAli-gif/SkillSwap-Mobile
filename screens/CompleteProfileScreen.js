@@ -10,15 +10,18 @@ import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
 import Review from './RegisterSteps/Review';
 import GradientBackground from '../components/GradientBackground';
+import { uploadImage } from '../api/cloudinary';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
 const CompleteProfileScreen = () => {
     const [steps, setSteps] = useState(0);
     const [isStepValid, setIsStepValid] = useState(true);
-    const [info, setInfo] = useState({});
     const { user, setUser } = useAuth();
+    const [info, setInfo] = useState(user);
     const navigation = useNavigation();
+
+    console.log(info);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -53,23 +56,28 @@ const CompleteProfileScreen = () => {
                 );
             }
 
+            if (info.profilePicture.slice(0, 4) !== "http") {
+                const profilePictureUrl = await uploadImage(info.profilePicture);
+                info.profilePicture = profilePictureUrl;
+            }
+
             const location = info.location.split(",");
             const userRef = doc(db, "users", user.uid);
             const userData = {
                 bio: info.bio,
                 location: { city: location[0]?.trim(), country: location[1]?.trim() },
                 phone: info.phone,
-                profilePicture: info.photo ? info.photo : user.profilePicture ? user.profilePicture : null,
+                profilePicture: info.profilePicture ? info.profilePicture : null,
             };
 
-            if (info.skillsToLearn?.length > 0)
-                userData.needSkills = info.skillsToLearn;
+            if (info.needSkills?.length > 0)
+                userData.needSkills = info.needSkills;
 
             if (updatedNewSkillsToLearn?.length > 0)
                 userData.needSkills = userData.needSkills ? [...userData.needSkills, ...updatedNewSkillsToLearn] : updatedNewSkillsToLearn;
 
-            if (info.skillsToTeach?.length > 0)
-                userData.hasSkills = info.skillsToTeach;
+            if (info.hasSkills?.length > 0)
+                userData.hasSkills = info.hasSkills;
 
             if (updatedNewSkillsToTeach?.length > 0)
                 userData.hasSkills = userData.hasSkills ? [...userData.hasSkills, ...updatedNewSkillsToTeach] : updatedNewSkillsToTeach;

@@ -13,8 +13,8 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [skillsToLearnSearchQuery, setSkillsToLearnSearchQuery] = useState("")
   const [skillsToTeachSearchQuery, setSkillsToTeachSearchQuery] = useState("")
   const [filteredSkills, setFilteredSkills] = useState([])
-  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState(info.skillsToLearn || [])
-  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.skillsToTeach || [])
+  const [selectedSkillToLearn, setSelectedSkillToLearn] = useState(info.needSkills || [])
+  const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.hasSkills || [])
   const [newTeachSkills, setNewTeachSkills] = useState(info.newSkillsToTeach || [])
   const [newLearnSkills, setNewLearnSkills] = useState(info.newSkillsToLearn || [])
 
@@ -132,7 +132,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToLearn((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, skillsToLearn: prev.skillsToLearn ? [...prev.skillsToLearn, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
+                  setInfo((prev) => ({ ...prev, needSkills: prev.needSkills ? [...prev.needSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
                   setFilteredSkills([])
                   setSkillsToLearnInput("")
                 }}
@@ -157,8 +157,8 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 console.log("Removing skill:", item.skillName)
                 setSelectedSkillToLearn((prev) => prev.filter((s) => s.skillId !== item.skillId))
                 setInfo((prev) => {
-                  const newSkillsToLearn = prev.skillsToLearn.filter((s) => s.skillId !== item.skillId)
-                  return { ...prev, skillsToLearn: newSkillsToLearn }
+                  const newSkillsToLearn = prev.needSkills.filter((s) => s.skillId !== item.skillId)
+                  return { ...prev, needSkills: newSkillsToLearn }
                 })
               }}
             >
@@ -208,7 +208,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToTeach((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, skillsToTeach: prev.skillsToTeach ? [...prev.skillsToTeach, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
+                  setInfo((prev) => ({ ...prev, hasSkills: prev.hasSkills ? [...prev.hasSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
                   setFilteredSkills([])
                   setSkillsToTeachInput("")
                 }}
@@ -233,8 +233,8 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               onPressFunc={() => {
                 setSelectedSkillToTeach((prev) => prev.filter((s) => s.skillId !== item.skillId))
                 setInfo((prev) => {
-                  const newSkillsToTeach = prev.skillsToTeach.filter((s) => s.skillId !== item.skillId)
-                  return { ...prev, skillsToTeach: newSkillsToTeach }
+                  const newSkillsToTeach = prev.hasSkills.filter((s) => s.skillId !== item.skillId)
+                  return { ...prev, hasSkills: newSkillsToTeach }
                 })
               }}
             >

@@ -4,14 +4,12 @@ import { useForm, Controller } from "react-hook-form";
 import { theme } from "../../theme";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
-import { useAuth } from "../../contexts/AuthContext";
 
 export default function PictureBio({ info, setInfo, setIsStepValid }) {
-  const { user } = useAuth();
-  const [photo, setPhoto] = useState(info.photo || user.profilePicture || null);
+  const [photo, setPhoto] = useState(info.profilePicture || null);
   const { control, formState: { errors, isValid } } = useForm({
     defaultValues: { bio: info.bio || "" },
-    mode: "onChange", // allows real-time validation feedback
+    mode: "onChange",
   });
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
 
     if (!result.canceled) {
       setPhoto(result.assets[0].uri);
-      setInfo((prev) => ({ ...prev, photo: result.assets[0].uri }));
+      setInfo((prev) => ({ ...prev, profilePicture: result.assets[0].uri }));
     }
   };
 
@@ -49,7 +47,7 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
           <Image source={{ uri: photo }} className="w-16 h-16 rounded-full" />
           :
           <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
-            <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>
+            <Text className="text-2xl font-semibold text-gray-900">{info.name.charAt(0).toUpperCase()}</Text>
           </View>
         }
         <Text className="text-xl font-normal text-text-primary">Upload a profile picture</Text>

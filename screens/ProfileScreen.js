@@ -21,8 +21,6 @@ const ProfileScreen = () => {
     });
   }
 
-  console.log(reviewsPercentage);
-
   return (
     <View className="flex-1 pb-8">
       <GradientBackground />

@@ -8,8 +8,8 @@ const Review = ({ info }) => {
     return (
         <ScrollView className="flex-1 px-5">
             <View className="flex items-center justify-center py-2 px-4 rounded-xl mt-2">
-                {info.photo ?
-                    <Image source={{ uri: info.photo }} className="w-16 h-16 rounded-full" />
+                {info.profilePicture ?
+                    <Image source={{ uri: info.profilePicture }} className="w-16 h-16 rounded-full" />
                     :
                     <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
                         <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>
@@ -23,11 +23,11 @@ const Review = ({ info }) => {
                     {info.bio}
                 </Text>
             </View>
-            {(info.skillsToLearn?.length > 0 || info.newSkillsToLearn?.length) > 0 && (
+            {(info.needSkills?.length > 0 || info.newSkillsToLearn?.length) > 0 && (
                 <View className="my-2">
                     <Text className="text-lg font-bold mt-2 text-text-primary">Skills to learn</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
-                        {info.skillsToLearn?.map((skill) => (
+                        {info.needSkills?.map((skill) => (
                             <Tag key={skill.skillId}>
                                 {skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)}
                             </Tag>
@@ -40,11 +40,11 @@ const Review = ({ info }) => {
                     </View>
                 </View>
             )}
-            {(info.skillsToTeach?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
+            {(info.hasSkills?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
                 <View className="my-2">
                     <Text className="text-lg font-bold mt-2 text-text-primary">Skills to teach</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
-                        {info.skillsToTeach?.map((skill) => (
+                        {info.hasSkills?.map((skill) => (
                             <Tag key={skill.skillId} teaching={true} >
                                 {skill.skillName.charAt(0).toUpperCase() + skill.skillName.slice(1)}
                             </Tag>
