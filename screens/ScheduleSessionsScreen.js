@@ -1,91 +1,107 @@
-import React, { use, useEffect, useState } from "react";
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Image } from "react-native";
-import { StyleSheet, View } from "react-native";
-import DropdownComponent from "../components/DropdownComponent";
+import { Text, TextInput, TouchableOpacity, Image, View, ScrollView } from "react-native";
+import { useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useAuth } from "../contexts/AuthContext";
+import { createRequest } from "../utils/requestsUtils";
+import { theme } from "../theme";
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { getFirestore,doc,getDoc } from "firebase/firestore";
-import { useRoute } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
+import DropdownComponent from "../components/DropdownComponent";
+import GradientBackground from "../components/GradientBackground";
+
 const ScheduleSessionsScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { otherUser } = route.params;
-  const[req,setReq]=useState({})
+  const { user } = useAuth();
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("trade");
+  const [request, setRequest] = useState({ requestedSkill: null, offeredSkill: null, payment: null });
+
+  const handleScheduleSession = async () => {
+    setError(null);
+    try {
+      if (request.requestedSkill && request.offeredSkill || request.requestedSkill && request.payment) {
+        await createRequest(request, user, otherUser);
+        Toast.show({ type: 'success', text1: 'Request sent successfully' });
+        navigation.goBack();
+      }
+      else throw new Error("Please select a skill to learn and a skill to offer or a payment method");
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
+  };
+
+  const handleRequestChange = (key, value) => {
+    const newRequest = { ...request };
+    if (key === "payment") newRequest.offeredSkill = null;
+    else if (key === "offeredSkill") newRequest.payment = null;
+    setRequest({ ...newRequest, [key]: value });
+  }
+
   return (
-    <View className="flex-1 relative">
-      <View className="w-full h-[18%] items-center mt-4">
-        <View className="w-4/12 items-center h-[100%]">
-          <Image
-            className="rounded-full w-full h-full"
-            source={{uri:otherUser.profilePicture}}
-          ></Image>
+    <View className="flex-1">
+      <GradientBackground />
+      <ScrollView className="flex-1">
+        <View className="w-full items-center justify-center my-4">
+          <View className="w-36 h-36 rounded-full bg-gray-300 items-center justify-center">
+            {otherUser.profilePicture ?
+              <Image className="w-36 h-36 rounded-full" source={{ uri: otherUser.profilePicture }} />
+              : <Text className="text-7xl font-semibold text-gray-900">{otherUser.name.charAt(0).toUpperCase()}</Text>}
+          </View>
         </View>
-      </View>
-      <View className="w-full items-center mt-2">
-        <Text className="text-2xl font-bold">{otherUser["name"]}</Text>
-      </View>
-      <View className="items-center">
-        <Text className="text-[#7593B4]">{otherUser["bio"]}</Text>
-      </View>
-      <View className="w-full flex-row justify-evenly mt-5">
-        <TouchableOpacity
-          activeOpacity={0.5}
-          className="bg-blue-500 w-5/12 rounded-full items-center justify-center h-12"
-        >
-          <Text className="text-white font-normal text-lg">Trade a skill</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          className="bg-gray-300 w-5/12 rounded-3xl items-center justify-center h-12"
-        >
-          <Text className="text-black font-bold text-lg">Pay for a lesson</Text>
-        </TouchableOpacity>
-      </View>
-      <View className="mt-3 ">
-        <DropdownComponent updateReq={setReq} skills={otherUser.hasSkills} ></DropdownComponent>
-      </View>
-      <View className="w-full mt-3 items-center h-[7%]">
-        <View className="w-[94%]  items-center h-full">
-          <TextInput
-            onChangeText={(e)=>{
-              setReq({...req,propseTime:e})
-            }}
-            placeholderTextColor={"#7593B4"}
-            placeholder="Propose a time"
-            className="bg-gray-100 w-full rounded-lg border  h-full border-[#7593B4] placeholder:text-xl"
-          ></TextInput>
+
+        <View className="w-full items-center justify-center mb-4 relative">
+          <Text className="text-3xl font-bold text-text-primary capitalize text-center">{otherUser.name}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Chat", { otherUser })} className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-btn-submit-bg items-center justify-center rounded-full">
+            <Icon size={18} color="white" name="comment-dots" />
+          </TouchableOpacity>
         </View>
-      </View>
-      <View className="w-full mt-6 items-center h-[20%] ">
-        <View className="w-[94%]  items-center h-full">
+
+        <Text className="text-text-secondary text-lg text-center px-4">{otherUser.bio}</Text>
+
+        {error && <Text className="text-red-500 text-center px-4">{error}</Text>}
+
+        <DropdownComponent onChange={handleRequestChange} skills={otherUser.hasSkills} placeholder={"Select a skill to learn"} property="requestedSkill" />
+
+        <View className="w-full flex-row justify-center items-center px-6 gap-4 mb-4 mt-2">
+          <TouchableOpacity className={`${activeTab === "trade" ? "bg-btn-submit-bg" : "bg-btn-submit-hover"} w-1/2 rounded-xl items-center justify-center h-12`}
+            onPress={() => setActiveTab("trade")}
+          >
+            <Text className="text-text-light text-lg">Trade a skill</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className={`${activeTab === "pay" ? "bg-btn-submit-bg" : "bg-btn-submit-hover"} w-1/2 rounded-xl items-center justify-center h-12`}
+            onPress={() => setActiveTab("pay")}
+          >
+            <Text className="text-text-light text-lg">Pay for sessions</Text>
+          </TouchableOpacity>
+        </View>
+
+        {activeTab === "trade" ? (
+          <DropdownComponent onChange={handleRequestChange} skills={user.hasSkills} placeholder={"Select a skill to trade"} property="offeredSkill" />
+        ) : <></>}
+
+        <View className="w-full mt-6 items-center h-36 px-4">
           <TextInput
-          onChangeText={(e)=>{
-            setReq({...req,note:e})
-          }}
+            onChangeText={(e) => handleRequestChange("notes", e)}
             textAlignVertical="top"
             multiline={true}
-            placeholderTextColor={"#7593B4"}
+            placeholderTextColor={theme.colors.textSecondary}
             placeholder="Add a note"
-            className="bg-gray-100 w-full rounded-lg border  h-full border-[#7593B4] placeholder:text-xl "
-          ></TextInput>
+            className="bg-input-bg w-full h-full rounded-lg placeholder:text-lg placeholder:text-text-secondary p-4 text-text-primary"
+            style={{ borderColor: 'gray', borderWidth: 0.5 }}
+          />
         </View>
-      </View>
-      <View className="w-[100%] items-center h-[6%] mt-9 ">
-        <TouchableOpacity onPress={(e)=>{
-          console.log(req);
-        }}  activeOpacity={0.6} className="w-[94%] bg-blue-500 rounded-full items-center h-full justify-center">
-          <Text className="text-white font-normal text-lg">Send Trade Request</Text>
-        </TouchableOpacity>
-      </View>
-      <View className="absolute bottom-9 right-5 w-9 bg-blue-500 items-center h-9 justify-center rounded-full ">
-       <Icon size={18} color={"white"} name="comment-dots"></Icon>
-      </View>
+
+        <View className="px-4 items-center mt-8 mb-16">
+          <TouchableOpacity onPress={handleScheduleSession} className="w-full bg-btn-submit-bg h-12 rounded-xl items-center justify-center">
+            <Text className="text-white font-normal text-xl">Send Request</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
-const styles = StyleSheet.create({});
 
 export default ScheduleSessionsScreen;

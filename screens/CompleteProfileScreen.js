@@ -5,6 +5,7 @@ import { createSkillDoc } from '../utils/skillsCollections';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { useAuth } from '../contexts/AuthContext';
+import { uploadImage } from '../api/cloudinary';
 import PictureBio from './RegisterSteps/PictureBio';
 import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
@@ -13,11 +14,12 @@ import GradientBackground from '../components/GradientBackground';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
-const CompleteProfileScreen = () => {
+const CompleteProfileScreen = ({ navigationRoute }) => {
+    console.log(navigationRoute);
     const [steps, setSteps] = useState(0);
     const [isStepValid, setIsStepValid] = useState(true);
-    const [info, setInfo] = useState({});
     const { user, setUser } = useAuth();
+    const [info, setInfo] = useState(user);
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
@@ -53,23 +55,28 @@ const CompleteProfileScreen = () => {
                 );
             }
 
+            if (info.profilePicture && info.profilePicture.slice(0, 4) !== "http") {
+                const profilePictureUrl = await uploadImage(info.profilePicture);
+                info.profilePicture = profilePictureUrl;
+            }
+
             const location = info.location.split(",");
             const userRef = doc(db, "users", user.uid);
             const userData = {
                 bio: info.bio,
                 location: { city: location[0]?.trim(), country: location[1]?.trim() },
                 phone: info.phone,
-                profilePicture: info.photo ? info.photo : user.profilePicture ? user.profilePicture : null,
+                profilePicture: info.profilePicture ? info.profilePicture : null,
             };
 
-            if (info.skillsToLearn?.length > 0)
-                userData.needSkills = info.skillsToLearn;
+            if (info.needSkills?.length > 0)
+                userData.needSkills = info.needSkills;
 
             if (updatedNewSkillsToLearn?.length > 0)
                 userData.needSkills = userData.needSkills ? [...userData.needSkills, ...updatedNewSkillsToLearn] : updatedNewSkillsToLearn;
 
-            if (info.skillsToTeach?.length > 0)
-                userData.hasSkills = info.skillsToTeach;
+            if (info.hasSkills?.length > 0)
+                userData.hasSkills = info.hasSkills;
 
             if (updatedNewSkillsToTeach?.length > 0)
                 userData.hasSkills = userData.hasSkills ? [...userData.hasSkills, ...updatedNewSkillsToTeach] : updatedNewSkillsToTeach;
@@ -78,7 +85,8 @@ const CompleteProfileScreen = () => {
             const updatedUserSnap = await getDoc(userRef);
             setUser({ uid: user.uid, ...updatedUserSnap.data() });
 
-            navigation.replace("App");
+            if (navigationRoute) navigation.replace(navigationRoute, { user: { uid: user.uid, ...updatedUserSnap.data() } });
+            else navigation.replace("App");
         } catch (error) {
             console.error("Error updating user profile:", error);
         }

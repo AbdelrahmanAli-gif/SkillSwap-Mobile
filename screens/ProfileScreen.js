@@ -1,15 +1,20 @@
-import { View, Image, Text, ScrollView } from "react-native";
-import { theme } from "../theme";
+import { View, Image, Text, ScrollView, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useAuth } from "../contexts/AuthContext";
+import { theme } from "../theme";
 import * as Progress from "react-native-progress";
 import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
 import Reviews from "../components/Reviews";
 import GradientBackground from "../components/GradientBackground";
 import Tag from "../components/Tag";
+import CompleteProfileScreen from "./CompleteProfileScreen";
 
 const ProfileScreen = () => {
   const route = useRoute();
+  const { user: currentUser } = useAuth();
   const { user } = route.params;
+  const [editing, setEditing] = useState(false);
   const reviewsCount = user.reviews.length;
   const reviewsPercentage = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   const userRating = user.rating ? user.rating : 0;
@@ -20,10 +25,18 @@ const ProfileScreen = () => {
       else reviewsPercentage[review.rating] = 1;
     });
   }
+
+  if (editing) return <CompleteProfileScreen navigationRoute={"Profile"} />;
+
   return (
-    <View className="flex-1 pb-8">
+    <View className="flex-1 pb-8 relative">
       <GradientBackground />
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        {currentUser.uid === user.uid && (
+          <TouchableOpacity onPress={() => setEditing(true)} className="absolute top-4 right-4">
+            <FontAwesome6Icon name="pencil" size={20} color={theme.colors.textPrimary} />
+          </TouchableOpacity>
+        )}
         <View className="w-full items-center p-4">
           <View className="w-32 h-32 rounded-full bg-gray-300 mb-2 items-center justify-center">
             {user.profilePicture ?

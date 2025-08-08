@@ -19,7 +19,7 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
         formState: { errors, isValid },
     } = useForm({
         defaultValues: {
-            location: info.location || '',
+            location: info.location.city && info.location.country ? `${info.location.city}, ${info.location.country}` : info.location || '',
             phone: info.phone || '',
         },
         mode: 'onChange',
@@ -58,10 +58,10 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
             />
             {errors.phone && <Text className="text-red-500 ml-4 -mt-1">Phone is required</Text>}
 
-            {(info.skillsToLearn?.length > 0 || info.newSkillsToLearn?.length > 0) && (
+            {(info.needSkills?.length > 0 || info.newSkillsToLearn?.length > 0) && (
                 <View className="p-4 gap-2">
                     <Text className="text-lg font-bold mb-2 text-text-primary">Skills to learn</Text>
-                    {info.skillsToLearn?.map((skill, index) => (
+                    {info.needSkills?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
                             <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
@@ -87,14 +87,14 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
-                                    const updatedSkills = [...info.skillsToLearn];
+                                    const updatedSkills = [...info.needSkills];
                                     updatedSkills[index] = {
                                         ...updatedSkills[index],
                                         skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
-                                        skillsToLearn: updatedSkills,
+                                        needSkills: updatedSkills,
                                     }));
                                 }}
                             />
@@ -143,11 +143,11 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                 </View>
             )}
 
-            {(info.skillsToTeach?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
+            {(info.hasSkills?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
 
                 <View className="p-4 gap-2">
                     <Text className="text-lg font-bold mb-2 text-text-primary">Skills to teach</Text>
-                    {info.skillsToTeach?.map((skill, index) => (
+                    {info.hasSkills?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
                             <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
                             <Dropdown
@@ -174,14 +174,14 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                 value={skill.skillLevel || 'beginner'}
                                 placeholder="Select experience"
                                 onChange={(item) => {
-                                    const updatedSkills = [...info.skillsToTeach];
+                                    const updatedSkills = [...info.hasSkills];
                                     updatedSkills[index] = {
                                         ...updatedSkills[index],
                                         skillLevel: item.value,
                                     };
                                     setInfo((prev) => ({
                                         ...prev,
-                                        skillsToTeach: updatedSkills,
+                                        hasSkills: updatedSkills,
                                     }));
                                 }}
                             />

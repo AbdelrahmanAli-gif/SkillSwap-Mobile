@@ -9,12 +9,19 @@
     "title": "مرحبا بك في Swapoo!",
     "login": "تسجيل الدخول",
     "register": "إنشاء حساب",
-    "dontHaveAccount": "ليس لديك حساب؟"
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "forgotPassword": "نسيت كلمة المرور؟"
   },
   "RegisterScreen": {
     "title": "انضم لمجتمعنا!",
     "register": "إنشاء حساب",
     "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "login": "تسجيل الدخول"
+  },
+  "ForgotPasswordScreen": {
+    "title": "تغيير كلمة المرور",
+    "resetPassword": "تغيير كلمة المرور",
+    "backTo": "العودة إلى",
     "login": "تسجيل الدخول"
   },
   "HeroSection": {

@@ -46,11 +46,14 @@ const LoginScreen = () => {
                 {t("LoginScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("LoginScreen.login")} onSubmit={handleLogin} validationRules={rules} submitError={error}>
+                <Text className="text-md font-bold mt-4 text-text-secondary" onPress={() => navigation.navigate("Forgot Password")}>
+                    {t("LoginScreen.forgotPassword")}
+                </Text>
                 <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
                     {t("LoginScreen.dontHaveAccount")} <Text onPress={() => navigation.navigate("Register")} className="text-text-primary">{t("LoginScreen.register")}</Text>
                 </Text>
             </AuthForm>
-        </View>
+        </View >
     );
 }
 

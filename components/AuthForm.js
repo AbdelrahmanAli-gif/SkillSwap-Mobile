@@ -9,7 +9,7 @@ import Toast from 'react-native-toast-message';
 import { useAuth } from '../contexts/AuthContext';
 import { theme } from '../theme';
 
-const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children }) => {
+const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, children, showGoogle = true }) => {
     const [visibility, setVisibility] = useState(false);
     const { setUser } = useAuth();
     const { t, i18n } = useTranslation();
@@ -110,29 +110,33 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
 
             {children}
 
-            <View className="flex-row items-center my-4">
-                <View className="flex-1 ml-2 h-[1px] bg-text-secondary"></View>
-                <Text className="mx-4 text-text-secondary">{t('or')}</Text>
-                <View className="flex-1 mr-2 h-[1px] bg-text-secondary"></View>
-            </View>
-
-            <View className="flex-col items-center justify-center">
-                <TouchableOpacity
-                    className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg h-[50px]"
-                    onPress={onGoogleSubmit}
-                >
-                    <View className="absolute h-[50px] w-12 bg-text-light flex items-center justify-center rounded-l-lg left-0">
-                        <Image
-                            source={{ uri: 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw' }}
-                            className="w-8 h-8"
-                            resizeMode="center"
-                        />
+            {showGoogle && (
+                <>
+                    <View className="flex-row items-center my-4">
+                        <View className="flex-1 ml-2 h-[1px] bg-text-secondary"></View>
+                        <Text className="mx-4 text-text-secondary">{t('or')}</Text>
+                        <View className="flex-1 mr-2 h-[1px] bg-text-secondary"></View>
                     </View>
-                    <Text className="font-bold text-text-light">
-                        {t('google')}
-                    </Text>
-                </TouchableOpacity>
-            </View>
+
+                    <View className="flex-col items-center justify-center">
+                        <TouchableOpacity
+                            className="relative bg-btn-submit-bg w-full flex-row items-center justify-center rounded-lg h-[50px]"
+                            onPress={onGoogleSubmit}
+                        >
+                            <View className="absolute h-[50px] w-12 bg-text-light flex items-center justify-center rounded-l-lg left-0">
+                                <Image
+                                    source={{ uri: 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw' }}
+                                    className="w-8 h-8"
+                                    resizeMode="center"
+                                />
+                            </View>
+                            <Text className="font-bold text-text-light">
+                                {t('google')}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            )}
         </View >
     );
 };
