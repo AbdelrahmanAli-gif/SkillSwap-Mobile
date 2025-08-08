@@ -5,12 +5,12 @@ Given a primary user and a list of candidate users, your job is to return a JSON
 
 Criteria (in priority order):  
 1. Skill match: candidate.hasSkills must intersect primary.needSkills.  
-2. Reciprocal exchange: candidate.needSkills should intersect primary.hasSkills (bonus points).  
-3. Availability overlap: intersect primary.availability with candidate.availability.  
+2. Reciprocal exchange: candidate.needSkills should intersect primary.hasSkills (bonus points).
+3. Skills Category: match primary.needSkills category to candidate.hasSkills category.
 4. Location: if the skill makes sense to be taught online in primary.needSkills, ignore location; otherwise prefer same city.  
 5. Rating: use only to break ties if all above are equal.  
 
-*Input*:
+**Input**:
 
 PrimaryUser:
 ${JSON.stringify(primaryUser)}
@@ -18,7 +18,7 @@ ${JSON.stringify(primaryUser)}
 Candidates:
 ${JSON.stringify(candidates)}
 
-*Task*  
+**Task**  
 Analyze the PrimaryUser against each candidate. Score them 0–100 based on how well they satisfy the criteria above, then return:
 - An array of candidate objects in order of highest to lowest score.
 - Only output valid JSON array.
@@ -28,15 +28,15 @@ Analyze the PrimaryUser against each candidate. Score them 0–100 based on how 
 export const filterSkillPrompt = (searchQuery, skillList) => {
   return `
 You are a skill matcher. Given a user's search query and a list of skills, return the top 3–5 skill IDs that best match their query.
-Match the skills as closely as possible to the search query based on skillName and category.
+Match the skills as closely as possible to the search query based on skillName, skillNameArabic, and category.
 
 Search Query: ${searchQuery}
 
 Skills List:
 ${skillList}
 
-Respond with only an array of matching skill IDs, like:
-["skillId corrosponding to guitar", "skillId corrosponding to piano"]
+Respond with only an array of matching skill IDs in JSON format without any extra explaination, like:
+["id corrosponding to guitar", "id corrosponding to piano"]
 `
 }
 
@@ -64,14 +64,13 @@ ${skillName}
 `
 }
 
-
-export const translateSkillToArabic = (skillName) => {
+export const translateSkillToArabic = (skillName, category) => {
   return `
-  You are a professional translator.
+You are a professional Arabic translator.
 
-Translate the following skill name from English to Arabic.
+Translate the following skill name from English to Arabic, considering that it belongs to the category: "${category}".
 
-Only return the Arabic translation, with no extra explanation or punctuation.
+Only return the Arabic translation — no explanation, no transliteration, and no punctuation.
 
 Skill Name: ${skillName}
 

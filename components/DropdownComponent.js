@@ -1,53 +1,44 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import { theme } from '../theme';
 
-// const data = [
-//   { label: 'Item 1', value: '1' },
-//   { label: 'Item 2', value: '2' },
-//   { label: 'Item 3', value: '3' },
-//   { label: 'Item 4', value: '4' },
-//   { label: 'Item 5', value: '5' },
-//   { label: 'Item 6', value: '6' },
-//   { label: 'Item 7', value: '7' },
-//   { label: 'Item 8', value: '8' },
-// ];
-
-const DropdownComponent = ({skills,updateReq}) => {
+const DropdownComponent = ({ skills, placeholder, onChange, property }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
   const renderLabel = () => {
     if (value || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && { color: '#388ff2' }]}>
-         Select a skill to trade
-         </Text>
+        <Text className={`bg-[#1a1a17] absolute top-1 left-8 z-10 px-2 text-text-primary`}>
+          {placeholder}
+        </Text >
       );
     }
     return null;
   };
 
   return (
-    <View style={styles.container}>
+    <View className="p-4">
       {renderLabel()}
+
       <Dropdown
-        style={[styles.dropdown, isFocus && { borderColor: '#388ff2' }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
+        className="px-4 py-2 border border-gray-300 rounded-lg"
+        style={{ borderColor: 'gray', borderWidth: 0.5, borderRadius: 8, padding: 15, backgroundColor: theme.colors.inputBg }}
+        placeholderStyle={{ color: theme.colors.textSecondary }}
+        selectedTextStyle={{ color: theme.colors.textPrimary }}
+        iconStyle={{ width: 20, height: 20 }}
         data={skills}
         maxHeight={300}
         labelField="skillName"
         valueField="skillName"
-        placeholder={!isFocus ? 'Select a skill to trade' : '...'}
-        searchPlaceholder="Search..."
+        placeholder={!isFocus ? placeholder : ''}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
-         updateReq(prev=>({...prev,tradeSkill:item}))
+          const { _index, ...cleanItem } = item;
+          onChange(property, cleanItem);
           setValue(item.skillName);
           setIsFocus(false);
         }}
@@ -57,42 +48,3 @@ const DropdownComponent = ({skills,updateReq}) => {
 };
 
 export default DropdownComponent;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  dropdown: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});
