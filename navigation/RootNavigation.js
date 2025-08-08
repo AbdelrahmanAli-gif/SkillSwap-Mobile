@@ -44,7 +44,7 @@ const RootNavigation = () => {
             // ),
           }}
         >
-          {/* <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
