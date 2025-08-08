@@ -43,14 +43,14 @@ const RootNavigation = () => {
             // ),
           }}
         >
-          <Stack.Screen name="Login" component={LoginScreen} />
+          {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
           <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen}/>
-          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/>
+          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen}/> */}
           <Stack.Screen name="Milestones" component={MilestoneScreen}/>
           
         </Stack.Navigator>
