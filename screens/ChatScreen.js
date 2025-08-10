@@ -7,6 +7,7 @@ import ChatMessage from "../components/ChatMessage";
 import ChatInput from "../components/ChatInput";
 import GradientBackground from "../components/GradientBackground";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 export default function ChatScreen() {
   const route = useRoute();
@@ -18,6 +19,8 @@ export default function ChatScreen() {
   const { otherUser } = route.params;
   const currentUser = user.uid;
   const { theme } = useTheme();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
 
   useEffect(() => {
     const init = async () => {
@@ -37,17 +40,17 @@ export default function ChatScreen() {
   };
 
   return (
-    <View className="flex-1 flex-row">
+    <View className="flex-1 flex-row" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
       <GradientBackground />
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-2xl text-text-primary-light dark:text-text-primary-dark">Loading messages...</Text>
+          <Text className="text-2xl text-text-primary-light dark:text-text-primary-dark">{t("ChatScreen.loading")}</Text>
         </View>
       ) : (
         <View className="flex-1">
           <View className="p-4 border-b border-text-light-light dark:border-text-light-dark bg-input-bg-light dark:bg-input-bg-dark flex-row justify-between items-center">
             <Text className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
-              Chat with {otherUser.name}
+              {t("ChatScreen.title")} {otherUser.name}
             </Text>
           </View>
           <ImageBackground source={theme === "dark" ? require('../assets/images/chat-dark.jpg') : require('../assets/images/chat-light.jpeg')} className="flex-1">

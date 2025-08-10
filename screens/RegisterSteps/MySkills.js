@@ -130,7 +130,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToLearn((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, needSkills: prev.needSkills ? [...prev.needSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
+                  setInfo((prev) => ({ ...prev, needSkills: prev.needSkills ? [...prev.needSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] }))
                   setFilteredSkills([])
                   setSkillsToLearnInput("")
                 }}
@@ -205,7 +205,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 className="bg-white p-4 rounded-lg border-b border-gray-200"
                 onPress={() => {
                   setSelectedSkillToTeach((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, hasSkills: prev.hasSkills ? [...prev.hasSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner" }] }))
+                  setInfo((prev) => ({ ...prev, hasSkills: prev.hasSkills ? [...prev.hasSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] }))
                   setFilteredSkills([])
                   setSkillsToTeachInput("")
                 }}

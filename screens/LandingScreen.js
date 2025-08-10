@@ -2,7 +2,6 @@ import { ImageBackground, ScrollView, Text, TouchableOpacity, View, } from "reac
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
-import { theme as themeColors } from "../theme";
 import GradientBackground from "../components/GradientBackground";
 import Card from "../components/Card";
 import Feather from '@expo/vector-icons/Feather';
@@ -12,7 +11,6 @@ const LandingScreen = () => {
   const navigate = useNavigation();
   const { t, i18n } = useTranslation();
   const { theme } = useTheme();
-  const colors = themeColors(theme);
   const isRTL = i18n.dir() === 'rtl';
 
   const howWorks = [
