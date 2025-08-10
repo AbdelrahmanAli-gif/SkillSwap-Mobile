@@ -41,12 +41,12 @@ const RegisterScreen = () => {
     return (
         <View className="flex-1 items-center pt-5">
             <GradientBackground />
-            <Text className="text-2xl font-bold text-text-primary">
+            <Text className="text-2xl font-bold text-main-color-light dark:text-main-color-dark">
                 {t("RegisterScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("RegisterScreen.register")} onSubmit={handleRegister} validationRules={rules} submitError={error}>
-                <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
-                    {t("RegisterScreen.alreadyHaveAccount")} <Text onPress={() => navigation.navigate("Login")} className="text-text-primary">{t("RegisterScreen.login")}</Text>
+                <Text className="text-lg font-bold text-center mt-4 text-text-secondary-light dark:text-text-secondary-dark">
+                    {t("RegisterScreen.alreadyHaveAccount")} <Text onPress={() => navigation.navigate("Login")} className="text-text-primary-light dark:text-text-primary-dark">{t("RegisterScreen.login")}</Text>
                 </Text>
             </AuthForm>
         </View>

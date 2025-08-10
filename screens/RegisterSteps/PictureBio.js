@@ -1,7 +1,8 @@
 import { Image, Pressable, Text, TextInput, View } from "react-native";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { theme } from "../../theme";
+import { useTheme } from "../../contexts/ThemeContext";
+import { theme as themeColors } from "../../theme";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
 
@@ -11,6 +12,8 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
     defaultValues: { bio: info.bio || "" },
     mode: "onChange",
   });
+  const { theme } = useTheme();
+  const colors = themeColors(theme);
 
   useEffect(() => {
     setIsStepValid(isValid);
@@ -46,11 +49,11 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
         {photo ?
           <Image source={{ uri: photo }} className="w-16 h-16 rounded-full" />
           :
-          <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
-            <Text className="text-2xl font-semibold text-gray-900">{info.name.charAt(0).toUpperCase()}</Text>
+          <View className="w-16 h-16 bg-amber-800 rounded-full items-center justify-center">
+            <Text className="text-4xl font-semibold text-white">{info.name.charAt(0).toUpperCase()}</Text>
           </View>
         }
-        <Text className="text-xl font-normal text-text-primary">Upload a profile picture</Text>
+        <Text className="text-xl font-normal text-text-primary-light dark:text-text-primary-dark">Upload a profile picture</Text>
       </Pressable>
 
       <Controller
@@ -59,10 +62,10 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
         rules={{ required: "Bio is required." }}
         render={({ field: { onChange, value } }) => (
           <TextInput
-            className="mt-6 p-4 bg-input-bg rounded-lg text-base h-48 text-text-primary"
+            className="mt-6 p-4 bg-input-bg-light dark:bg-input-bg-dark rounded-lg text-base h-48 text-text-primary-light dark:text-text-primary-dark"
             multiline
             placeholder="Write a bio"
-            placeholderTextColor={theme.colors.textSecondary}
+            placeholderTextColor={colors.colors.textSecondary}
             textAlignVertical="top"
             value={value}
             onChangeText={(text) => {

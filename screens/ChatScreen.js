@@ -6,16 +6,18 @@ import { useAuth } from "../contexts/AuthContext";
 import ChatMessage from "../components/ChatMessage";
 import ChatInput from "../components/ChatInput";
 import GradientBackground from "../components/GradientBackground";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function ChatScreen() {
+  const route = useRoute();
+  const scrollRef = useRef();
+  const { user } = useAuth();
   const [messages, setMessages] = useState([]);
   const [chatId, setChatId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
-  const route = useRoute();
-  const currentUser = user.uid;
   const { otherUser } = route.params;
-  const scrollRef = useRef();
+  const currentUser = user.uid;
+  const { theme } = useTheme();
 
   useEffect(() => {
     const init = async () => {
@@ -39,16 +41,16 @@ export default function ChatScreen() {
       <GradientBackground />
       {loading ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="text-2xl text-text-primary">Loading messages...</Text>
+          <Text className="text-2xl text-text-primary-light dark:text-text-primary-dark">Loading messages...</Text>
         </View>
       ) : (
-        <>
-          <ImageBackground source={require("../assets/images/chat.jpg")} className="flex-1">
-            <View className="p-4 bg-black border-b border-text-light flex-row justify-between items-center">
-              <Text className="text-lg font-semibold text-text-primary">
-                Chat with {otherUser.name}
-              </Text>
-            </View>
+        <View className="flex-1">
+          <View className="p-4 border-b border-text-light-light dark:border-text-light-dark bg-input-bg-light dark:bg-input-bg-dark flex-row justify-between items-center">
+            <Text className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">
+              Chat with {otherUser.name}
+            </Text>
+          </View>
+          <ImageBackground source={theme === "dark" ? require('../assets/images/chat-dark.jpg') : require('../assets/images/chat-light.jpeg')} className="flex-1">
             <View className="flex-1 px-5">
               <ScrollView
                 className="py-7"
@@ -72,7 +74,7 @@ export default function ChatScreen() {
               <ChatInput onSend={handleSend} />
             </View>
           </ImageBackground>
-        </>
+        </View>
       )}
     </View>
   );

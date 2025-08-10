@@ -49,8 +49,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
     if (skillsToLearnSearchQuery === skillsToLearnInput && skillsToLearnInput.trim() !== "") {
       const prompt = filterSkillPrompt(skillsToLearnInput.toLowerCase(), JSON.stringify(skillsList))
       generateFromGemini(prompt).then((res) => {
-        console.log(res)
-        const parsedRes = JSON.parse(res)
+        const parsedRes = JSON.parse(res.replace("```json", "").replace("```", ""))
         parsedRes.forEach((id) => {
           const skill = skillsList.find((skill) => skill.skillId === id)
           if (skill && !filteredSkills.includes(skill) && !selectedSkillToLearn.includes(skill)) {
@@ -73,8 +72,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
     if (skillsToTeachSearchQuery === skillsToTeachInput && skillsToTeachInput.trim() !== "") {
       const prompt = filterSkillPrompt(skillsToTeachInput.toLowerCase(), JSON.stringify(skillsList))
       generateFromGemini(prompt).then((res) => {
-        console.log(res)
-        const parsedRes = JSON.parse(res)
+        const parsedRes = JSON.parse(res.replace("```json", "").replace("```", ""))
         parsedRes.forEach((id) => {
           const skill = skillsList.find((skill) => skill.skillId === id)
           if (skill && !filteredSkills.includes(skill) && !selectedSkillToTeach.includes(skill)) {
@@ -113,7 +111,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
 
   return (
     <View className="flex-1 p-6 relative">
-      <Text className="font-medium text-2xl text-text-primary">Skills I want to learn</Text>
+      <Text className="font-medium text-xl text-main-color-light dark:text-main-color-dark">Skills I want to learn</Text>
       <View>
         <SearchInput
           placeholderText="Search for skills"
@@ -154,7 +152,6 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
           renderItem={({ item }) => (
             <Tag
               onPressFunc={() => {
-                console.log("Removing skill:", item.skillName)
                 setSelectedSkillToLearn((prev) => prev.filter((s) => s.skillId !== item.skillId))
                 setInfo((prev) => {
                   const newSkillsToLearn = prev.needSkills.filter((s) => s.skillId !== item.skillId)
@@ -189,7 +186,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
         />
       </View>
 
-      <Text className="font-medium text-2xl mt-12 text-text-primary">Skills I want to teach</Text>
+      <Text className="font-medium text-xl mt-12 text-main-color-light dark:text-main-color-dark">Skills I want to teach</Text>
       <View>
         <SearchInput
           placeholderText="Search for skills"

@@ -9,23 +9,23 @@ const Review = ({ info }) => {
         <ScrollView className="flex-1 px-5">
             <View className="flex items-center justify-center py-2 px-4 rounded-xl mt-2">
                 {info.profilePicture ?
-                    <Image source={{ uri: info.profilePicture }} className="w-16 h-16 rounded-full" />
+                    <Image source={{ uri: info.profilePicture }} className="w-20 h-20 rounded-full" />
                     :
-                    <View className="w-16 h-16 bg-gray-200 rounded-full items-center justify-center">
-                        <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>
+                    <View className="w-20 h-20 bg-amber-800 rounded-full items-center justify-center">
+                        <Text className="text-4xl font-semibold text-white">{info.name.charAt(0).toUpperCase()}</Text>
                     </View>
                 }
-                <Text className="text-2xl font-bold mt-2 text-main-color">{user.name}</Text>
+                <Text className="text-2xl font-bold mt-2 text-main-color-light dark:text-main-color-dark">{user.name}</Text>
             </View>
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary">About</Text>
-                <Text className="text-base text-text-secondary">
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">About</Text>
+                <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">
                     {info.bio}
                 </Text>
             </View>
             {(info.needSkills?.length > 0 || info.newSkillsToLearn?.length) > 0 && (
                 <View className="my-2">
-                    <Text className="text-lg font-bold mt-2 text-text-primary">Skills to learn</Text>
+                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Skills to learn</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.needSkills?.map((skill) => (
                             <Tag key={skill.skillId}>
@@ -42,7 +42,7 @@ const Review = ({ info }) => {
             )}
             {(info.hasSkills?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
                 <View className="my-2">
-                    <Text className="text-lg font-bold mt-2 text-text-primary">Skills to teach</Text>
+                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Skills to teach</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.hasSkills?.map((skill) => (
                             <Tag key={skill.skillId} teaching={true} >
@@ -58,12 +58,12 @@ const Review = ({ info }) => {
                 </View>
             )}
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary">Location</Text>
-                <Text className="text-base text-text-secondary">{info.location}</Text>
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Location</Text>
+                <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{info.location}</Text>
             </View>
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary">Phone number</Text>
-                <Text className="text-base text-text-secondary">{info.phone}</Text>
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Phone number</Text>
+                <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{info.phone}</Text>
             </View>
         </ScrollView>
     );

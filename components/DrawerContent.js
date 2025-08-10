@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { logout } from '../utils/firebaseEmailAndPasswordAuth';
 import Toast from 'react-native-toast-message';
 
@@ -9,6 +10,7 @@ const DrawerContent = (props) => {
     const { navigation } = props;
     const { i18n } = useTranslation();
     const { user } = useAuth();
+    const { toggleTheme } = useTheme();
 
     const switchLang = async () => {
         const newLang = i18n.language === "en" ? "ar" : "en"
@@ -34,18 +36,22 @@ const DrawerContent = (props) => {
                         <Image className="w-16 h-16 rounded-full" source={{ uri: user.profilePicture }} />
                         : <Text className="text-2xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>}
                 </View>
-                <Text className="text-text-primary text-lg font-semibold mt-2">{user.name}</Text>
+                <Text className="text-text-primary-light dark:text-text-primary-dark text-lg font-semibold mt-2">{user.name}</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('Profile', { user })} className="p-4 border-b border-zinc-700">
-                <Text className="text-text-secondary text-base">Profile</Text>
+                <Text className="text-text-secondary-light dark:text-text-secondary-dark text-base">Profile</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={switchLang} className="p-4 border-b border-zinc-700">
-                <Text className="text-text-secondary text-base">Change Language</Text>
+                <Text className="text-text-secondary-light dark:text-text-secondary-dark text-base">Change Language</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={toggleTheme} className="p-4 border-b border-zinc-700">
+                <Text className="text-text-secondary-light dark:text-text-secondary-dark text-base">Change Theme</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleLogout} className="p-4 border-b border-zinc-700">
-                <Text className="text-text-secondary text-base">Logout</Text>
+                <Text className="text-text-secondary-light dark:text-text-secondary-dark text-base">Logout</Text>
             </TouchableOpacity>
         </DrawerContentScrollView>
     );

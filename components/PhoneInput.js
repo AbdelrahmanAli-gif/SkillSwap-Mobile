@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import { theme } from '../theme';
+import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
 
 const getFlagEmoji = (countryCode) =>
     countryCode
@@ -18,6 +19,8 @@ const PhoneInput = ({ value, onChange }) => {
     });
     const [search, setSearch] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
 
     useEffect(() => {
         const fetchCodes = async () => {
@@ -46,12 +49,12 @@ const PhoneInput = ({ value, onChange }) => {
 
     return (
         <View className="px-4 py-2">
-            <View className="flex-row items-center bg-input-bg rounded-lg overflow-hidden">
+            <View className="flex-row items-center bg-input-bg-light dark:bg-input-bg-dark rounded-lg overflow-hidden">
                 <TouchableOpacity
                     className="px-3 py-3 bg-black/35"
                     onPress={() => setShowDropdown(!showDropdown)}
                 >
-                    <Text className="text-lg text-text-primary">
+                    <Text className="text-lg text-text-primary-light dark:text-text-primary-dark">
                         {getFlagEmoji(selectedCountry.code)} {selectedCountry.dial_code}
                     </Text>
                 </TouchableOpacity>
@@ -60,8 +63,8 @@ const PhoneInput = ({ value, onChange }) => {
                     onChangeText={handlePhoneChange}
                     placeholder="Phone number"
                     keyboardType="phone-pad"
-                    className="flex-1 px-4 py-3 text-text-primary"
-                    placeholderTextColor={theme.colors.textSecondary}
+                    className="flex-1 px-4 py-3 text-text-primary-light dark:text-text-primary-dark"
+                    placeholderTextColor={colors.colors.textSecondary}
                 />
             </View>
 

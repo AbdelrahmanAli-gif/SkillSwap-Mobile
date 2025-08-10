@@ -15,7 +15,6 @@ import GradientBackground from '../components/GradientBackground';
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
 const CompleteProfileScreen = ({ navigationRoute }) => {
-    console.log(navigationRoute);
     const [steps, setSteps] = useState(0);
     const [isStepValid, setIsStepValid] = useState(true);
     const { user, setUser } = useAuth();
@@ -113,27 +112,27 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
                 {steps > 0 ? (
                     <>
                         <TouchableOpacity
-                            className="bg-btn-submit-hover px-4 py-2 rounded-lg"
+                            className="bg-btn-submit-hover-light dark:bg-btn-submit-hover-dark px-4 py-2 rounded-lg"
                             onPress={() => handleChangeSteps(-1)}
                         >
-                            <Text className="text-text-light">Previous</Text>
+                            <Text className="text-white">Previous</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg' : 'bg-gray-400'}`}
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark' : 'bg-gray-400'}`}
                             disabled={!isStepValid}
                             onPress={steps < 3 ? () => handleChangeSteps(1) : updateUserProfile}
                         >
-                            <Text className="text-text-light">{steps === 3 ? "Finish" : "Next"}</Text>
+                            <Text className="text-white">{steps === 3 ? "Finish" : "Next"}</Text>
                         </TouchableOpacity>
                     </>
                 ) : (
                     <View className="flex-1 items-end">
                         <TouchableOpacity
-                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg' : 'bg-gray-400'}`}
+                            className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark' : 'bg-gray-400'}`}
                             disabled={!isStepValid}
                             onPress={() => handleChangeSteps(1)}
                         >
-                            <Text className="text-text-light">Next</Text>
+                            <Text className="text-white">Next</Text>
                         </TouchableOpacity>
                     </View>
                 )}

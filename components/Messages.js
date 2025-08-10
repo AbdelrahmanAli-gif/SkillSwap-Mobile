@@ -21,7 +21,7 @@ const Messages = ({ chat, unreadCount }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("Chat", { otherUser })}
-      className="w-full flex-row mt-5 py-2 bg-gray-950/35 rounded-full"
+      className="w-full flex-row mt-3 p-2 bg-card-background-light dark:bg-card-background-dark rounded-lg"
     >
       <View className="flex-row justify-between items-center w-full">
         <View className="flex-row items-center">
@@ -38,8 +38,8 @@ const Messages = ({ chat, unreadCount }) => {
             </View>
           )}
           <View className="ml-3">
-            <Text className="font-medium text-lg text-text-primary">{otherUser.name}</Text>
-            <Text numberOfLines={1} className="text-text-secondary max-w-[200px]">
+            <Text className="font-medium text-lg text-text-primary-light dark:text-text-primary-dark">{otherUser.name}</Text>
+            <Text numberOfLines={1} className="text-text-secondary-light dark:text-text-secondary-dark max-w-[200px]">
               {chat.lastMessage?.text}
             </Text>
           </View>

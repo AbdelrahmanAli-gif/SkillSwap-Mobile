@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { getAllOtherUsersFiltered } from "../utils/usersCollection";
 import { useAuth } from "../contexts/AuthContext";
-import { theme } from "../theme";
+import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
 import SearchInput from "../components/SearchInput";
 import FilterBar from "../components/FilterBar";
 import UserCard from "../components/UserCard";
@@ -18,6 +19,8 @@ export default function SearchScreen() {
     const [loadingMore, setLoadingMore] = useState(false);
     const [visibleCount, setVisibleCount] = useState(ITEMS_PER_BATCH);
     const { user } = useAuth();
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -80,7 +83,7 @@ export default function SearchScreen() {
 
             {loading ? (
                 <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color={theme.colors.main} />
+                    <ActivityIndicator size="large" color={colors.colors.main} />
                 </View>
             ) : (
                 <FlatList
@@ -92,11 +95,11 @@ export default function SearchScreen() {
                     showsVerticalScrollIndicator={false}
                     ListFooterComponent={
                         loadingMore ? (
-                            <ActivityIndicator size="large" color={theme.colors.main} />
+                            <ActivityIndicator size="large" color={colors.colors.main} />
                         ) : null
                     }
                     ListEmptyComponent={
-                        <Text className="text-text-primary text-center mt-10 text-lg">
+                        <Text className="text-text-primary-light dark:text-text-primary-dark text-center mt-10 text-lg">
                             No users found
                         </Text>
                     }

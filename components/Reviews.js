@@ -1,8 +1,12 @@
 import { Image, Text, View } from "react-native";
-import { theme } from "../theme";
+import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
 import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6";
 
 const Reviews = ({ name, rating, content, img }) => {
+  const { theme } = useTheme();
+  const colors = themeColors(theme);
+
   return (
     <View className="w-full mt-2 bg-gray-950/35 rounded-lg p-4 mb-2">
       <View className="w-full flex-row">
@@ -12,22 +16,22 @@ const Reviews = ({ name, rating, content, img }) => {
             : <Text className="text-3xl font-semibold text-gray-900">{name.charAt(0).toUpperCase()}</Text>}
         </View>
         <View className="flex-1 ml-4 gap-1">
-          <Text className="font-bold text-text-primary">{name}</Text>
-          <Text className="text-text-secondary">2 weeks ago</Text>
+          <Text className="font-bold text-text-primary-light dark:text-text-primary-dark">{name}</Text>
+          <Text className="text-text-secondary-light dark:text-text-secondary-dark">2 weeks ago</Text>
           <View className="flex-row gap-1 items-center">
             {Array.from({ length: 5 }, (_, index) => (
               <FontAwesome6Icon
                 key={index}
                 solid={index < rating}
                 size={12}
-                color={theme.colors.main}
+                color={colors.colors.main}
                 name={rating - index > 0 && rating - index < 1 ? "star-half-alt" : "star"}
               />
             ))}
           </View>
         </View>
       </View>
-      <Text className="mt-1 mx-4 text-text-primary">
+      <Text className="mt-1 mx-4 text-text-primary-light dark:text-text-primary-dark">
         {content}
       </Text>
     </View>

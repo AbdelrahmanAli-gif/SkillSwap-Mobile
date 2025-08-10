@@ -3,7 +3,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { useUnreadCount } from '../hooks/useUnreadCount';
-import { theme } from '../theme';
+import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
 import MessagesScreen from '../screens/MessagesScreen';
@@ -17,6 +18,8 @@ const Drawer = createDrawerNavigator();
 const Tabs = () => {
     const unreadCount = useUnreadCount();
     const navigation = useNavigation();
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
 
     return (
         <Tab.Navigator
@@ -27,16 +30,16 @@ const Tabs = () => {
                         <MaterialIcons
                             name="settings"
                             size={24}
-                            color={theme.colors.main}
+                            color={colors.colors.main}
                             style={{ marginRight: 15 }}
                         />
                     </TouchableOpacity>
                 ),
-                headerStyle: { backgroundColor: '#20201c' },
+                headerStyle: { backgroundColor: colors.colors.navigationBackground },
                 headerShadowVisible: false,
-                headerTitleStyle: { color: theme.colors.main },
-                tabBarStyle: { backgroundColor: '#20201c' },
-                tabBarActiveTintColor: theme.colors.main,
+                headerTitleStyle: { color: colors.colors.main },
+                tabBarStyle: { backgroundColor: colors.colors.navigationBackground },
+                tabBarActiveTintColor: colors.colors.main,
                 tabBarInactiveTintColor: 'gray',
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
@@ -67,10 +70,13 @@ const Tabs = () => {
 };
 
 const AppNavigation = () => {
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
+
     return (
         <Drawer.Navigator
             screenOptions={{
-                drawerStyle: { backgroundColor: '#20201c', width: 260 },
+                drawerStyle: { backgroundColor: colors.colors.textDark, width: 260 },
                 headerShown: false,
             }}
             drawerContent={(props) => <DrawerContent {...props} />}

@@ -39,12 +39,12 @@ const ForgotPasswordScreen = () => {
     return (
         <View className="flex-1 items-center pt-5">
             <GradientBackground />
-            <Text className="text-2xl font-bold text-text-primary">
+            <Text className="text-2xl font-bold text-main-color-light dark:text-main-color-dark">
                 {t("ForgotPasswordScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("ForgotPasswordScreen.resetPassword")} onSubmit={handleResetPassword} validationRules={rules} submitError={error} showGoogle={false}>
-                <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
-                    {t("ForgotPasswordScreen.backTo")} <Text onPress={() => navigation.navigate("Login")} className="text-text-primary">{t("ForgotPasswordScreen.login")}</Text>
+                <Text className="text-lg font-bold text-center mt-4 text-text-secondary-light dark:text-text-secondary-dark">
+                    {t("ForgotPasswordScreen.backTo")} <Text onPress={() => navigation.navigate("Login")} className="text-text-primary-light dark:text-text-primary-dark">{t("ForgotPasswordScreen.login")}</Text>
                 </Text>
             </AuthForm>
         </View>

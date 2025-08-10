@@ -13,11 +13,11 @@ export default function FilterBar({ selected, onFilterClick }) {
                     key={filter.label}
                     onPress={() => onFilterClick(filter.label)}
                     className={`px-4 py-1 rounded-md ${selected === filter.label
-                        ? "bg-btn-submit-bg"
-                        : "bg-btn-submit-hover"
+                        ? "bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark"
+                        : "bg-btn-submit-hover-light dark:bg-btn-submit-hover-dark"
                         }`}
                 >
-                    <Text className="text-text-light">{filter.label}</Text>
+                    <Text className="text-white">{filter.label}</Text>
                 </Pressable>
             ))}
         </View>

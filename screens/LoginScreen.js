@@ -42,15 +42,15 @@ const LoginScreen = () => {
     return (
         <View className="flex-1 items-center pt-5">
             <GradientBackground />
-            <Text className="text-2xl font-bold text-text-primary">
+            <Text className="text-2xl font-bold text-main-color-light dark:text-main-color-dark">
                 {t("LoginScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("LoginScreen.login")} onSubmit={handleLogin} validationRules={rules} submitError={error}>
-                <Text className="text-md font-bold mt-4 text-text-secondary" onPress={() => navigation.navigate("Forgot Password")}>
+                <Text className="text-md font-bold mt-4 text-text-secondary-light dark:text-text-secondary-dark" onPress={() => navigation.navigate("Forgot Password")}>
                     {t("LoginScreen.forgotPassword")}
                 </Text>
-                <Text className="text-lg font-bold text-center mt-4 text-text-secondary">
-                    {t("LoginScreen.dontHaveAccount")} <Text onPress={() => navigation.navigate("Register")} className="text-text-primary">{t("LoginScreen.register")}</Text>
+                <Text className="text-lg font-bold text-center mt-4 text-text-secondary-light dark:text-text-secondary-dark">
+                    {t("LoginScreen.dontHaveAccount")} <Text onPress={() => navigation.navigate("Register")} className="text-text-primary-light dark:text-text-primary-dark">{t("LoginScreen.register")}</Text>
                 </Text>
             </AuthForm>
         </View >

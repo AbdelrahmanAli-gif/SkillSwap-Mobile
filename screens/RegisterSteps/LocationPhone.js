@@ -2,7 +2,8 @@ import { View, Text, ScrollView } from 'react-native';
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Dropdown } from 'react-native-element-dropdown';
-import { theme } from '../../theme';
+import { useTheme } from "../../contexts/ThemeContext";
+import { theme as themeColors } from "../../theme";
 import LocationInput from '../../components/LocationInput';
 import PhoneInput from '../../components/PhoneInput';
 
@@ -24,6 +25,8 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
         },
         mode: 'onChange',
     });
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
 
     useEffect(() => {
         setIsStepValid(isValid);
@@ -60,13 +63,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
             {(info.needSkills?.length > 0 || info.newSkillsToLearn?.length > 0) && (
                 <View className="p-4 gap-2">
-                    <Text className="text-lg font-bold mb-2 text-text-primary">Skills to learn</Text>
+                    <Text className="text-lg font-bold mb-2 text-main-color-light dark:text-main-color-dark">Skills to learn</Text>
                     {info.needSkills?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary-light dark:text-text-secondary-dark">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
-                                    backgroundColor: theme.colors.inputBg,
+                                    backgroundColor: colors.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
@@ -74,11 +77,11 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                     height: 40,
                                 }}
                                 placeholderStyle={{
-                                    color: theme.colors.textSecondary,
+                                    color: colors.colors.textSecondary,
                                     fontSize: 14,
                                 }}
                                 selectedTextStyle={{
-                                    color: theme.colors.textPrimary,
+                                    color: colors.colors.textPrimary,
                                     fontSize: 14,
                                 }}
                                 data={experienceLevels}
@@ -103,10 +106,10 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
                     {info.newSkillsToLearn?.map((skill, index) => (
                         <View key={index} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary-light dark:text-text-secondary-dark">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
-                                    backgroundColor: theme.colors.inputBg,
+                                    backgroundColor: colors.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
@@ -114,11 +117,11 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                     height: 40,
                                 }}
                                 placeholderStyle={{
-                                    color: theme.colors.textSecondary,
+                                    color: colors.colors.textSecondary,
                                     fontSize: 14,
                                 }}
                                 selectedTextStyle={{
-                                    color: theme.colors.textPrimary,
+                                    color: colors.colors.textPrimary,
                                     fontSize: 14,
                                 }}
                                 data={experienceLevels}
@@ -146,13 +149,13 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
             {(info.hasSkills?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
 
                 <View className="p-4 gap-2">
-                    <Text className="text-lg font-bold mb-2 text-text-primary">Skills to teach</Text>
+                    <Text className="text-lg font-bold mb-2 text-main-color-light dark:text-main-color-dark">Skills to teach</Text>
                     {info.hasSkills?.map((skill, index) => (
                         <View key={skill.skillId} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary-light dark:text-text-secondary-dark">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
-                                    backgroundColor: theme.colors.inputBg,
+                                    backgroundColor: colors.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
@@ -160,11 +163,11 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                     height: 40,
                                 }}
                                 placeholderStyle={{
-                                    color: theme.colors.textSecondary,
+                                    color: colors.colors.textSecondary,
                                     fontSize: 14,
                                 }}
                                 selectedTextStyle={{
-                                    color: theme.colors.textPrimary,
+                                    color: colors.colors.textPrimary,
                                     fontSize: 14,
                                 }}
                                 containerStyle={{ borderRadius: 8 }}
@@ -190,10 +193,10 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
 
                     {info.newSkillsToTeach?.map((skill, index) => (
                         <View key={index} className="mb-4">
-                            <Text className="mb-1 font-medium capitalize text-text-secondary">{skill.skillName}</Text>
+                            <Text className="mb-1 font-medium capitalize text-text-secondary-light dark:text-text-secondary-dark">{skill.skillName}</Text>
                             <Dropdown
                                 style={{
-                                    backgroundColor: theme.colors.inputBg,
+                                    backgroundColor: colors.colors.inputBg,
                                     borderWidth: 1,
                                     borderColor: '#ccc',
                                     borderRadius: 8,
@@ -201,11 +204,11 @@ const LocationPhone = ({ info, setInfo, setIsStepValid }) => {
                                     height: 40,
                                 }}
                                 placeholderStyle={{
-                                    color: theme.colors.textSecondary,
+                                    color: colors.colors.textSecondary,
                                     fontSize: 14,
                                 }}
                                 selectedTextStyle={{
-                                    color: theme.colors.textPrimary,
+                                    color: colors.colors.textPrimary,
                                     fontSize: 14,
                                 }}
                                 containerStyle={{ borderRadius: 8 }}
