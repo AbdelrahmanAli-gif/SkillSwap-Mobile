@@ -143,6 +143,17 @@
     "theme": "تغيير الثيم",
     "logout": "تسجيل الخروج"
   },
+  "ReviewScreen": {
+    "title": "تقييم ومراجعة",
+    "description": "تقييم تجربتك مع",
+    "button": "ارسل المراجعة",
+    "overall": "تقييم عام",
+    "ascpects": "تقييم المواضيع",
+    "teaching": "مهارات التعليم",
+    "communication": "الاتصال",
+    "punctuality": "الوقت",
+    "textPlaceholder": "اكتب مراجعتك هنا..."
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "الاذن المطلوب",
     "imagePermissionFeedbackDescription": "الاذن لمعرض الصور مطلوب!",
@@ -153,7 +164,8 @@
     "passwordResetFailed": "فشل ارسال بريد تغيير كلمة المرور.",
     "googleSignInFailed": "فشل تسجيل الدخول بواسطة جوجل",
     "registerSuccess": "تسجيل التسجيل بنجاح.",
-    "logoutSuccess": "تسجيل الخروج بنجاح."
+    "logoutSuccess": "تسجيل الخروج بنجاح.",
+    "reviewSuccess": "تم ارسال المراجعة بنجاح."
   },
   "skillLevels": {
     "beginner": "مبتدئ",

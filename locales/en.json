@@ -143,6 +143,17 @@
     "theme": "Change Theme",
     "logout": "Logout"
   },
+  "ReviewScreen": {
+    "title": "Rate and Review",
+    "description": "Rate your experience with",
+    "button": "Submit Review",
+    "overall": "Overall Rate",
+    "ascpects": "Rate specific aspects",
+    "teaching": "Teaching Skills",
+    "communication": "Communication",
+    "punctuality": "Punctuality",
+    "textPlaceholder": "Write your review here..."
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "Permission required",
     "imagePermissionFeedbackDescription": "Permission to access gallery is required!",
@@ -153,7 +164,8 @@
     "passwordResetFailed": "Failed to send password reset email.",
     "googleSignInFailed": "Google sign-in failed.",
     "registerSuccess": "Registration successful.",
-    "logoutSuccess": "Logout successful."
+    "logoutSuccess": "Logout successful.",
+    "reviewSuccess": "Review submitted successfully."
   },
   "skillLevels": {
     "beginner": "Beginner",
