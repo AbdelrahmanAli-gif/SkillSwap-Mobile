@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TextInput, ScrollView, Text, TouchableOpacity, } from 'react-native';
 
 const LocationInput = ({ value, onChange }) => {
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [locations, setLocations] = useState([]);
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,12 +42,12 @@ const LocationInput = ({ value, onChange }) => {
     };
 
     return (
-        <View className="px-4 relative">
+        <View className="px-4 relative" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <TextInput
                 value={value}
                 onChangeText={handleChange}
-                placeholder="Enter city or country"
-                className="py-4 px-4 rounded-lg bg-input-bg-light dark:bg-input-bg-dark text-text-primary-light dark:text-text-primary-dark placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark"
+                placeholder={t("CompleteProfileScreen.locationPlaceholder")}
+                className={`py-4 px-4 rounded-lg bg-input-bg-light dark:bg-input-bg-dark text-text-primary-light dark:text-text-primary-dark placeholder:text-text-secondary-light dark:placeholder:text-text-secondary-dark ${isRTL ? 'text-right' : 'text-left'}`}
             />
             {showDropdown && filteredLocations.length > 0 && (
                 <View className="bg-white mt-2 rounded-lg max-h-60 border border-gray-300">

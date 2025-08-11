@@ -23,6 +23,7 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
     } = useForm();
     const { theme } = useTheme();
     const colors = themeColors(theme);
+    const isRTL = i18n.dir() === 'rtl';
 
     const toggleVisibility = (id) => {
         setVisibility((prev) => ({
@@ -40,8 +41,7 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
         } catch (error) {
             Toast.show({
                 type: 'error',
-                text1: 'Google Sign-In Failed',
-                text2: 'Something went wrong. Please try again.',
+                text1: t("feedback.googleSignInFailed"),
             });
         }
     };
@@ -126,7 +126,7 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
                             className="relative bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark w-full flex-row items-center justify-center rounded-lg h-[50px]"
                             onPress={onGoogleSubmit}
                         >
-                            <View className="absolute h-[50px] w-12 bg-white flex items-center justify-center rounded-l-lg left-0">
+                            <View className={`absolute h-[50px] w-12 bg-white flex items-center justify-center ${isRTL ? 'rounded-r-lg right-0' : 'rounded-l-lg left-0'}`}>
                                 <Image
                                     source={{ uri: 'https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw' }}
                                     className="w-8 h-8"

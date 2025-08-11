@@ -65,7 +65,7 @@ const LandingScreen = () => {
   ]
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1, marginTop: 30 }}>
       <GradientBackground />
       <View className="w-full" style={{ height: 350 }}>
         <ImageBackground

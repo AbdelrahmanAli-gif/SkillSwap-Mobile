@@ -29,7 +29,7 @@ const RegisterScreen = () => {
             await register(email, password, name);
             Toast.show({
                 type: 'success',
-                text1: 'Registration Successful',
+                text1: t("feedback.registerSuccess"),
             });
             navigation.navigate("Login");
         } catch (error) {

@@ -40,7 +40,7 @@ export default function ChatScreen() {
   };
 
   return (
-    <View className="flex-1 flex-row" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+    <View className="flex-1 flex-row" style={{ direction: isRTL ? 'rtl' : 'ltr', marginTop: 30 }}>
       <GradientBackground />
       {loading ? (
         <View className="flex-1 items-center justify-center">

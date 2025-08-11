@@ -8,6 +8,7 @@ import SearchInput from "../components/SearchInput";
 import FilterBar from "../components/FilterBar";
 import UserCard from "../components/UserCard";
 import GradientBackground from "../components/GradientBackground";
+import { useTranslation } from "react-i18next";
 
 const ITEMS_PER_BATCH = 10;
 
@@ -21,6 +22,8 @@ export default function SearchScreen() {
     const { user } = useAuth();
     const { theme } = useTheme();
     const colors = themeColors(theme);
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -70,11 +73,11 @@ export default function SearchScreen() {
     };
 
     return (
-        <View className="flex-1 px-4 py-2">
+        <View className="flex-1 px-4 py-2" style={{ direction: isRTL ? 'rtl' : 'ltr', marginTop: 30 }}>
             <GradientBackground />
             <SearchInput
                 searchFunction={handleSearch}
-                placeholderText="Search by user name or skills..."
+                placeholderText={t("SearchScreen.searchPlaceholder")}
                 inputState={searchText}
                 setInputState={setSearchText}
             />
@@ -100,7 +103,7 @@ export default function SearchScreen() {
                     }
                     ListEmptyComponent={
                         <Text className="text-text-primary-light dark:text-text-primary-dark text-center mt-10 text-lg">
-                            No users found
+                            {t("SearchScreen.noUsers")}
                         </Text>
                     }
                 />

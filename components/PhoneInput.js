@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useTheme } from "../contexts/ThemeContext";
 import { theme as themeColors } from "../theme";
+import { useTranslation } from 'react-i18next';
 
 const getFlagEmoji = (countryCode) =>
     countryCode
@@ -21,6 +22,8 @@ const PhoneInput = ({ value, onChange }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const { theme } = useTheme();
     const colors = themeColors(theme);
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     useEffect(() => {
         const fetchCodes = async () => {
@@ -48,8 +51,8 @@ const PhoneInput = ({ value, onChange }) => {
     };
 
     return (
-        <View className="px-4 py-2">
-            <View className="flex-row items-center bg-input-bg-light dark:bg-input-bg-dark rounded-lg overflow-hidden">
+        <View className="px-4 py-2" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+            <View className="flex-row items-center bg-input-bg-light dark:bg-input-bg-dark rounded-lg overflow-hidden" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
                 <TouchableOpacity
                     className="px-3 py-3 bg-black/35"
                     onPress={() => setShowDropdown(!showDropdown)}
@@ -61,9 +64,9 @@ const PhoneInput = ({ value, onChange }) => {
                 <TextInput
                     value={value.replace(/^\+\d+\s?/, '')}
                     onChangeText={handlePhoneChange}
-                    placeholder="Phone number"
+                    placeholder={t("CompleteProfileScreen.phonePlaceholder")}
                     keyboardType="phone-pad"
-                    className="flex-1 px-4 py-3 text-text-primary-light dark:text-text-primary-dark"
+                    className={`flex-1 px-4 py-3 text-text-primary-light dark:text-text-primary-dark ${isRTL ? 'text-right' : 'text-left'}`}
                     placeholderTextColor={colors.colors.textSecondary}
                 />
             </View>
@@ -73,8 +76,8 @@ const PhoneInput = ({ value, onChange }) => {
                     <TextInput
                         value={search}
                         onChangeText={setSearch}
-                        placeholder="Search country"
-                        className="p-3 border-b"
+                        placeholder={t("CompleteProfileScreen.countryPlaceholder")}
+                        className={`p-3 border-b ${isRTL ? 'text-right' : 'text-left'}`}
                     />
                     <ScrollView className="max-h-48">
                         {countries

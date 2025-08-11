@@ -96,5 +96,76 @@
     "input": "Type a message",
     "you": "You",
     "loading": "Loading messages..."
+  },
+  "CompleteProfileScreen": {
+    "uploadImage": "Upload a profile picture",
+    "bioPlaceholder": "Tell us about yourself",
+    "skillsToLearn": "Skills to learn",
+    "skillsToOffer": "Skills to offer",
+    "skillSearchPlaceholder": "Search for a skill...",
+    "locationPlaceholder": "Enter city or country",
+    "phonePlaceholder": "Enter your phone number",
+    "countryPlaceholder": "Search country",
+    "about": "About",
+    "location": "Location",
+    "phone": "Phone number",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish"
+  },
+  "MessagesScreen": {
+    "title": "Messages",
+    "description": "Communicate with potential matches, discuss details of the skill exchange, and schedule sessions.",
+    "all": "All",
+    "unread": "Unread",
+    "loading": "Loading messages..."
+  },
+  "SearchScreen": {
+    "searchPlaceholder": "Search by user name or skill...",
+    "skillsOffered": "Skills Offered",
+    "skillsDesired": "Skills Desired",
+    "noUsers": "No users found",
+    "offering": "Offering",
+    "desiring": "Desiring",
+    "viewProfile": "View Profile"
+  },
+  "ProfileScreen": {
+    "location": "Location",
+    "phone": "Phone number",
+    "skillsToLearn": "Skills to learn",
+    "skillsToOffer": "Skills to offer",
+    "ratingsAndReviews": "Ratings and Reviews",
+    "reviews": "Reviews"
+  },
+  "SettingsScreen": {
+    "profile": "Profile",
+    "language": "Change Language",
+    "theme": "Change Theme",
+    "logout": "Logout"
+  },
+  "feedback": {
+    "imagePermissionFeedbackTitle": "Permission required",
+    "imagePermissionFeedbackDescription": "Permission to access gallery is required!",
+    "bioRequired": "Bio is required",
+    "locationRequired": "Location is required",
+    "phoneRequired": "Phone number is required",
+    "passwordResetSuccess": "Password reset email sent successfully.",
+    "passwordResetFailed": "Failed to send password reset email.",
+    "googleSignInFailed": "Google sign-in failed.",
+    "registerSuccess": "Registration successful.",
+    "logoutSuccess": "Logout successful."
+  },
+  "skillLevels": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "pages": {
+    "home": "Home",
+    "matches": "Matches",
+    "messages": "Messages",
+    "profile": "Profile",
+    "search": "Search",
+    "settings": "Settings"
   }
 }

@@ -11,6 +11,7 @@ import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
 import Review from './RegisterSteps/Review';
 import GradientBackground from '../components/GradientBackground';
+import { useTranslation } from 'react-i18next';
 
 const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
@@ -20,6 +21,8 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
     const { user, setUser } = useAuth();
     const [info, setInfo] = useState(user);
     const navigation = useNavigation();
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -105,7 +108,7 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
     };
 
     return (
-        <View className="flex-1 px-5 py-5">
+        <View className="flex-1 px-5 py-5" style={{ direction: isRTL ? 'rtl' : 'ltr', marginTop: 30 }}>
             <GradientBackground />
             {getProfileStep()}
             <View className="flex-row justify-between items-center p-6">
@@ -115,14 +118,14 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
                             className="bg-btn-submit-hover-light dark:bg-btn-submit-hover-dark px-4 py-2 rounded-lg"
                             onPress={() => handleChangeSteps(-1)}
                         >
-                            <Text className="text-white">Previous</Text>
+                            <Text className="text-white">{t("CompleteProfileScreen.previous")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark' : 'bg-gray-400'}`}
                             disabled={!isStepValid}
                             onPress={steps < 3 ? () => handleChangeSteps(1) : updateUserProfile}
                         >
-                            <Text className="text-white">{steps === 3 ? "Finish" : "Next"}</Text>
+                            <Text className="text-white">{steps === 3 ? t("CompleteProfileScreen.finish") : t("CompleteProfileScreen.next")}</Text>
                         </TouchableOpacity>
                     </>
                 ) : (
@@ -132,7 +135,7 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
                             disabled={!isStepValid}
                             onPress={() => handleChangeSteps(1)}
                         >
-                            <Text className="text-white">Next</Text>
+                            <Text className="text-white">{t("CompleteProfileScreen.next")}</Text>
                         </TouchableOpacity>
                     </View>
                 )}

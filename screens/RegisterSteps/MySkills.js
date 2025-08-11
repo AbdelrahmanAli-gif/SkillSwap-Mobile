@@ -5,6 +5,7 @@ import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
 import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
+import { useTranslation } from "react-i18next"
 
 export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
@@ -17,6 +18,8 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.hasSkills || [])
   const [newTeachSkills, setNewTeachSkills] = useState(info.newSkillsToTeach || [])
   const [newLearnSkills, setNewLearnSkills] = useState(info.newSkillsToLearn || [])
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
 
   useEffect(() => {
     const isValid =
@@ -110,11 +113,11 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   }
 
   return (
-    <View className="flex-1 p-6 relative">
-      <Text className="font-medium text-xl text-main-color-light dark:text-main-color-dark">Skills I want to learn</Text>
+    <View className="flex-1 p-6 relative" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+      <Text className="font-medium text-xl text-main-color-light dark:text-main-color-dark">{t("CompleteProfileScreen.skillsToLearn")}</Text>
       <View>
         <SearchInput
-          placeholderText="Search for skills"
+          placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
           searchFunction={handleSearchForSkillsToLearn}
           inputState={skillsToLearnInput}
           setInputState={setSkillsToLearnInput}
@@ -136,7 +139,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 }}
               >
                 <Text className="text-lg font-semibold text-black capitalize">
-                  {item.skillName}
+                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
                 </Text>
               </Pressable>
             )}
@@ -159,7 +162,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 })
               }}
             >
-              {item.skillName}
+              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
             </Tag>
           )}
         />
@@ -180,16 +183,16 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 })
               }}
             >
-              {item.skillName}
+              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
             </Tag>
           )}
         />
       </View>
 
-      <Text className="font-medium text-xl mt-12 text-main-color-light dark:text-main-color-dark">Skills I want to teach</Text>
+      <Text className="font-medium text-xl mt-12 text-main-color-light dark:text-main-color-dark">{t("CompleteProfileScreen.skillsToOffer")}</Text>
       <View>
         <SearchInput
-          placeholderText="Search for skills"
+          placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
           searchFunction={handleSearchForSkillsToTeach}
           inputState={skillsToTeachInput}
           setInputState={setSkillsToTeachInput}
@@ -211,7 +214,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 }}
               >
                 <Text className="text-lg font-semibold text-black capitalize">
-                  {item.skillName}
+                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
                 </Text>
               </Pressable>
             )}
@@ -235,7 +238,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 })
               }}
             >
-              {item.skillName}
+              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
             </Tag>
           )}
         />
@@ -257,7 +260,7 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 })
               }}
             >
-              {item.skillName}
+              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
             </Tag>
           )}
         />

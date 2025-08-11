@@ -27,12 +27,15 @@ const ForgotPasswordScreen = () => {
             await sendPasswordResetEmail(auth, email);
             Toast.show({
                 text1: "Success",
-                text2: "Password reset email sent successfully.",
+                text2: t("feedback.resetPasswordSuccess"),
             });
             navigation.navigate("Login");
         } catch (error) {
             console.log(error);
-            setError("Failed to reset password. Please try again.");
+            Toast.show({
+                text1: "error",
+                text2: t("feedback.resetPasswordFailed"),
+            });
         }
     }
 

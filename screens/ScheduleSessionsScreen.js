@@ -47,7 +47,7 @@ const ScheduleSessionsScreen = () => {
   }
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ marginTop: 30 }}>
       <GradientBackground />
       <ScrollView className="flex-1">
         <View className="w-full items-center justify-center my-4">
@@ -69,7 +69,9 @@ const ScheduleSessionsScreen = () => {
 
         {error && <Text className="text-red-500 text-center px-4">{error}</Text>}
 
-        <DropdownComponent onChange={handleRequestChange} skills={otherUser.hasSkills} placeholder={t("ScheduleSessionScreen.skillToLearn")} property="requestedSkill" />
+        {otherUser.hasSkills?.length > 0 &&
+          <DropdownComponent onChange={handleRequestChange} skills={otherUser.hasSkills} placeholder={t("ScheduleSessionScreen.skillToLearn")} property="requestedSkill" />
+        }
 
         <View className={`w-full justify-center items-center px-6 gap-4 mb-4 mt-2 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
           <TouchableOpacity className={`${activeTab === "trade" ? "bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark" : "bg-btn-submit-hover-light dark:bg-btn-submit-hover-dark"} w-1/2 rounded-xl items-center justify-center h-12`}

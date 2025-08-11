@@ -17,13 +17,13 @@ const MatchingUserCard = ({ user }) => {
 
             <View className={`flex-1 ${isRTL ? 'mr-4' : 'ml-4'}`}>
                 <Text className={`text-lg font-medium text-text-primary-light dark:text-text-primary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>{user.name}</Text>
-                {user.needSkills.length > 0 &&
+                {user.needSkills?.length > 0 &&
                     <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>
                         <Text className="font-medium ">{t("MatchesScreen.wants")}: </Text>
                         <Text>{user.needSkills.map((skill) => isRTL ? skill.skillNameArabic : skill.skillName).join(', ')}</Text>
                     </Text>
                 }
-                {user.hasSkills.length > 0 &&
+                {user.hasSkills?.length > 0 &&
                     <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>
                         <Text className="font-medium">{t("MatchesScreen.offers")}: </Text>
                         <Text>{user.hasSkills.map((skill) => isRTL ? skill.skillNameArabic : skill.skillName).join(', ')}</Text>

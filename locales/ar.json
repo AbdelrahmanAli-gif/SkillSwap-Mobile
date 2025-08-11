@@ -59,7 +59,7 @@
     }
   },
   "HowWorkSection": {
-    "title": "كيف تعمل Swapoo",
+    "title": "كيف يعمل Swapoo",
     "description": "منصتنا تربط بين الأفراد الذين يرغبون في مشاركة خبرتهم مع أولئك الذين يرغبون في التعلم. إنها تبادل مجتمعي حيث يتم تقدير المهارات ومشاركتها بحرية."
   },
   "HowWorksCards": {
@@ -96,5 +96,76 @@
     "input": "اكتب رسالة...",
     "you": "انت",
     "loading": "جاري تحميل الرسائل..."
+  },
+  "CompleteProfileScreen": {
+    "uploadImage": "رفع صورة شخصيه",
+    "bioPlaceholder": "اخبرنا عن نفسك",
+    "skillsToLearn": "مهارات لتعلمها",
+    "skillsToOffer": "مهارات لعرضها",
+    "skillSearchPlaceholder": "ابحث عن مهارات...",
+    "locationPlaceholder": "ادخل المدينة او الدولة",
+    "phonePlaceholder": "ادخل رقم الهاتف",
+    "countryPlaceholder": "ابحث عن دولة",
+    "about": "حول",
+    "location": "الموقع",
+    "phone": "رقم الهاتف",
+    "next": "التالي",
+    "previous": "السابق",
+    "finish": "اكمل"
+  },
+  "MessagesScreen": {
+    "title": "الرسائل",
+    "description": "التواصل مع المطابقين المحتملين، ومناقشة تفاصيل تبادل المهارات، وجدولة الجلسات.",
+    "all": "الكل",
+    "unread": "غير مقروءة",
+    "loading": "جاري تحميل الرسائل..."
+  },
+  "SearchScreen": {
+    "searchPlaceholder": "ابحث بالاسم او المهارة...",
+    "skillsOffered": "المهارات المقدمة",
+    "skillsDesired": "المهارات المطلوبة",
+    "noUsers": "لا يوجد مستخدمين",
+    "offering": "يعرض",
+    "desiring": "يريد",
+    "viewProfile": "عرض الملف الشخصي"
+  },
+  "ProfileScreen": {
+    "location": "الموقع",
+    "phone": "رقم الهاتف",
+    "skillsToLearn": "مهارات لتعلمها",
+    "skillsToOffer": "مهارات لعرضها",
+    "ratingsAndReviews": "التقييمات والمراجعات",
+    "reviews": "المراجعات"
+  },
+  "SettingsScreen": {
+    "profile": "الملف الشخصي",
+    "language": "تغيير اللغة",
+    "theme": "تغيير الثيم",
+    "logout": "تسجيل الخروج"
+  },
+  "feedback": {
+    "imagePermissionFeedbackTitle": "الاذن المطلوب",
+    "imagePermissionFeedbackDescription": "الاذن لمعرض الصور مطلوب!",
+    "bioRequired": "السيرة الذاتية مطلوبة",
+    "locationRequired": "الموقع مطلوب",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "passwordResetSuccess": "تم ارسال بريد تغيير كلمة المرور بنجاح.",
+    "passwordResetFailed": "فشل ارسال بريد تغيير كلمة المرور.",
+    "googleSignInFailed": "فشل تسجيل الدخول بواسطة جوجل",
+    "registerSuccess": "تسجيل التسجيل بنجاح.",
+    "logoutSuccess": "تسجيل الخروج بنجاح."
+  },
+  "skillLevels": {
+    "beginner": "مبتدئ",
+    "intermediate": "متوسط",
+    "advanced": "متقدم"
+  },
+  "pages": {
+    "home": "الرئيسية",
+    "matches": "المطابقين",
+    "messages": "الرسائل",
+    "profile": "الملف الشخصي",
+    "search": "البحث",
+    "settings": "الاعدادات"
   }
 }

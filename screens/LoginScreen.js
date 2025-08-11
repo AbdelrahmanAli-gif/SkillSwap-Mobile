@@ -17,7 +17,8 @@ const LoginScreen = () => {
     const navigation = useNavigation();
     const [error, setError] = useState(null);
     const { setUser } = useAuth();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     const inputs = [
         { id: "email", placeholder: t("email"), keyboardType: "email-address" },
@@ -46,7 +47,7 @@ const LoginScreen = () => {
                 {t("LoginScreen.title")}
             </Text>
             <AuthForm inputs={inputs} buttonText={t("LoginScreen.login")} onSubmit={handleLogin} validationRules={rules} submitError={error}>
-                <Text className="text-md font-bold mt-4 text-text-secondary-light dark:text-text-secondary-dark" onPress={() => navigation.navigate("Forgot Password")}>
+                <Text className={`text-md font-bold mt-4 text-text-secondary-light dark:text-text-secondary-dark ${isRTL ? "text-right" : "text-left"}`} onPress={() => navigation.navigate("Forgot Password")}>
                     {t("LoginScreen.forgotPassword")}
                 </Text>
                 <Text className="text-lg font-bold text-center mt-4 text-text-secondary-light dark:text-text-secondary-dark">

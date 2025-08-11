@@ -19,7 +19,7 @@ function AppContent() {
 
   return (
     <>
-      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <StatusBar style={"dark"} />
       <AuthProvider>
         <NavigationContainer>
           <RootNavigation />

@@ -1,12 +1,15 @@
 import { Image, ScrollView, Text, View } from 'react-native';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import Tag from '../../components/Tag';
 
 const Review = ({ info }) => {
     const { user } = useAuth();
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.dir() === 'rtl';
 
     return (
-        <ScrollView className="flex-1 px-5">
+        <ScrollView className="flex-1 px-5" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <View className="flex items-center justify-center py-2 px-4 rounded-xl mt-2">
                 {info.profilePicture ?
                     <Image source={{ uri: info.profilePicture }} className="w-20 h-20 rounded-full" />
@@ -18,14 +21,14 @@ const Review = ({ info }) => {
                 <Text className="text-2xl font-bold mt-2 text-main-color-light dark:text-main-color-dark">{user.name}</Text>
             </View>
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">About</Text>
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.about")}</Text>
                 <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">
                     {info.bio}
                 </Text>
             </View>
             {(info.needSkills?.length > 0 || info.newSkillsToLearn?.length) > 0 && (
                 <View className="my-2">
-                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Skills to learn</Text>
+                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.skillsToLearn")}</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.needSkills?.map((skill) => (
                             <Tag key={skill.skillId}>
@@ -42,7 +45,7 @@ const Review = ({ info }) => {
             )}
             {(info.hasSkills?.length > 0 || info.newSkillsToTeach?.length) > 0 && (
                 <View className="my-2">
-                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Skills to teach</Text>
+                    <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.skillsToOffer")}</Text>
                     <View className="flex-row flex-wrap gap-2 mt-2">
                         {info.hasSkills?.map((skill) => (
                             <Tag key={skill.skillId} teaching={true} >
@@ -58,11 +61,11 @@ const Review = ({ info }) => {
                 </View>
             )}
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Location</Text>
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.location")}</Text>
                 <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{info.location}</Text>
             </View>
             <View className="my-2">
-                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">Phone number</Text>
+                <Text className="text-lg font-bold mt-2 text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.phone")}</Text>
                 <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{info.phone}</Text>
             </View>
         </ScrollView>

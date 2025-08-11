@@ -9,6 +9,7 @@ import Reviews from "../components/Reviews";
 import GradientBackground from "../components/GradientBackground";
 import Tag from "../components/Tag";
 import CompleteProfileScreen from "./CompleteProfileScreen";
+import { useTranslation } from "react-i18next";
 
 const ProfileScreen = () => {
   const route = useRoute();
@@ -16,6 +17,8 @@ const ProfileScreen = () => {
   const { user } = route.params;
   const [editing, setEditing] = useState(false);
   const { theme } = useTheme();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
   const colors = themeColors(theme);
   const reviewsCount = user.reviews.length;
   const reviewsPercentage = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
@@ -31,7 +34,7 @@ const ProfileScreen = () => {
   if (editing) return <CompleteProfileScreen navigationRoute={"Profile"} />;
 
   return (
-    <View className="flex-1 pb-8 relative">
+    <View className="flex-1 pb-8 relative" style={{ direction: isRTL ? 'rtl' : 'ltr', marginTop: 30 }}>
       <GradientBackground />
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {currentUser.uid === user.uid && (
@@ -49,9 +52,9 @@ const ProfileScreen = () => {
           <Text className="text-xl text-center font-normal text-text-secondary-light dark:text-text-secondary-dark">{user.bio}</Text>
         </View>
 
-        {user.location && (
+        {user.location.city && user.location.country && (
           <View className="w-full px-4 py-2">
-            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Location: {" "}
+            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.location")}: {" "}
               <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{user.location.city}, {user.location.country}</Text>
             </Text>
           </View>
@@ -59,7 +62,7 @@ const ProfileScreen = () => {
 
         {user.phone && (
           <View className="w-full px-4 py-2">
-            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Phone: {" "}
+            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.phone")}: {" "}
               <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{user.phone}</Text>
             </Text>
           </View>
@@ -67,7 +70,7 @@ const ProfileScreen = () => {
 
         {user.hasSkills?.length > 0 && (
           <View className="w-full gap-2 px-4 py-2">
-            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Skills I Offer</Text>
+            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.skillsToOffer")}</Text>
             {user.hasSkills?.map((s) => (
               <Tag key={s.skillId} teaching={true}>{s.skillName}</Tag>
             ))}
@@ -76,7 +79,7 @@ const ProfileScreen = () => {
 
         {user.needSkills?.length > 0 && (
           <View className="w-full gap-2 px-4 py-2">
-            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Skills I Want to Learn</Text>
+            <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.skillsToLearn")}</Text>
             {user.needSkills?.map((s) => (
               <Tag key={s.skillId}>{s.skillName}</Tag>
             ))}
@@ -84,7 +87,7 @@ const ProfileScreen = () => {
         )}
 
         <View className="w-full px-4 py-2">
-          <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">Ratings & Reviews</Text>
+          <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.ratingsAndReviews")}</Text>
           <View className="w-full flex-row justify-center items-center mt-2">
             <View className="flex-1 gap-2 items-center justify-center">
               <Text className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark">{userRating}</Text>
@@ -99,7 +102,7 @@ const ProfileScreen = () => {
                   />
                 ))}
               </View>
-              <Text className="text-lg text-text-secondary-light">{user.reviews?.length} Reviews</Text>
+              <Text className="text-lg text-text-secondary-light">{user.reviews?.length} {t("ProfileScreen.reviews")}</Text>
             </View>
             <View className="flex-1">
               {[5, 4, 3, 2, 1].map((key) => (

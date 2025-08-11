@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useTheme } from "../../contexts/ThemeContext";
 import { theme as themeColors } from "../../theme";
+import { useTranslation } from "react-i18next";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
 
@@ -13,7 +14,9 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
     mode: "onChange",
   });
   const { theme } = useTheme();
+  const { t, i18n } = useTranslation();
   const colors = themeColors(theme);
+  const isRTL = i18n.dir() === 'rtl';
 
   useEffect(() => {
     setIsStepValid(isValid);
@@ -24,8 +27,8 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
     if (!permissionResult.granted) {
       Toast.show({
         type: "error",
-        text1: "Permission required",
-        text2: "Permission to access gallery is required!",
+        text1: t("feedback.imagePermissionFeedbackTitle"),
+        text2: t("feedback.imagePermissionFeedbackDescription"),
       });
       return;
     }
@@ -44,7 +47,7 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
   };
 
   return (
-    <View className="flex-1 p-6">
+    <View className="flex-1 p-6" style={{ direction: isRTL ? "rtl" : "ltr" }}>
       <Pressable className="flex-row items-center justify-start gap-6" onPress={pickImage}>
         {photo ?
           <Image source={{ uri: photo }} className="w-16 h-16 rounded-full" />
@@ -53,20 +56,21 @@ export default function PictureBio({ info, setInfo, setIsStepValid }) {
             <Text className="text-4xl font-semibold text-white">{info.name.charAt(0).toUpperCase()}</Text>
           </View>
         }
-        <Text className="text-xl font-normal text-text-primary-light dark:text-text-primary-dark">Upload a profile picture</Text>
+        <Text className="text-xl font-normal text-text-primary-light dark:text-text-primary-dark">{t("CompleteProfileScreen.uploadImage")}</Text>
       </Pressable>
 
       <Controller
         control={control}
         name="bio"
-        rules={{ required: "Bio is required." }}
+        rules={{ required: t("feedback.bioRequired") }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             className="mt-6 p-4 bg-input-bg-light dark:bg-input-bg-dark rounded-lg text-base h-48 text-text-primary-light dark:text-text-primary-dark"
             multiline
-            placeholder="Write a bio"
+            placeholder={t("CompleteProfileScreen.bioPlaceholder")}
             placeholderTextColor={colors.colors.textSecondary}
             textAlignVertical="top"
+            textAlign={isRTL ? "right" : "left"}
             value={value}
             onChangeText={(text) => {
               onChange(text);

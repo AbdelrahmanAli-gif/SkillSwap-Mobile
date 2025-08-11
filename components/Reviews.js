@@ -17,7 +17,6 @@ const Reviews = ({ name, rating, content, img }) => {
         </View>
         <View className="flex-1 ml-4 gap-1">
           <Text className="font-bold text-text-primary-light dark:text-text-primary-dark">{name}</Text>
-          <Text className="text-text-secondary-light dark:text-text-secondary-dark">2 weeks ago</Text>
           <View className="flex-row gap-1 items-center">
             {Array.from({ length: 5 }, (_, index) => (
               <FontAwesome6Icon
