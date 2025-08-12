@@ -34,6 +34,7 @@ const SettingsScreen = () => {
 
     const settingsOptions = [
         { id: "profile", label: t('SettingsScreen.profile'), icon: <MaterialIcons name="person" size={24} color={colors.colors.main} />, action: () => navigation.navigate('Profile', { user }) },
+        { id: "trades", label: "Trades", icon: <MaterialIcons name="notifications" size={24} color={colors.colors.main} />, action: () => navigation.navigate('Trades') },
         { id: "theme", label: t('SettingsScreen.theme'), icon: <MaterialIcons name={theme === 'dark' ? 'light-mode' : 'dark-mode'} size={24} color={colors.colors.main} />, action: toggleTheme },
         { id: "language", label: t('SettingsScreen.language'), icon: <MaterialIcons name="language" size={24} color={colors.colors.main} />, action: switchLang },
         { id: "logout", label: t('SettingsScreen.logout'), icon: <MaterialIcons name="logout" size={24} color={colors.colors.main} />, action: handleLogout },
@@ -60,9 +61,9 @@ const SettingsScreen = () => {
                         onPress={item.action}
                         className={`flex-row w-full items-center justify-center px-4 py-4 ${index !== settingsOptions.length - 1 ? 'border-b border-text-primary-light dark:border-text-primary-dark/10' : ''}`}
                     >
-                        <View className="flex-row items-center gap-4">
+                        <View className="flex-row items-center w-full gap-4">
                             {item.icon}
-                            <Text className={`text-base 'text-text-primary-light dark:text-text-primary-dark`}>
+                            <Text className="text-base text-text-primary-light dark:text-text-primary-dark">
                                 {item.label}
                             </Text>
                         </View>

@@ -10,6 +10,7 @@ import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
 import ProfileScreen from "../screens/ProfileScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
+import TradesScreen from "../screens/TradesScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -39,6 +40,7 @@ const RootNavigation = () => {
         <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Milestones" component={MilestoneScreen} />
+        <Stack.Screen name="Trades" component={TradesScreen} />
       </Stack.Navigator>
     </>
   )
