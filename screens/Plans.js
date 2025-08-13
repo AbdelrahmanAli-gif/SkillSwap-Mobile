@@ -13,6 +13,7 @@ export default function Plans() {
   const { theme } = useTheme()
   const colors = themeColors(theme)
 
+
   return (
     <View className="flex-1 pb-8 mt-[30px]" style={{ direction: isRTL ? "rtl" : "ltr" }}>
       <GradientBackground></GradientBackground>
@@ -80,7 +81,9 @@ export default function Plans() {
               </View>
               <View className="rounded-full bg-main-color-light dark:bg-main-color-dark py-2 px-4 flex-row items-center gap-2">
                 <FontAwesome6Icon name="award" size={16} color={colors.colors.textDark} />
-                <Text className="text-text-dark-light-light dark:text-text-dark-dark text-sm font-bold">Best Value</Text>
+                <Text className="text-text-dark-light-light dark:text-text-dark-dark text-sm font-bold">
+                  Best Value
+                </Text>
               </View>
             </View>
             <Text className="text-text-light-light dark:text-text-light-dark text-4xl my-4 font-bold">
@@ -115,6 +118,128 @@ export default function Plans() {
                 Upgrade to Pro
               </Text>
             </Pressable>
+          </View>
+        </View>
+
+        <Text className="text-text-light-light dark:text-text-light-dark font-bold text-center text-3xl mt-8 mb-2">
+          Plan Comparison
+        </Text>
+
+        <View className="border border-card-border-light dark:border-card-border-dark my-4 py-6 rounded-lg">
+          <View className="flex-row items-center px-6">
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Feature
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              Free
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              Pro
+            </Text>
+          </View>
+
+          <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
+            <Text
+              className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Skills to Learn
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              2
+            </Text>
+            <Text
+              className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              Unlimited
+            </Text>
+          </View>
+
+          <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
+            <Text
+              className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Skills to Teach
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              2
+            </Text>
+            <Text
+              className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              Unlimited
+            </Text>
+          </View>
+
+          <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
+            <Text
+              className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Comisson Rate
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              20%
+            </Text>
+            <Text
+              className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              0%
+            </Text>
+          </View>
+          
+          <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
+            <Text
+              className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Active Trades
+            </Text>
+            <Text
+              className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              1
+            </Text>
+            <Text
+              className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
+              style={{ flexBasis: "25%" }}
+            >
+              Unlimited
+            </Text>
+          </View>
+          
+          <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
+            <Text
+              className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
+              style={{ flexBasis: "50%" }}
+            >
+              Pro Badge
+            </Text>
+            <FontAwesome6Icon name="xmark" size={16} color={colors.colors.textPrimary} style={{ flexBasis: "25%" }} className="text-center"></FontAwesome6Icon>
+            <FontAwesome6Icon name="check" size={16} color={colors.colors.main} style={{ flexBasis: "25%" }} className="text-center"></FontAwesome6Icon>
           </View>
         </View>
       </ScrollView>

@@ -32,7 +32,6 @@ const RootNavigation = () => {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Plans" options={{ headerShown: false }} component={Plans}></Stack.Screen>
         <Stack.Screen name="Login" options={{ headerShown: true }} component={LoginScreen} />
         <Stack.Screen name="Register" options={{ headerShown: true }} component={RegisterScreen} />
         <Stack.Screen name="Forgot Password" options={{ headerShown: true }} component={ForgotPasswordScreen} />
