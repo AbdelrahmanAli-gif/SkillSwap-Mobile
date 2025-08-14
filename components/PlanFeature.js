@@ -17,7 +17,7 @@ export default function PlanFeature({ text, notIncluded, bold, badge }) {
       <Text
         className={`${notIncluded ? "text-text-secondary-light dark:text-text-secondary-dark" : "text-text-primary-light dark:text-text-primary-dark"} text-xl`}
       >
-        <Text className="font-bold text-text-light-light dark:text-text-light-dark">{bold}</Text>{text}
+        <Text className="font-bold text-text-light-light dark:text-text-light-dark">{bold} </Text>{text}
       </Text>
       {badge && (<FontAwesome6Icon name="certificate" size={16} color={colors.colors.main} />)}
     </View>
