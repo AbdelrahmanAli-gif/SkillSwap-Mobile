@@ -6,13 +6,13 @@ import { useTheme } from "../contexts/ThemeContext"
 import { theme as themeColors } from "../theme"
 import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6"
 import PlanFeature from "../components/PlanFeature"
+import PlanFAQ from "../components/PlanFAQ"
 
 export default function Plans() {
   const { t, i18n } = useTranslation()
   const isRTL = i18n.dir() === "rtl"
   const { theme } = useTheme()
   const colors = themeColors(theme)
-
 
   return (
     <View className="flex-1 pb-8 mt-[30px]" style={{ direction: isRTL ? "rtl" : "ltr" }}>
@@ -209,7 +209,7 @@ export default function Plans() {
               0%
             </Text>
           </View>
-          
+
           <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
             <Text
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
@@ -230,7 +230,7 @@ export default function Plans() {
               Unlimited
             </Text>
           </View>
-          
+
           <View className="flex-row items-center border-t border-t-card-content-border-light dark:border-t-card-border-dark pt-4 mt-4 px-6">
             <Text
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
@@ -238,10 +238,47 @@ export default function Plans() {
             >
               Pro Badge
             </Text>
-            <FontAwesome6Icon name="xmark" size={16} color={colors.colors.textPrimary} style={{ flexBasis: "25%" }} className="text-center"></FontAwesome6Icon>
-            <FontAwesome6Icon name="check" size={16} color={colors.colors.main} style={{ flexBasis: "25%" }} className="text-center"></FontAwesome6Icon>
+            <FontAwesome6Icon
+              name="xmark"
+              size={16}
+              color={colors.colors.textPrimary}
+              style={{ flexBasis: "25%" }}
+              className="text-center"
+            ></FontAwesome6Icon>
+            <FontAwesome6Icon
+              name="check"
+              size={16}
+              color={colors.colors.main}
+              style={{ flexBasis: "25%" }}
+              className="text-center"
+            ></FontAwesome6Icon>
           </View>
         </View>
+
+        <Text className="text-text-light-light dark:text-text-light-dark font-bold text-center text-3xl mt-8 mb-2">
+          Frequently Asked Questions
+        </Text>
+
+        <PlanFAQ
+          question={"Can I switch between plans?"}
+          answer={
+            "Yes, you can upgrade to Pro or downgrade to Free at any time. When downgrading, you'll maintain access to Pro features until the end of your current billing period."
+          }
+        ></PlanFAQ>
+
+        <PlanFAQ
+          question={"How are commissions calculated?"}
+          answer={
+            "For Free plan users, a 20% commission is applied to any paid skill trades. For example, if you charge $50 for a session, $10 goes to platform fees. Pro users keep 100% of their earnings."
+          }
+        ></PlanFAQ>
+
+        <PlanFAQ
+          question={"What happends if I exceed my Free limits?"}
+          answer={
+            "You'll need to complete or cancel existing trades before starting new ones, and you won't be able to add more skills beyond your limit. Consider upgrading to Pro for unlimited access."
+          }
+        ></PlanFAQ>
       </ScrollView>
     </View>
   )
