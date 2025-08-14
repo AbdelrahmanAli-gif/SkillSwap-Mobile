@@ -19,30 +19,30 @@ export default function Plans() {
       <GradientBackground></GradientBackground>
       <ScrollView showsVerticalScrollIndicator={false} className="flex-1 px-4">
         <Text className="text-text-light-light dark:text-text-light-dark font-bold text-center text-4xl mt-8 mb-2">
-          Choose Your Plan
+          {t("PlansScreen.chooseYourPlan")}
         </Text>
         <Text className="text-text-primary-light dark:text-text-primary-dark text-center text-lg mb-2">
-          Start free or go Pro for the ultimate Skill Trade experience.
+          {t("PlansScreen.startFreeOrPro")}
         </Text>
 
         <View className="border border-card-content-border-light dark:border-card-border-dark rounded-lg my-4">
           <View className="p-6 border-b border-b-card-content-border-light dark:border-b-card-border-dark">
             <View className="flex-row justify-between items-center">
               <Text className="text-text-light-light dark:text-text-light-dark font-bold text-2xl">
-                Free
+                {t("PlansScreen.free")}
               </Text>
               <Text className="rounded-full bg-input-bg-light dark:bg-input-bg-dark text-text-primary-light dark:text-text-primary-dark py-2 px-4 text-sm font-semibold">
-                Default
+                {t("PlansScreen.default")}
               </Text>
             </View>
             <Text className="text-text-light-light dark:text-text-light-dark text-4xl my-4 font-bold">
               $0{" "}
               <Text className="text-xl font-medium text-text-primary-light dark:text-text-primary-dark">
-                /month
+                {t("PlansScreen.perMonth")}
               </Text>
             </Text>
             <Text className="text-text-primary-light dark:text-text-primary-dark text-xl">
-              Perfect for getting started with skill trading
+              {t("PlansScreen.freeDescription")}
             </Text>
           </View>
 
@@ -50,21 +50,21 @@ export default function Plans() {
             <View className="flex-row gap-2 items-center mb-4">
               <FontAwesome6Icon name="list-check" size={16} color={colors.colors.main} />
               <Text className="text-text-light-light dark:text-text-light-dark text-xl font-bold">
-                Features
+                {t("PlansScreen.features")}
               </Text>
             </View>
 
-            <PlanFeature text={"Select up to 2 skills to learn"}></PlanFeature>
-            <PlanFeature text={"Select up to 2 skills to teach"}></PlanFeature>
-            <PlanFeature text={"20% commission on paid skill trades"}></PlanFeature>
-            <PlanFeature text={"1 active skill trade at a time"}></PlanFeature>
-            <PlanFeature text={"No Pro badge"} notIncluded={true}></PlanFeature>
+            <PlanFeature text={t("PlansScreen.selectUpTo2SkillsToLearn")}></PlanFeature>
+            <PlanFeature text={t("PlansScreen.selectUpTo2SkillsToTeach")}></PlanFeature>
+            <PlanFeature text={t("PlansScreen.commissionOnPaidSkillTrades")}></PlanFeature>
+            <PlanFeature text={t("PlansScreen.oneActiveSkillTrade")}></PlanFeature>
+            <PlanFeature text={t("PlansScreen.noProBadge")} notIncluded={true}></PlanFeature>
           </View>
 
           <View className="p-6 justify-center items-center">
             <Pressable className="w-full bg-input-bg-light dark:bg-input-bg-dark rounded-lg py-3 px-4">
               <Text className="text-text-secondary-light dark:text-text-secondary-dark text-center">
-                Stay on Free Plan
+                {t("PlansScreen.stayOnFreePlan")}
               </Text>
             </Pressable>
           </View>
@@ -75,25 +75,25 @@ export default function Plans() {
             <View className="flex-row justify-between items-center">
               <View className="flex-row items-center gap-2">
                 <Text className="text-text-light-light dark:text-text-light-dark font-bold text-2xl">
-                  Pro
+                  {t("PlansScreen.pro")}
                 </Text>
                 <FontAwesome6Icon name="star" size={16} color={colors.colors.main} solid />
               </View>
               <View className="rounded-full bg-main-color-light dark:bg-main-color-dark py-2 px-4 flex-row items-center gap-2">
                 <FontAwesome6Icon name="award" size={16} color={colors.colors.textDark} />
                 <Text className="text-text-dark-light-light dark:text-text-dark-dark text-sm font-bold">
-                  Best Value
+                  {t("PlansScreen.bestValue")}
                 </Text>
               </View>
             </View>
             <Text className="text-text-light-light dark:text-text-light-dark text-4xl my-4 font-bold">
               $9.99{" "}
               <Text className="text-xl font-medium text-text-primary-light dark:text-text-primary-dark">
-                /month
+                {t("PlansScreen.perMonth")}
               </Text>
             </Text>
             <Text className="text-text-primary-light dark:text-text-primary-dark text-xl">
-              Unlock unlimited potential with Pro features
+              {t("PlansScreen.proDescription")}
             </Text>
           </View>
 
@@ -101,28 +101,40 @@ export default function Plans() {
             <View className="flex-row gap-2 items-center mb-4">
               <FontAwesome6Icon name="rocket" size={16} color={colors.colors.main} />
               <Text className="text-text-light-light dark:text-text-light-dark text-xl font-bold">
-                Pro Features
+                {t("PlansScreen.proFeatures")}
               </Text>
             </View>
 
-            <PlanFeature text={"skills to learn"} bold="Unlimited "></PlanFeature>
-            <PlanFeature text={"skills to teach"} bold="Unlimited "></PlanFeature>
-            <PlanFeature text={"on paid trades"} bold="No commissions "></PlanFeature>
-            <PlanFeature text={"active skill trades"} bold="Unlimited "></PlanFeature>
-            <PlanFeature bold="Pro verficiation badge " badge={true}></PlanFeature>
+            <PlanFeature
+              text={t("PlansScreen.skillsToLearn")}
+              bold={t("PlansScreen.unlimited")}
+            ></PlanFeature>
+            <PlanFeature
+              text={t("PlansScreen.skillsToTeach")}
+              bold={t("PlansScreen.unlimited")}
+            ></PlanFeature>
+            <PlanFeature
+              text={t("PlansScreen.onPaidTrades")}
+              bold={t("PlansScreen.noCommissions")}
+            ></PlanFeature>
+            <PlanFeature
+              text={t("PlansScreen.activeSkillTrades")}
+              bold={t("PlansScreen.unlimited")}
+            ></PlanFeature>
+            <PlanFeature bold={t("PlansScreen.proVerificationBadge")} badge={true}></PlanFeature>
           </View>
 
           <View className="p-6 justify-center items-center">
             <Pressable className="w-full bg-main-color-light dark:bg-main-color-dark rounded-lg py-3 px-4">
               <Text className="text-text-light-light dark:text-text-light-dark text-center font-bold">
-                Upgrade to Pro
+                {t("PlansScreen.upgradeToPro")}
               </Text>
             </Pressable>
           </View>
         </View>
 
         <Text className="text-text-light-light dark:text-text-light-dark font-bold text-center text-3xl mt-8 mb-2">
-          Plan Comparison
+          {t("PlansScreen.planComparison")}
         </Text>
 
         <View className="border border-card-border-light dark:border-card-border-dark my-4 py-6 rounded-lg">
@@ -131,19 +143,19 @@ export default function Plans() {
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Feature
+              {t("PlansScreen.feature")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
               style={{ flexBasis: "25%" }}
             >
-              Free
+              {t("PlansScreen.free")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
               style={{ flexBasis: "25%" }}
             >
-              Pro
+              {t("PlansScreen.pro")}
             </Text>
           </View>
 
@@ -152,7 +164,7 @@ export default function Plans() {
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Skills to Learn
+              {t("PlansScreen.skillsToLearn")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
@@ -164,7 +176,7 @@ export default function Plans() {
               className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
               style={{ flexBasis: "25%" }}
             >
-              Unlimited
+              {t("PlansScreen.unlimited")}
             </Text>
           </View>
 
@@ -173,7 +185,7 @@ export default function Plans() {
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Skills to Teach
+              {t("PlansScreen.skillsToTeach")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
@@ -185,7 +197,7 @@ export default function Plans() {
               className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
               style={{ flexBasis: "25%" }}
             >
-              Unlimited
+              {t("PlansScreen.unlimited")}
             </Text>
           </View>
 
@@ -194,7 +206,7 @@ export default function Plans() {
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Comisson Rate
+              {t("PlansScreen.commissionRate")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
@@ -215,7 +227,7 @@ export default function Plans() {
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Active Trades
+              {t("PlansScreen.activeTrades")}
             </Text>
             <Text
               className="text-text-primary-light dark:text-text-primary-dark text-xl font-bold text-center"
@@ -227,7 +239,7 @@ export default function Plans() {
               className="text-main-color-light dark:text-main-color-dark text-xl font-medium text-center"
               style={{ flexBasis: "25%" }}
             >
-              Unlimited
+              {t("PlansScreen.unlimited")}
             </Text>
           </View>
 
@@ -236,7 +248,7 @@ export default function Plans() {
               className="text-text-light-light dark:text-text-light-dark text-xl font-bold"
               style={{ flexBasis: "50%" }}
             >
-              Pro Badge
+              {t("PlansScreen.proBadge")}
             </Text>
             <FontAwesome6Icon
               name="xmark"
@@ -256,28 +268,22 @@ export default function Plans() {
         </View>
 
         <Text className="text-text-light-light dark:text-text-light-dark font-bold text-center text-3xl mt-8 mb-2">
-          Frequently Asked Questions
+          {t("PlansScreen.faq")}
         </Text>
 
         <PlanFAQ
-          question={"Can I switch between plans?"}
-          answer={
-            "Yes, you can upgrade to Pro or downgrade to Free at any time. When downgrading, you'll maintain access to Pro features until the end of your current billing period."
-          }
+          question={t("PlansScreen.faqSwitchQuestion")}
+          answer={t("PlansScreen.faqSwitchAnswer")}
         ></PlanFAQ>
 
         <PlanFAQ
-          question={"How are commissions calculated?"}
-          answer={
-            "For Free plan users, a 20% commission is applied to any paid skill trades. For example, if you charge $50 for a session, $10 goes to platform fees. Pro users keep 100% of their earnings."
-          }
+          question={t("PlansScreen.faqCommissionQuestion")}
+          answer={t("PlansScreen.faqCommissionAnswer")}
         ></PlanFAQ>
 
         <PlanFAQ
-          question={"What happends if I exceed my Free limits?"}
-          answer={
-            "You'll need to complete or cancel existing trades before starting new ones, and you won't be able to add more skills beyond your limit. Consider upgrading to Pro for unlimited access."
-          }
+          question={t("PlansScreen.faqLimitQuestion")}
+          answer={t("PlansScreen.faqLimitAnswer")}
         ></PlanFAQ>
       </ScrollView>
     </View>
