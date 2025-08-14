@@ -11,6 +11,7 @@ import ProfileScreen from "../screens/ProfileScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
 import TradesScreen from "../screens/TradesScreen";
+import Plans from "../screens/Plans";
 
 const Stack = createNativeStackNavigator()
 
