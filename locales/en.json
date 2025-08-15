@@ -112,7 +112,8 @@
     "phone": "Phone number",
     "next": "Next",
     "previous": "Previous",
-    "finish": "Finish"
+    "finish": "Finish",
+    "freePlanSkillLimitError": "You can only select up to 2 skills to learn and 2 skills to teach on the Free plan. Please remove some skills or upgrade to Pro for unlimited access."
   },
   "MessagesScreen": {
     "title": "Messages",
