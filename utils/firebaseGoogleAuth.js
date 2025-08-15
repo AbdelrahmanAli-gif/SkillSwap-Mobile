@@ -47,6 +47,7 @@ export const signIn = async () => {
                 totalSessions: user.totalSessions ? user.totalSessions : 0,
                 hasSkills: user.hasSkills ? user.hasSkills : [],
                 needSkills: user.needSkills ? user.needSkills : [],
+                subscribtion: user.subscribtion ? user.subscribtion : { plan: "free", activeTradeCount: 0 },
             }
             await setDoc(userRef, userData);
         } else userData = docSnap.data();
