@@ -1,11 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from '../contexts/ThemeContext';
+import { theme as themeColors } from '../theme';
+import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
+
 
 const MatchingUserCard = ({ user }) => {
     const navigation = useNavigation();
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === 'rtl';
+    const { theme, toggleTheme } = useTheme();
+    const colors = themeColors(theme);
 
     return (
         <View className={`items-center bg-card-background-light dark:bg-gray-950/35 rounded-xl p-4 w-full self-center mt-4 ${isRTL ? 'flex-row-reverse' : 'flex-row '}`}>
@@ -16,7 +22,10 @@ const MatchingUserCard = ({ user }) => {
             </View>
 
             <View className={`flex-1 ${isRTL ? 'mr-4' : 'ml-4'}`}>
-                <Text className={`text-lg font-medium text-text-primary-light dark:text-text-primary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>{user.name}</Text>
+                <View className="flex-row items-center gap-2">
+                    <Text className={`text-lg font-medium text-text-primary-light dark:text-text-primary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>{user.name}</Text>
+                    { user.subscribtion.plan === 'pro' && <FontAwesome6Icon name='certificate' size={12} color={colors.colors.main} />}
+                </View>
                 {user.needSkills?.length > 0 &&
                     <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>
                         <Text className="font-medium ">{t("MatchesScreen.wants")}: </Text>

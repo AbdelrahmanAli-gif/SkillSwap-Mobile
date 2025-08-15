@@ -89,7 +89,8 @@
     "trade": "Trade a skill",
     "payment": "Pay for sessions",
     "notes": "Add a note",
-    "button": "Send Request"
+    "button": "Send Request",
+    "activeTradeCountError": "You have reached the maximum number of free active trades. Please complete or cancel existing trades before starting new ones or upgrade to Pro for unlimited access."
   },
   "ChatScreen": {
     "title": "Chat with",
