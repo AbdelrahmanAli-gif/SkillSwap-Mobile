@@ -1,11 +1,13 @@
 import { View, Text, FlatList, Pressable } from "react-native"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
 import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
 import { useTranslation } from "react-i18next"
+import { useAuth } from "../../contexts/AuthContext"
+import Toast from "react-native-toast-message"
 
 export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
@@ -18,18 +20,32 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [selectedSkillToTeach, setSelectedSkillToTeach] = useState(info.hasSkills || [])
   const [newTeachSkills, setNewTeachSkills] = useState(info.newSkillsToTeach || [])
   const [newLearnSkills, setNewLearnSkills] = useState(info.newSkillsToLearn || [])
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === 'rtl';
+  const { t, i18n } = useTranslation()
+  const isRTL = i18n.dir() === "rtl"
+  const { user } = useAuth()
 
   useEffect(() => {
-    const isValid =
-      (selectedSkillToLearn.length > 0) ||
-      (selectedSkillToTeach.length > 0) ||
-      (newTeachSkills.length > 0) ||
-      (newLearnSkills.length > 0);
+    let isValid =
+      selectedSkillToLearn.length > 0 ||
+      selectedSkillToTeach.length > 0 ||
+      newTeachSkills.length > 0 ||
+      newLearnSkills.length > 0
 
-    setIsStepValid(isValid);
-  }, [info]);
+    if (isValid && user.subscribtion.plan === "free") {
+      if (
+        selectedSkillToLearn.length + newLearnSkills.length > 2 ||
+        selectedSkillToTeach.length + newTeachSkills.length > 2
+      ) {
+        isValid = false
+        Toast.show({
+          type: "error",
+          text1: t("CompleteProfileScreen.freePlanSkillLimitError"),
+        })
+      }
+    }
+
+    setIsStepValid(isValid)
+  }, [info])
 
   useEffect(() => {
     const getSkills = async () => {
@@ -93,7 +109,15 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
         !newLearnSkills.includes(skillsToLearnInput.trim())
       ) {
         setNewLearnSkills((prev) => [...prev, { skillName: skillsToLearnInput.trim() }])
-        setInfo((prev) => ({ ...prev, newSkillsToLearn: prev.newSkillsToLearn ? [...prev.newSkillsToLearn, { skillName: skillsToLearnInput.trim(), skillLevel: "beginner" }] : [{ skillName: skillsToLearnInput.trim(), skillLevel: "beginner" }] }))
+        setInfo((prev) => ({
+          ...prev,
+          newSkillsToLearn: prev.newSkillsToLearn
+            ? [
+                ...prev.newSkillsToLearn,
+                { skillName: skillsToLearnInput.trim(), skillLevel: "beginner" },
+              ]
+            : [{ skillName: skillsToLearnInput.trim(), skillLevel: "beginner" }],
+        }))
         setSkillsToLearnInput("")
       }
     }
@@ -106,165 +130,222 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
         !newTeachSkills.includes(skillsToTeachInput.trim())
       ) {
         setNewTeachSkills((prev) => [...prev, { skillName: skillsToTeachInput.trim() }])
-        setInfo((prev) => ({ ...prev, newSkillsToTeach: prev.newSkillsToTeach ? [...prev.newSkillsToTeach, { skillName: skillsToTeachInput.trim(), skillLevel: "beginner" }] : [{ skillName: skillsToTeachInput.trim(), skillLevel: "beginner" }] }))
+        setInfo((prev) => ({
+          ...prev,
+          newSkillsToTeach: prev.newSkillsToTeach
+            ? [
+                ...prev.newSkillsToTeach,
+                { skillName: skillsToTeachInput.trim(), skillLevel: "beginner" },
+              ]
+            : [{ skillName: skillsToTeachInput.trim(), skillLevel: "beginner" }],
+        }))
         setSkillsToTeachInput("")
       }
     }
   }
 
   return (
-    <View className="flex-1 p-6 relative" style={{ direction: isRTL ? "rtl" : "ltr" }}>
-      <Text className="font-medium text-xl text-main-color-light dark:text-main-color-dark">{t("CompleteProfileScreen.skillsToLearn")}</Text>
-      <View>
-        <SearchInput
-          placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
-          searchFunction={handleSearchForSkillsToLearn}
-          inputState={skillsToLearnInput}
-          setInputState={setSkillsToLearnInput}
-        />
-
-        {skillsToLearnInput.trim() !== "" && (
-          <FlatList
-            className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg bg-white mt-2"
-            data={filteredSkills}
-            keyExtractor={(item) => item.skillId}
-            renderItem={({ item }) => (
-              <Pressable
-                className="bg-white p-4 rounded-lg border-b border-gray-200"
-                onPress={() => {
-                  setSelectedSkillToLearn((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, needSkills: prev.needSkills ? [...prev.needSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] }))
-                  setFilteredSkills([])
-                  setSkillsToLearnInput("")
-                }}
-              >
-                <Text className="text-lg font-semibold text-black capitalize">
-                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-                </Text>
-              </Pressable>
+    user && (
+      <>
+        <View className="flex-1 p-6 relative" style={{ direction: isRTL ? "rtl" : "ltr" }}>
+          <Text className="font-medium text-xl text-main-color-light dark:text-main-color-dark">
+            {t("CompleteProfileScreen.skillsToLearn")}
+          </Text>
+          <View>
+            <SearchInput
+              placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
+              searchFunction={handleSearchForSkillsToLearn}
+              inputState={skillsToLearnInput}
+              setInputState={setSkillsToLearnInput}
+            />
+            {skillsToLearnInput.trim() !== "" && (
+              <FlatList
+                className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg bg-white mt-2"
+                data={filteredSkills}
+                keyExtractor={(item) => item.skillId}
+                renderItem={({ item }) => (
+                  <Pressable
+                    className="bg-white p-4 rounded-lg border-b border-gray-200"
+                    onPress={() => {
+                      setSelectedSkillToLearn((prev) => [...prev, item])
+                      setInfo((prev) => ({
+                        ...prev,
+                        needSkills: prev.needSkills
+                          ? [
+                              ...prev.needSkills,
+                              {
+                                skillId: item.skillId,
+                                skillName: item.skillName,
+                                skillLevel: "beginner",
+                                skillNameArabic: item.skillNameArabic,
+                              },
+                            ]
+                          : [
+                              {
+                                skillId: item.skillId,
+                                skillName: item.skillName,
+                                skillLevel: "beginner",
+                                skillNameArabic: item.skillNameArabic,
+                              },
+                            ],
+                      }))
+                      setFilteredSkills([])
+                      setSkillsToLearnInput("")
+                    }}
+                  >
+                    <Text className="text-lg font-semibold text-black capitalize">
+                      {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
+                    </Text>
+                  </Pressable>
+                )}
+              />
             )}
-          />
-        )}
-
-        <FlatList
-          className="mt-1 w-full"
-          ItemSeparatorComponent={() => <View className="w-2"></View>}
-          horizontal
-          data={selectedSkillToLearn}
-          keyExtractor={(item) => item.skillId}
-          renderItem={({ item }) => (
-            <Tag
-              onPressFunc={() => {
-                setSelectedSkillToLearn((prev) => prev.filter((s) => s.skillId !== item.skillId))
-                setInfo((prev) => {
-                  const newSkillsToLearn = prev.needSkills.filter((s) => s.skillId !== item.skillId)
-                  return { ...prev, needSkills: newSkillsToLearn }
-                })
-              }}
-            >
-              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-            </Tag>
-          )}
-        />
-
-        <FlatList
-          className="mt-1 w-full"
-          ItemSeparatorComponent={() => <View className="w-2"></View>}
-          horizontal
-          data={newLearnSkills}
-          keyExtractor={(item) => item.skillName}
-          renderItem={({ item }) => (
-            <Tag
-              onPressFunc={() => {
-                setNewLearnSkills((prev) => prev.filter((s) => s !== item))
-                setInfo((prev) => {
-                  const newSkillsToLearn = prev.newSkillsToLearn.filter((s) => s !== item)
-                  return { ...prev, newSkillsToLearn }
-                })
-              }}
-            >
-              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-            </Tag>
-          )}
-        />
-      </View>
-
-      <Text className="font-medium text-xl mt-12 text-main-color-light dark:text-main-color-dark">{t("CompleteProfileScreen.skillsToOffer")}</Text>
-      <View>
-        <SearchInput
-          placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
-          searchFunction={handleSearchForSkillsToTeach}
-          inputState={skillsToTeachInput}
-          setInputState={setSkillsToTeachInput}
-        />
-
-        {skillsToTeachInput.trim() !== "" && (
-          <FlatList
-            className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg mt-2 bg-white"
-            data={filteredSkills}
-            keyExtractor={(item) => item.skillId}
-            renderItem={({ item }) => (
-              <Pressable
-                className="bg-white p-4 rounded-lg border-b border-gray-200"
-                onPress={() => {
-                  setSelectedSkillToTeach((prev) => [...prev, item])
-                  setInfo((prev) => ({ ...prev, hasSkills: prev.hasSkills ? [...prev.hasSkills, { skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] : [{ skillId: item.skillId, skillName: item.skillName, skillLevel: "beginner", skillNameArabic: item.skillNameArabic }] }))
-                  setFilteredSkills([])
-                  setSkillsToTeachInput("")
-                }}
-              >
-                <Text className="text-lg font-semibold text-black capitalize">
+            <FlatList
+              className="mt-1 w-full"
+              ItemSeparatorComponent={() => <View className="w-2"></View>}
+              horizontal
+              data={selectedSkillToLearn}
+              keyExtractor={(item) => item.skillId}
+              renderItem={({ item }) => (
+                <Tag
+                  onPressFunc={() => {
+                    setSelectedSkillToLearn((prev) =>
+                      prev.filter((s) => s.skillId !== item.skillId)
+                    )
+                    setInfo((prev) => {
+                      const newSkillsToLearn = prev.needSkills.filter(
+                        (s) => s.skillId !== item.skillId
+                      )
+                      return { ...prev, needSkills: newSkillsToLearn }
+                    })
+                  }}
+                >
                   {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-                </Text>
-              </Pressable>
+                </Tag>
+              )}
+            />
+            <FlatList
+              className="mt-1 w-full"
+              ItemSeparatorComponent={() => <View className="w-2"></View>}
+              horizontal
+              data={newLearnSkills}
+              keyExtractor={(item) => item.skillName}
+              renderItem={({ item }) => (
+                <Tag
+                  onPressFunc={() => {
+                    setNewLearnSkills((prev) => prev.filter((s) => s !== item))
+                    setInfo((prev) => {
+                      const newSkillsToLearn = prev.newSkillsToLearn.filter((s) => s !== item)
+                      return { ...prev, newSkillsToLearn }
+                    })
+                  }}
+                >
+                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
+                </Tag>
+              )}
+            />
+          </View>
+          <Text className="font-medium text-xl mt-12 text-main-color-light dark:text-main-color-dark">
+            {t("CompleteProfileScreen.skillsToOffer")}
+          </Text>
+          <View>
+            <SearchInput
+              placeholderText={t("CompleteProfileScreen.skillSearchPlaceholder")}
+              searchFunction={handleSearchForSkillsToTeach}
+              inputState={skillsToTeachInput}
+              setInputState={setSkillsToTeachInput}
+            />
+            {skillsToTeachInput.trim() !== "" && (
+              <FlatList
+                className="absolute top-full left-0 w-full z-50 border border-gray-300 rounded-lg mt-2 bg-white"
+                data={filteredSkills}
+                keyExtractor={(item) => item.skillId}
+                renderItem={({ item }) => (
+                  <Pressable
+                    className="bg-white p-4 rounded-lg border-b border-gray-200"
+                    onPress={() => {
+                      setSelectedSkillToTeach((prev) => [...prev, item])
+                      setInfo((prev) => ({
+                        ...prev,
+                        hasSkills: prev.hasSkills
+                          ? [
+                              ...prev.hasSkills,
+                              {
+                                skillId: item.skillId,
+                                skillName: item.skillName,
+                                skillLevel: "beginner",
+                                skillNameArabic: item.skillNameArabic,
+                              },
+                            ]
+                          : [
+                              {
+                                skillId: item.skillId,
+                                skillName: item.skillName,
+                                skillLevel: "beginner",
+                                skillNameArabic: item.skillNameArabic,
+                              },
+                            ],
+                      }))
+                      setFilteredSkills([])
+                      setSkillsToTeachInput("")
+                    }}
+                  >
+                    <Text className="text-lg font-semibold text-black capitalize">
+                      {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
+                    </Text>
+                  </Pressable>
+                )}
+              />
             )}
-          />
-        )}
-
-        <FlatList
-          className="mt-1 w-full"
-          ItemSeparatorComponent={() => <View className="w-2"></View>}
-          horizontal
-          data={selectedSkillToTeach}
-          keyExtractor={(item) => item.skillId}
-          renderItem={({ item }) => (
-            <Tag
-              teaching={true}
-              onPressFunc={() => {
-                setSelectedSkillToTeach((prev) => prev.filter((s) => s.skillId !== item.skillId))
-                setInfo((prev) => {
-                  const newSkillsToTeach = prev.hasSkills.filter((s) => s.skillId !== item.skillId)
-                  return { ...prev, hasSkills: newSkillsToTeach }
-                })
-              }}
-            >
-              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-            </Tag>
-          )}
-        />
-
-        <FlatList
-          className="mt-1 w-full"
-          ItemSeparatorComponent={() => <View className="w-2"></View>}
-          horizontal
-          data={newTeachSkills}
-          keyExtractor={(item) => item.skillName}
-          renderItem={({ item }) => (
-            <Tag
-              teaching={true}
-              onPressFunc={() => {
-                setNewTeachSkills((prev) => prev.filter((s) => s !== item))
-                setInfo((prev) => {
-                  const newSkillsToTeach = prev.newSkillsToTeach.filter((s) => s !== item)
-                  return { ...prev, newSkillsToTeach }
-                })
-              }}
-            >
-              {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
-            </Tag>
-          )}
-        />
-      </View>
-    </View>
+            <FlatList
+              className="mt-1 w-full"
+              ItemSeparatorComponent={() => <View className="w-2"></View>}
+              horizontal
+              data={selectedSkillToTeach}
+              keyExtractor={(item) => item.skillId}
+              renderItem={({ item }) => (
+                <Tag
+                  teaching={true}
+                  onPressFunc={() => {
+                    setSelectedSkillToTeach((prev) =>
+                      prev.filter((s) => s.skillId !== item.skillId)
+                    )
+                    setInfo((prev) => {
+                      const newSkillsToTeach = prev.hasSkills.filter(
+                        (s) => s.skillId !== item.skillId
+                      )
+                      return { ...prev, hasSkills: newSkillsToTeach }
+                    })
+                  }}
+                >
+                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
+                </Tag>
+              )}
+            />
+            <FlatList
+              className="mt-1 w-full"
+              ItemSeparatorComponent={() => <View className="w-2"></View>}
+              horizontal
+              data={newTeachSkills}
+              keyExtractor={(item) => item.skillName}
+              renderItem={({ item }) => (
+                <Tag
+                  teaching={true}
+                  onPressFunc={() => {
+                    setNewTeachSkills((prev) => prev.filter((s) => s !== item))
+                    setInfo((prev) => {
+                      const newSkillsToTeach = prev.newSkillsToTeach.filter((s) => s !== item)
+                      return { ...prev, newSkillsToTeach }
+                    })
+                  }}
+                >
+                  {isRTL && item.skillNameArabic ? item.skillNameArabic : item.skillName}
+                </Tag>
+              )}
+            />
+          </View>
+        </View>
+      </>
+    )
   )
 }
