@@ -50,12 +50,12 @@
       "description": "Layla shared her love for watercolor painting, helping beginners express themselves creatively."
     },
     "card5": {
-      "title": "Guitar Guru",
-      "description": "Omar offered beginner guitar lessons to fellow learners and got free singing tips from vocalists ."
-    },
-    "card6": {
       "title": "Swimming Coach",
       "description": "Kareem taught swimming techniques online and received nutritional coaching in exchange."
+    },
+    "card6": {
+      "title": "Guitar Guru",
+      "description": "Omar offered beginner guitar lessons to fellow learners and got free singing tips from vocalists ."
     }
   },
   "HowWorkSection": {
