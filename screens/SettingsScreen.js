@@ -8,6 +8,7 @@ import { logout } from '../utils/firebaseEmailAndPasswordAuth';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import GradientBackground from '../components/GradientBackground';
 import Toast from 'react-native-toast-message';
+import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 
 const SettingsScreen = () => {
     const { user } = useAuth();
@@ -51,7 +52,10 @@ const SettingsScreen = () => {
                         <Text className="text-4xl font-semibold text-white">{user.name.charAt(0).toUpperCase()}</Text>
                     </View>
                 }
-                <Text className="text-2xl font-bold mt-2 text-main-color-light dark:text-main-color-dark">{user.name}</Text>
+                <View className="flex-row items-center gap-2 mt-2">
+                    <Text className="text-2xl font-bold mt-2 text-main-color-light dark:text-main-color-dark">{user.name}</Text>
+                    {user.subscribtion?.plan === 'pro' && <FontAwesome6Icon name="certificate" size={16} color={colors.colors.main} className="mt-2"/>}
+                </View>
             </View>
 
             <View className="mx-4 items-center justify-center">

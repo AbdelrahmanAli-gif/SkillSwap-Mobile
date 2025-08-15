@@ -1,11 +1,13 @@
 import { View, Text, FlatList, Pressable } from "react-native"
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import { filterSkillPrompt } from "../../helpers/prompts"
 import { generateFromGemini } from "../../api/gemini"
 import { fetchSkillsList } from "../../utils/skillsCollections"
 import SearchInput from "../../components/SearchInput"
 import Tag from "../../components/Tag"
 import { useTranslation } from "react-i18next"
+import { useAuth } from "../../contexts/AuthContext"
+import Toast from "react-native-toast-message"
 
 export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [skillsToLearnInput, setSkillsToLearnInput] = useState("")
@@ -20,13 +22,24 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
   const [newLearnSkills, setNewLearnSkills] = useState(info.newSkillsToLearn || [])
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === 'rtl';
+  const { user } = useAuth()
 
   useEffect(() => {
-    const isValid =
+    let isValid =
       (selectedSkillToLearn.length > 0) ||
       (selectedSkillToTeach.length > 0) ||
       (newTeachSkills.length > 0) ||
       (newLearnSkills.length > 0);
+
+    if (isValid && user.subscribtion.plan === 'free') { 
+      if (selectedSkillToLearn.length + newLearnSkills.length > 2 || selectedSkillToTeach.length + newTeachSkills.length > 2) {
+        isValid = false;
+        Toast.show({
+          type: 'error',
+          text1: t("CompleteProfileScreen.freePlanSkillLimitError")
+        });
+      }
+    }
 
     setIsStepValid(isValid);
   }, [info]);

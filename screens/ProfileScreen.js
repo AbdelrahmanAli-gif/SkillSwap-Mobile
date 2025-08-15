@@ -48,7 +48,10 @@ const ProfileScreen = () => {
               <Image className="w-32 h-32 rounded-full" source={{ uri: user.profilePicture }} />
               : <Text className="text-6xl font-semibold text-gray-900">{user.name.charAt(0).toUpperCase()}</Text>}
           </View>
-          <Text className="font-bold text-2xl capitalize text-main-color-light dark:text-main-color-dark">{user.name}</Text>
+          <View className="flex-row items-center gap-2 mb-2">
+            <Text className="font-bold text-2xl capitalize text-main-color-light dark:text-main-color-dark">{user.name}</Text>
+            {currentUser.subscribtion.plan === 'pro' && <FontAwesome6Icon name="certificate" size={16} color={colors.colors.main}/>}
+          </View>
           <Text className="text-xl text-center font-normal text-text-secondary-light dark:text-text-secondary-dark">{user.bio}</Text>
         </View>
 

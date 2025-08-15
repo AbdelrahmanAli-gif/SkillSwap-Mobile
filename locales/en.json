@@ -89,7 +89,8 @@
     "trade": "Trade a skill",
     "payment": "Pay for sessions",
     "notes": "Add a note",
-    "button": "Send Request"
+    "button": "Send Request",
+    "activeTradeCountError": "You have reached the maximum number of free active trades. Please complete or cancel existing trades before starting new ones or upgrade to Pro for unlimited access."
   },
   "ChatScreen": {
     "title": "Chat with",
@@ -111,7 +112,8 @@
     "phone": "Phone number",
     "next": "Next",
     "previous": "Previous",
-    "finish": "Finish"
+    "finish": "Finish",
+    "freePlanSkillLimitError": "You can only select up to 2 skills to learn and 2 skills to teach on the Free plan. Please remove some skills or upgrade to Pro for unlimited access."
   },
   "MessagesScreen": {
     "title": "Messages",
@@ -191,7 +193,14 @@
     "faqCommissionQuestion": "How are commissions calculated?",
     "faqCommissionAnswer": "For Free plan users, a 20% commission is applied to any paid skill trades. For example, if you charge $50 for a session, $10 goes to platform fees. Pro users keep 100% of their earnings.",
     "faqLimitQuestion": "What happends if I exceed my Free limits?",
-    "faqLimitAnswer": "You'll need to complete or cancel existing trades before starting new ones, and you won't be able to add more skills beyond your limit. Consider upgrading to Pro for unlimited access."
+    "faqLimitAnswer": "You'll need to complete or cancel existing trades before starting new ones, and you won't be able to add more skills beyond your limit. Consider upgrading to Pro for unlimited access.",
+    "downgradeToFree": "Downgrade to Free Plan",
+    "alreadyPro": "You are already on Pro plan",
+    "upgradeSuccess": "Successfully upgraded to Pro!",
+    "upgradeError": "Failed to upgrade to Pro. Please try again.",
+    "alreadyFree": "You are already on Free plan",
+    "downgradeSuccess": "Successfully downgraded to Free plan!",
+    "downgradeError": "Failed to downgrade to Free plan. Please try again."
   },
   "feedback": {
     "imagePermissionFeedbackTitle": "Permission required",
