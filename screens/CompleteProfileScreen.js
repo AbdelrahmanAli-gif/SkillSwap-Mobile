@@ -1,28 +1,31 @@
 import { useLayoutEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createSkillDoc } from '../utils/skillsCollections';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { uploadImage } from '../api/cloudinary';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '../contexts/ThemeContext';
+import { theme as themeColors } from '../theme';
 import PictureBio from './RegisterSteps/PictureBio';
 import MySkills from './RegisterSteps/MySkills';
 import LocationPhone from './RegisterSteps/LocationPhone';
 import Review from './RegisterSteps/Review';
 import GradientBackground from '../components/GradientBackground';
-import { useTranslation } from 'react-i18next';
-
-const stepTitles = ["Tell us about yourself", "My Skills", "Additional Details", "Review your profile"];
 
 const CompleteProfileScreen = ({ navigationRoute }) => {
     const [steps, setSteps] = useState(0);
     const [isStepValid, setIsStepValid] = useState(true);
     const { user, setUser } = useAuth();
     const [info, setInfo] = useState(user);
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === 'rtl';
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -37,6 +40,7 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
 
     const updateUserProfile = async () => {
         try {
+            setLoading(true);
             const { newSkillsToLearn, newSkillsToTeach } = info;
             let updatedNewSkillsToLearn = [], updatedNewSkillsToTeach = [];
             if (newSkillsToLearn?.length > 0) {
@@ -91,6 +95,8 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
             else navigation.replace("App");
         } catch (error) {
             console.error("Error updating user profile:", error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -140,6 +146,15 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
                     </View>
                 )}
             </View>
+
+            {loading && (
+                <Modal transparent={true} animationType="fade">
+                    <View className="flex-1 justify-center items-center bg-black/50">
+                        <ActivityIndicator size="large" color={colors.colors.main} />
+                        <Text className="text-white mt-4">{t("CompleteProfileScreen.updatingProfile")}</Text>
+                    </View>
+                </Modal>
+            )}
         </View>
     );
 }

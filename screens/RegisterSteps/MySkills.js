@@ -113,9 +113,9 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
           ...prev,
           newSkillsToLearn: prev.newSkillsToLearn
             ? [
-                ...prev.newSkillsToLearn,
-                { skillName: skillsToLearnInput.trim(), skillLevel: "beginner" },
-              ]
+              ...prev.newSkillsToLearn,
+              { skillName: skillsToLearnInput.trim(), skillLevel: "beginner" },
+            ]
             : [{ skillName: skillsToLearnInput.trim(), skillLevel: "beginner" }],
         }))
         setSkillsToLearnInput("")
@@ -134,9 +134,9 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
           ...prev,
           newSkillsToTeach: prev.newSkillsToTeach
             ? [
-                ...prev.newSkillsToTeach,
-                { skillName: skillsToTeachInput.trim(), skillLevel: "beginner" },
-              ]
+              ...prev.newSkillsToTeach,
+              { skillName: skillsToTeachInput.trim(), skillLevel: "beginner" },
+            ]
             : [{ skillName: skillsToTeachInput.trim(), skillLevel: "beginner" }],
         }))
         setSkillsToTeachInput("")
@@ -172,22 +172,22 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                         ...prev,
                         needSkills: prev.needSkills
                           ? [
-                              ...prev.needSkills,
-                              {
-                                skillId: item.skillId,
-                                skillName: item.skillName,
-                                skillLevel: "beginner",
-                                skillNameArabic: item.skillNameArabic,
-                              },
-                            ]
+                            ...prev.needSkills,
+                            {
+                              skillId: item.skillId,
+                              skillName: item.skillName,
+                              skillLevel: "beginner",
+                              skillNameArabic: item.skillNameArabic,
+                            },
+                          ]
                           : [
-                              {
-                                skillId: item.skillId,
-                                skillName: item.skillName,
-                                skillLevel: "beginner",
-                                skillNameArabic: item.skillNameArabic,
-                              },
-                            ],
+                            {
+                              skillId: item.skillId,
+                              skillName: item.skillName,
+                              skillLevel: "beginner",
+                              skillNameArabic: item.skillNameArabic,
+                            },
+                          ],
                       }))
                       setFilteredSkills([])
                       setSkillsToLearnInput("")
@@ -233,9 +233,9 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
               renderItem={({ item }) => (
                 <Tag
                   onPressFunc={() => {
-                    setNewLearnSkills((prev) => prev.filter((s) => s !== item))
+                    setNewLearnSkills((prev) => prev.filter((s) => s.skillName !== item.skillName))
                     setInfo((prev) => {
-                      const newSkillsToLearn = prev.newSkillsToLearn.filter((s) => s !== item)
+                      const newSkillsToLearn = prev.newSkillsToLearn.filter((s) => s.skillName !== item.skillName)
                       return { ...prev, newSkillsToLearn }
                     })
                   }}
@@ -269,22 +269,22 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                         ...prev,
                         hasSkills: prev.hasSkills
                           ? [
-                              ...prev.hasSkills,
-                              {
-                                skillId: item.skillId,
-                                skillName: item.skillName,
-                                skillLevel: "beginner",
-                                skillNameArabic: item.skillNameArabic,
-                              },
-                            ]
+                            ...prev.hasSkills,
+                            {
+                              skillId: item.skillId,
+                              skillName: item.skillName,
+                              skillLevel: "beginner",
+                              skillNameArabic: item.skillNameArabic,
+                            },
+                          ]
                           : [
-                              {
-                                skillId: item.skillId,
-                                skillName: item.skillName,
-                                skillLevel: "beginner",
-                                skillNameArabic: item.skillNameArabic,
-                              },
-                            ],
+                            {
+                              skillId: item.skillId,
+                              skillName: item.skillName,
+                              skillLevel: "beginner",
+                              skillNameArabic: item.skillNameArabic,
+                            },
+                          ],
                       }))
                       setFilteredSkills([])
                       setSkillsToTeachInput("")
@@ -332,9 +332,9 @@ export default function MySkills({ info, setInfo, setIsStepValid }) {
                 <Tag
                   teaching={true}
                   onPressFunc={() => {
-                    setNewTeachSkills((prev) => prev.filter((s) => s !== item))
+                    setNewTeachSkills((prev) => prev.filter((s) => s.skillName !== item.skillName))
                     setInfo((prev) => {
-                      const newSkillsToTeach = prev.newSkillsToTeach.filter((s) => s !== item)
+                      const newSkillsToTeach = prev.newSkillsToTeach.filter((s) => s.skillName !== item.skillName)
                       return { ...prev, newSkillsToTeach }
                     })
                   }}

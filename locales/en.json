@@ -81,7 +81,9 @@
     "description": "Based on your profile and preferences, we've identified potential skill trade matches that align with your interests and learning goals.",
     "wants": "Wants",
     "offers": "Offers",
-    "connect": "Connect"
+    "connect": "Connect",
+    "noMatches": "No matches found.",
+    "error": "Something went wrong while fetching matches."
   },
   "ScheduleSessionScreen": {
     "skillToLearn": "Select a skill to learn",
@@ -113,14 +115,16 @@
     "next": "Next",
     "previous": "Previous",
     "finish": "Finish",
-    "freePlanSkillLimitError": "You can only select up to 2 skills to learn and 2 skills to teach on the Free plan. Please remove some skills or upgrade to Pro for unlimited access."
+    "freePlanSkillLimitError": "You can only select up to 2 skills to learn and 2 skills to teach on the Free plan. Please remove some skills or upgrade to Pro for unlimited access.",
+    "updatingProfile": "Updating profile..."
   },
   "MessagesScreen": {
     "title": "Messages",
     "description": "Communicate with potential matches, discuss details of the skill exchange, and schedule sessions.",
     "all": "All",
     "unread": "Unread",
-    "loading": "Loading messages..."
+    "loading": "Loading messages...",
+    "noChats": "No chats found"
   },
   "SearchScreen": {
     "searchPlaceholder": "Search by user name or skill...",
