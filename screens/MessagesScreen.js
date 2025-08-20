@@ -13,6 +13,7 @@ const MessagesScreen = () => {
     const { user } = useAuth();
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === 'rtl';
+    const unreadChats = chats.filter((chat) => getUnreadCount(chat, user.uid) > 0);
 
     useEffect(() => {
         const unsubscribe = subscribeToUserChats(user.uid, (fetchedChats) => {
@@ -27,14 +28,6 @@ const MessagesScreen = () => {
         return (
             <View className="flex-1 items-center justify-center">
                 <Text>{t("MessagesScreen.loading")}</Text>
-            </View>
-        )
-    }
-
-    if (chats.length === 0) {
-        return (
-            <View className="flex-1 items-center justify-center">
-                <Text>{t("MessagesScreen.noChats")}</Text>
             </View>
         )
     }
@@ -64,15 +57,17 @@ const MessagesScreen = () => {
             {
                 isClicked == "All" ? (
                     <ScrollView className="flex-1">
-                        {chats.map((chat) => {
-                            return <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />
-                        })
+                        {chats.length === 0 ? <Text className="text-text-secondary-light dark:text-text-secondary-dark text-center pt-4">{t("MessagesScreen.noChats")}</Text> :
+                            chats.map((chat) => {
+                                return <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />
+                            })
                         }
                     </ScrollView>) : (
                     <ScrollView className="flex-1">
-                        {chats
-                            .filter(chat => getUnreadCount(chat, user.uid) > 0)
-                            .map(chat => <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />)
+                        {unreadChats.length === 0 ? <Text className="text-text-secondary-light dark:text-text-secondary-dark text-center pt-4">{t("MessagesScreen.noChats")}</Text> :
+                            unreadChats.map((chat) => {
+                                return <Messages key={chat.id} chat={chat} unreadCount={getUnreadCount(chat, user.uid)} />
+                            })
                         }
                     </ScrollView>
                 )

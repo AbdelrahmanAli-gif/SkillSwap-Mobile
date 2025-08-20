@@ -10,10 +10,6 @@ import ScheduleSessionsScreen from "../screens/ScheduleSessionsScreen"
 import ProfileScreen from "../screens/ProfileScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
-import TradesScreen from "../screens/TradesScreen";
-import Plans from "../screens/Plans";
-import AddMilestoneScreen from "../screens/AddMilestoneScreen"
-import UpdateMilestoneScreen from "../screens/UpdateMilestoneScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -23,36 +19,26 @@ const RootNavigation = () => {
 
   return (
     <>
-      <AuthProvider AuthProvider >
-        <Stack.Navigator
-          screenOptions={{
-            title: "Swapoo",
-            headerTitleAlign: "center",
-            headerBackVisible: false,
-            headerStyle: { backgroundColor: "#20201c" },
-            headerShadowVisible: false,
-            headerTitleStyle: { color: theme.colors.main, },
-            // headerRight: () => (
-            //   <TouchableOpacity onPress={switchLang}>
-            //     <Text style={{ color: theme.colors.main, marginRight: 10 }}>
-            //       {i18n.language === "en" ? "Arabic" : "الإنجليزية"}
-            //     </Text>
-            //   </TouchableOpacity>
-            // ),
-          }}
-        >
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
-          <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
-          <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
-          <Stack.Screen name="Chat" component={ChatScreen} />
-          <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen} />
-          <Stack.Screen name="Milestones" component={MilestoneScreen} />
-        </Stack.Navigator>
-      </AuthProvider >
+      <Stack.Navigator
+        screenOptions={{
+          title: "Swapoo",
+          headerTitleAlign: "center",
+          headerBackVisible: false,
+          headerStyle: { backgroundColor: colors.colors.navigationBackground },
+          headerShadowVisible: false,
+          headerTitleStyle: { color: colors.colors.main, },
+        }}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
+        <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
+        <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
+        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Milestones" component={MilestoneScreen} />
+      </Stack.Navigator>
     </>
   )
 }

@@ -39,40 +39,33 @@ const MatchesScreen = () => {
         fetchUsers();
     }, []);
 
-    if (error) {
-        return (
-            <View className="flex-1 items-center justify-center p-4">
-                <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.error")}</Text>
-            </View>
-        );
-    }
-
-    if (!loading && matches.length === 0) {
-        return (
-            <View className="flex-1 items-center justify-center p-4">
-                <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.noMatches")}</Text>
-            </View>
-        );
-    }
-
     return (
         <View className="flex-1 px-5 pt-5" style={{ marginTop: 30 }}>
             <GradientBackground />
             <Text className={`text-3xl font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.title")}</Text>
             <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.description")}</Text>
-            {loading ?
+            {error ? (
+                <View className="flex-1 items-center justify-center p-4">
+                    <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.error")}</Text>
+                </View>
+            ) : loading ?
                 <View className="flex-1 items-center justify-center">
                     <ActivityIndicator size="large" color={colors.colors.main} />
                 </View>
                 :
-                <FlatList
-                    data={matches}
-                    keyExtractor={(item) => item.uid}
-                    contentContainerStyle={{ paddingBottom: 20 }}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => <MatchingUserCard user={item} />}
-                />
-            }
+                matches.length > 0 ? (
+                    <FlatList
+                        data={matches}
+                        keyExtractor={(item) => item.uid}
+                        contentContainerStyle={{ paddingBottom: 20 }}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => <MatchingUserCard user={item} />}
+                    />
+                ) : (
+                    <View className="flex-1 items-center justify-center p-4">
+                        <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.noMatches")}</Text>
+                    </View>
+                )}
         </View>
     );
 }
