@@ -13,6 +13,8 @@ import ProfileScreen from "../screens/ProfileScreen"
 import UpdateSkillsScreen from "../screens/UpdateSkillsScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
+import AddMilestoneScreen from "../screens/AddMilestoneScreen"
+import UpdateMilestoneScreen from "../screens/UpdateMilestoneScreen"
 
 const Stack = createNativeStackNavigator()
 
@@ -44,7 +46,7 @@ const RootNavigation = () => {
             // ),
           }}
         >
-          {/* <Stack.Screen name="Login" component={LoginScreen} />
+           {/* <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
           <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
@@ -52,8 +54,10 @@ const RootNavigation = () => {
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen} />
+          <Stack.Screen name="UpdateSkills" component={UpdateSkillsScreen} /> */}
           <Stack.Screen name="Milestones" component={MilestoneScreen} />
+          <Stack.Screen name="AddMilestone" component={AddMilestoneScreen}/>
+          <Stack.Screen name="UpdateMilestone" component={UpdateMilestoneScreen}/>
         </Stack.Navigator>
       </AuthProvider >
     </>
