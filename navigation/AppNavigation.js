@@ -10,6 +10,7 @@ import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SettingsScreen from '../screens/SettingsScreen';
 import Plans from '../screens/Plans';
+import MilestoneScreen from '../screens/MilestoneScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,7 +42,8 @@ const AppNavigation = () => {
                 },
             })}
         >
-            <Tab.Screen name="Plans" component={Plans}/>
+            <Tab.Screen name="Plans" component={Plans} />
+            <Tab.Screen name="Milestones" component={MilestoneScreen} />
             <Tab.Screen name={t("pages.home")} component={LandingScreen} />
             <Tab.Screen name={t("pages.matches")} component={MatchesScreen} />
             <Tab.Screen

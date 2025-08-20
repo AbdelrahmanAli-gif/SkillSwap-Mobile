@@ -206,6 +206,15 @@
     "downgradeSuccess": "Successfully downgraded to Free plan!",
     "downgradeError": "Failed to downgrade to Free plan. Please try again."
   },
+  "MilestoneScreen": {
+    "teaching": "Teaching",
+    "message": "Message",
+    "skillTeaching": "Skill I'm teaching",
+    "skillLearning": "Skill I'm learning",
+    "learning": "Learning",
+    "progress": "Progress",
+    "milestones": "Milestones"
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "Permission required",
     "imagePermissionFeedbackDescription": "Permission to access gallery is required!",
@@ -217,7 +226,8 @@
     "googleSignInFailed": "Google sign-in failed.",
     "registerSuccess": "Registration successful.",
     "logoutSuccess": "Logout successful.",
-    "reviewSuccess": "Review submitted successfully."
+    "reviewSuccess": "Review submitted successfully.",
+    "milestoneUpdate": "Milestone updated successfully."
   },
   "skillLevels": {
     "beginner": "Beginner",

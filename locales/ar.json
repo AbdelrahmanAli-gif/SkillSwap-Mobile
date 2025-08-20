@@ -206,6 +206,15 @@
     "downgradeSuccess": "تم الرجوع إلى الخطة المجانية بنجاح!",
     "downgradeError": "فشل الرجوع إلى الخطة المجانية. يرجى المحاولة مرة أخرى."
   },
+  "MilestoneScreen": {
+    "teaching": "يعلم",
+    "message": "رسالة",
+    "skillTeaching": "مهارة التعليم",
+    "skillLearning": "مهارة التعلم",
+    "learning": "تعلم",
+    "progress": "تقدم",
+    "milestones": "ميلستونات"
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "الاذن المطلوب",
     "imagePermissionFeedbackDescription": "الاذن لمعرض الصور مطلوب!",
@@ -217,7 +226,8 @@
     "googleSignInFailed": "فشل تسجيل الدخول بواسطة جوجل",
     "registerSuccess": "تسجيل التسجيل بنجاح.",
     "logoutSuccess": "تسجيل الخروج بنجاح.",
-    "reviewSuccess": "تم ارسال المراجعة بنجاح."
+    "reviewSuccess": "تم ارسال المراجعة بنجاح.",
+    "milestoneUpdate": "تم تحديث الميلستونات بنجاح."
   },
   "skillLevels": {
     "beginner": "مبتدئ",
