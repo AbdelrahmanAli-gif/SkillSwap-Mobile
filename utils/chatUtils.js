@@ -20,7 +20,6 @@ export const getOrCreateChatRoom = async (user1Id, user2Id) => {
   return chatId;
 };
 
-
 export const sendMessage = async (chatId, senderId, text) => {
   const messageRef = collection(db, "chats", chatId, "messages");
   const messageData = {
@@ -110,7 +109,6 @@ export const markMessagesAsRead = async (chatId, userId) => {
 
   await Promise.all(batch);
 };
-
 
 export const getUnreadCount = (chat, userId) => {
   if (!chat.lastMessage || !chat.lastMessage.readBy) return 0;

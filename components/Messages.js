@@ -3,11 +3,14 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { getUserById } from "../utils/usersCollection";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 const Messages = ({ chat, unreadCount }) => {
   const [otherUser, setOtherUser] = useState({});
   const { user } = useAuth();
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
 
   useEffect(() => {
     const getUser = async () => {
@@ -21,7 +24,7 @@ const Messages = ({ chat, unreadCount }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("Chat", { otherUser })}
-      className="w-full flex-row mt-5 py-2 bg-gray-950/35 rounded-full"
+      className="w-full flex-row mt-3 p-2 bg-card-background-light dark:bg-gray-950/35 rounded-lg"
     >
       <View className="flex-row justify-between items-center w-full">
         <View className="flex-row items-center">
@@ -37,16 +40,16 @@ const Messages = ({ chat, unreadCount }) => {
               </Text>
             </View>
           )}
-          <View className="ml-3">
-            <Text className="font-medium text-lg text-text-primary">{otherUser.name}</Text>
-            <Text numberOfLines={1} className="text-text-secondary max-w-[200px]">
+          <View className={`${isRTL ? "mr-2" : "ml-2"}`}>
+            <Text className="font-medium text-lg text-text-primary-light dark:text-text-primary-dark">{otherUser.name}</Text>
+            <Text numberOfLines={1} className="text-text-secondary-light dark:text-text-secondary-dark max-w-[200px]">
               {chat.lastMessage?.text}
             </Text>
           </View>
         </View>
 
         {unreadCount > 0 && (
-          <View className="bg-red-500 rounded-full w-6 h-6 items-center justify-center mr-2">
+          <View className={`bg-red-500 rounded-full w-6 h-6 items-center justify-center ${isRTL ? "ml-2" : "mr-2"}`}>
             <Text className="text-white text-xs font-bold">{unreadCount}</Text>
           </View>
         )}

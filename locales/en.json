@@ -50,12 +50,12 @@
       "description": "Layla shared her love for watercolor painting, helping beginners express themselves creatively."
     },
     "card5": {
-      "title": "Guitar Guru",
-      "description": "Omar offered beginner guitar lessons to fellow learners and got free singing tips from vocalists ."
-    },
-    "card6": {
       "title": "Swimming Coach",
       "description": "Kareem taught swimming techniques online and received nutritional coaching in exchange."
+    },
+    "card6": {
+      "title": "Guitar Guru",
+      "description": "Omar offered beginner guitar lessons to fellow learners and got free singing tips from vocalists ."
     }
   },
   "HowWorkSection": {
@@ -75,5 +75,157 @@
       "title": "Collaborate and Grow",
       "description": "Engage in collaborative learning experiences that foster growth and development."
     }
+  },
+  "MatchesScreen": {
+    "title": "AI-Powered Skill Match",
+    "description": "Based on your profile and preferences, we've identified potential skill trade matches that align with your interests and learning goals.",
+    "wants": "Wants",
+    "offers": "Offers",
+    "connect": "Connect"
+  },
+  "ScheduleSessionScreen": {
+    "skillToLearn": "Select a skill to learn",
+    "skillToOffer": "Select a skill to offer",
+    "trade": "Trade a skill",
+    "payment": "Pay for sessions",
+    "notes": "Add a note",
+    "button": "Send Request",
+    "activeTradeCountError": "You have reached the maximum number of free active trades. Please complete or cancel existing trades before starting new ones or upgrade to Pro for unlimited access."
+  },
+  "ChatScreen": {
+    "title": "Chat with",
+    "input": "Type a message",
+    "you": "You",
+    "loading": "Loading messages..."
+  },
+  "CompleteProfileScreen": {
+    "uploadImage": "Upload a profile picture",
+    "bioPlaceholder": "Tell us about yourself",
+    "skillsToLearn": "Skills to learn",
+    "skillsToOffer": "Skills to offer",
+    "skillSearchPlaceholder": "Search for a skill...",
+    "locationPlaceholder": "Enter city or country",
+    "phonePlaceholder": "Enter your phone number",
+    "countryPlaceholder": "Search country",
+    "about": "About",
+    "location": "Location",
+    "phone": "Phone number",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "freePlanSkillLimitError": "You can only select up to 2 skills to learn and 2 skills to teach on the Free plan. Please remove some skills or upgrade to Pro for unlimited access."
+  },
+  "MessagesScreen": {
+    "title": "Messages",
+    "description": "Communicate with potential matches, discuss details of the skill exchange, and schedule sessions.",
+    "all": "All",
+    "unread": "Unread",
+    "loading": "Loading messages..."
+  },
+  "SearchScreen": {
+    "searchPlaceholder": "Search by user name or skill...",
+    "skillsOffered": "Skills Offered",
+    "skillsDesired": "Skills Desired",
+    "noUsers": "No users found",
+    "offering": "Offering",
+    "desiring": "Desiring",
+    "viewProfile": "View Profile"
+  },
+  "ProfileScreen": {
+    "location": "Location",
+    "phone": "Phone number",
+    "skillsToLearn": "Skills to learn",
+    "skillsToOffer": "Skills to offer",
+    "ratingsAndReviews": "Ratings and Reviews",
+    "reviews": "Reviews"
+  },
+  "SettingsScreen": {
+    "profile": "Profile",
+    "language": "Change Language",
+    "theme": "Change Theme",
+    "logout": "Logout"
+  },
+  "ReviewScreen": {
+    "title": "Rate and Review",
+    "description": "Rate your experience with",
+    "button": "Submit Review",
+    "overall": "Overall Rate",
+    "ascpects": "Rate specific aspects",
+    "teaching": "Teaching Skills",
+    "communication": "Communication",
+    "punctuality": "Punctuality",
+    "textPlaceholder": "Write your review here..."
+  },
+  "PlansScreen": {
+    "chooseYourPlan": "Choose Your Plan",
+    "startFreeOrPro": "Start free or go Pro for the ultimate Skill Trade experience.",
+    "free": "Free",
+    "default": "Default",
+    "perMonth": "/month",
+    "freeDescription": "Perfect for getting started with skill trading",
+    "features": "Features",
+    "selectUpTo2SkillsToLearn": "Select up to 2 skills to learn",
+    "selectUpTo2SkillsToTeach": "Select up to 2 skills to teach",
+    "commissionOnPaidSkillTrades": "20% commission on paid skill trades",
+    "oneActiveSkillTrade": "1 active skill trade at a time",
+    "noProBadge": "No Pro badge",
+    "stayOnFreePlan": "Stay on Free Plan",
+    "pro": "Pro",
+    "bestValue": "Best Value",
+    "proDescription": "Unlock unlimited potential with Pro features",
+    "proFeatures": "Pro Features",
+    "skillsToLearn": "Skills to Learn",
+    "skillsToTeach": "Skills to Teach",
+    "onPaidTrades": "on paid trades",
+    "noCommissions": "No commissions",
+    "activeSkillTrades": "active skill trades",
+    "unlimited": "Unlimited",
+    "proVerificationBadge": "Pro verification badge",
+    "upgradeToPro": "Upgrade to Pro",
+    "planComparison": "Plan Comparison",
+    "feature": "Feature",
+    "commissionRate": "Commission Rate",
+    "activeTrades": "Active Trades",
+    "proBadge": "Pro Badge",
+    "faq": "Frequently Asked Questions",
+    "faqSwitchQuestion": "Can I switch between plans?",
+    "faqSwitchAnswer": "Yes, you can upgrade to Pro or downgrade to Free at any time. When downgrading, you'll maintain access to Pro features until the end of your current billing period.",
+    "faqCommissionQuestion": "How are commissions calculated?",
+    "faqCommissionAnswer": "For Free plan users, a 20% commission is applied to any paid skill trades. For example, if you charge $50 for a session, $10 goes to platform fees. Pro users keep 100% of their earnings.",
+    "faqLimitQuestion": "What happends if I exceed my Free limits?",
+    "faqLimitAnswer": "You'll need to complete or cancel existing trades before starting new ones, and you won't be able to add more skills beyond your limit. Consider upgrading to Pro for unlimited access.",
+    "downgradeToFree": "Downgrade to Free Plan",
+    "alreadyPro": "You are already on Pro plan",
+    "upgradeSuccess": "Successfully upgraded to Pro!",
+    "upgradeError": "Failed to upgrade to Pro. Please try again.",
+    "alreadyFree": "You are already on Free plan",
+    "downgradeSuccess": "Successfully downgraded to Free plan!",
+    "downgradeError": "Failed to downgrade to Free plan. Please try again."
+  },
+  "feedback": {
+    "imagePermissionFeedbackTitle": "Permission required",
+    "imagePermissionFeedbackDescription": "Permission to access gallery is required!",
+    "bioRequired": "Bio is required",
+    "locationRequired": "Location is required",
+    "phoneRequired": "Phone number is required",
+    "passwordResetSuccess": "Password reset email sent successfully.",
+    "passwordResetFailed": "Failed to send password reset email.",
+    "googleSignInFailed": "Google sign-in failed.",
+    "registerSuccess": "Registration successful.",
+    "logoutSuccess": "Logout successful.",
+    "reviewSuccess": "Review submitted successfully."
+  },
+  "skillLevels": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "pages": {
+    "home": "Home",
+    "matches": "Matches",
+    "messages": "Messages",
+    "profile": "Profile",
+    "search": "Search",
+    "settings": "Settings"
   }
 }

@@ -1,57 +1,51 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
 import { useUnreadCount } from '../hooks/useUnreadCount';
-import { theme } from '../theme';
+import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
+import { useTranslation } from 'react-i18next';
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
 import MessagesScreen from '../screens/MessagesScreen';
 import SearchScreen from '../screens/SearchScreen';
-import DrawerContent from '../components/DrawerContent';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import SettingsScreen from '../screens/SettingsScreen';
+import Plans from '../screens/Plans';
 
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
-const Tabs = () => {
+const AppNavigation = () => {
     const unreadCount = useUnreadCount();
-    const navigation = useNavigation();
+    const { theme } = useTheme();
+    const colors = themeColors(theme);
+    const { t } = useTranslation();
 
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerTitleAlign: 'center',
-                headerRight: () => (
-                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                        <MaterialIcons
-                            name="settings"
-                            size={24}
-                            color={theme.colors.main}
-                            style={{ marginRight: 15 }}
-                        />
-                    </TouchableOpacity>
-                ),
-                headerStyle: { backgroundColor: '#20201c' },
+                headerStyle: { backgroundColor: colors.colors.navigationBackground },
                 headerShadowVisible: false,
-                headerTitleStyle: { color: theme.colors.main },
-                tabBarStyle: { backgroundColor: '#20201c' },
-                tabBarActiveTintColor: theme.colors.main,
+                headerTitleStyle: { color: colors.colors.main },
+                tabBarStyle: { backgroundColor: colors.colors.navigationBackground },
+                headerShown: false,
+                tabBarActiveTintColor: colors.colors.main,
                 tabBarInactiveTintColor: 'gray',
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
-                    if (route.name === 'Home') iconName = 'home';
-                    else if (route.name === 'Matches') iconName = 'favorite';
-                    else if (route.name === 'Messages') iconName = 'message';
-                    else if (route.name === 'Search') iconName = 'search';
+                    if (route.name === t("pages.home")) iconName = 'home';
+                    else if (route.name === t("pages.matches")) iconName = 'favorite';
+                    else if (route.name === t("pages.messages")) iconName = 'message';
+                    else if (route.name === t("pages.search")) iconName = 'search';
+                    else if (route.name === t("pages.settings")) iconName = 'settings';
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                 },
             })}
         >
-            <Tab.Screen name="Home" component={LandingScreen} />
-            <Tab.Screen name="Matches" component={MatchesScreen} />
+            <Tab.Screen name="Plans" component={Plans}/>
+            <Tab.Screen name={t("pages.home")} component={LandingScreen} />
+            <Tab.Screen name={t("pages.matches")} component={MatchesScreen} />
             <Tab.Screen
-                name="Messages"
+                name={t("pages.messages")}
                 component={MessagesScreen}
                 options={{
                     tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
@@ -61,22 +55,9 @@ const Tabs = () => {
                     },
                 }}
             />
-            <Tab.Screen name="Search" component={SearchScreen} />
+            <Tab.Screen name={t("pages.search")} component={SearchScreen} />
+            <Tab.Screen name={t("pages.settings")} component={SettingsScreen} />
         </Tab.Navigator>
-    );
-};
-
-const AppNavigation = () => {
-    return (
-        <Drawer.Navigator
-            screenOptions={{
-                drawerStyle: { backgroundColor: '#20201c', width: 260 },
-                headerShown: false,
-            }}
-            drawerContent={(props) => <DrawerContent {...props} />}
-        >
-            <Drawer.Screen name="MainTabs" component={Tabs} />
-        </Drawer.Navigator>
     );
 };
 

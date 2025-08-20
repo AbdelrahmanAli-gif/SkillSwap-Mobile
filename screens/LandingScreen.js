@@ -1,32 +1,33 @@
 import { ImageBackground, ScrollView, Text, TouchableOpacity, View, } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../contexts/ThemeContext";
 import GradientBackground from "../components/GradientBackground";
 import Card from "../components/Card";
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { useTranslation } from "react-i18next";
-
 
 const LandingScreen = () => {
   const navigate = useNavigation();
   const { t, i18n } = useTranslation();
+  const { theme } = useTheme();
   const isRTL = i18n.dir() === 'rtl';
 
   const howWorks = [
     {
       title: t("HowWorksCards.card1.title"),
       description: t("HowWorksCards.card1.description"),
-      icon: <Feather name="users" size={26} color="black" />,
+      icon: <Feather name="users" size={26} color={theme === 'dark' ? "black" : "white"} />,
     },
     {
       title: t("HowWorksCards.card2.title"),
       description: t("HowWorksCards.card2.description"),
-      icon: <FontAwesome6 name="lightbulb" size={26} color="black" />,
+      icon: <FontAwesome6 name="lightbulb" size={26} color={theme === 'dark' ? "black" : "white"} />,
     },
     {
       title: t("HowWorksCards.card3.title"),
       description: t("HowWorksCards.card3.description"),
-      icon: <FontAwesome6 name="handshake" size={26} color="black" />,
+      icon: <FontAwesome6 name="handshake" size={26} color={theme === 'dark' ? "black" : "white"} />,
     }
   ]
 
@@ -64,7 +65,7 @@ const LandingScreen = () => {
   ]
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1, marginTop: 30 }}>
       <GradientBackground />
       <View className="w-full" style={{ height: 350 }}>
         <ImageBackground
@@ -74,13 +75,13 @@ const LandingScreen = () => {
         >
           <View className="flex-1 w-full h-full bg-black/55 px-4 py-4">
             <View className="flex-1 items-center justify-center">
-              <Text className="font-normal text-center text-text-primary text-xl">
+              <Text className="font-normal text-center text-neutral-400 dark:text-text-primary-dark text-xl">
                 {t("HeroSection.description")}
               </Text>
             </View>
 
             <View className="w-full items-center">
-              <TouchableOpacity onPress={() => navigate.navigate("Matches")} className="bg-btn-submit-bg mb-10 w-32 h-10 items-center justify-center rounded-lg">
+              <TouchableOpacity onPress={() => navigate.navigate("Matches")} className="bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark mb-10 w-32 h-10 items-center justify-center rounded-lg">
                 <Text className="text-white">{t("HeroSection.button")}</Text>
               </TouchableOpacity>
             </View>
@@ -89,8 +90,8 @@ const LandingScreen = () => {
       </View>
 
       <View className="w-full p-2">
-        <Text className={`font-medium text-2xl m-3 text-main-color ${isRTL ? 'text-right' : 'text-left'}`}>{t("HowWorkSection.title")}</Text>
-        <Text className={`text-text-secondary ml-3 mb-3 ${isRTL ? 'text-right' : 'text-left'}`}>{t("HowWorkSection.description")}</Text>
+        <Text className={`font-medium text-2xl m-3 text-main-color-light dark:text-main-color-dark ${isRTL ? 'text-right' : 'text-left'}`}>{t("HowWorkSection.title")}</Text>
+        <Text className={`text-text-secondary-light dark:text-text-secondary-dark ml-3 mb-3 ${isRTL ? 'text-right' : 'text-left'}`}>{t("HowWorkSection.description")}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
           {howWorks.map((item, index) => (
             <Card
@@ -104,8 +105,8 @@ const LandingScreen = () => {
       </View>
 
       <View className="w-full p-2 mb-3">
-        <Text className={`font-medium text-2xl m-3 text-main-color ${isRTL ? 'text-right' : 'text-left'}`}>{t("SuccessStoriesSection.title")}</Text>
-        <Text className={`text-text-secondary ml-3 mb-3 ${isRTL ? 'text-right' : 'text-left'}`}>{t("SuccessStoriesSection.description")}</Text>
+        <Text className={`font-medium text-2xl m-3 text-main-color-light dark:text-main-color-dark ${isRTL ? 'text-right' : 'text-left'}`}>{t("SuccessStoriesSection.title")}</Text>
+        <Text className={`text-text-secondary-light dark:text-text-secondary-dark ml-3 mb-3 ${isRTL ? 'text-right' : 'text-left'}`}>{t("SuccessStoriesSection.description")}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
           {successStories.map((item, index) => (
             <Card

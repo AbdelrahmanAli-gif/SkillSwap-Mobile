@@ -20,6 +20,7 @@ export const createRequest = async (request, user, otherUser) => {
                 name: user.name,
                 profilePicture: user.profilePicture,
             },
+            notes: request.notes || null,
         };
         await setDoc(docRef, newRequest);
         return newRequest;

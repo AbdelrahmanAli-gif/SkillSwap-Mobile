@@ -50,16 +50,16 @@
       "description": "لايا شاركت شغفها بالرسم المائي وساعدت المبتدئين في التعبير عن أنفسهم بشكل إبداعي."
     },
     "card5": {
-      "title": "معلم الجيتار",
-      "description": "عمر قدم دروس الجيتار للمبتدئين وحصل على نصائح غناء مجانية من المطربين على Swapoo."
-    },
-    "card6": {
       "title": "مدرب السباحة",
       "description": "كريم علّم تقنيات السباحة عبر الإنترنت وحصل على تدريب غذائي مقابل تحسين روتينه الرياضي."
+    },
+    "card6": {
+      "title": "معلم الجيتار",
+      "description": "عمر قدم دروس الجيتار للمبتدئين وحصل على نصائح غناء مجانية من المطربين على Swapoo."
     }
   },
   "HowWorkSection": {
-    "title": "كيف تعمل Swapoo",
+    "title": "كيف يعمل Swapoo",
     "description": "منصتنا تربط بين الأفراد الذين يرغبون في مشاركة خبرتهم مع أولئك الذين يرغبون في التعلم. إنها تبادل مجتمعي حيث يتم تقدير المهارات ومشاركتها بحرية."
   },
   "HowWorksCards": {
@@ -75,5 +75,157 @@
       "title": "تعاون ونمو",
       "description": "شارك في تجارب التعلم التعاونية التي تعزز النمو والتطوير."
     }
+  },
+  "MatchesScreen": {
+    "title": "اقتراح تطابق مهارات",
+    "description": "بناءً على ملفك الشخصي وتفضيلاتك، قمنا بتحديد مهارات التبادل المحتملة التي تتوافق مع اهتماماتك وأهداف التعلم..",
+    "wants": "يريد",
+    "offers": "يعرض",
+    "connect": "تواصل"
+  },
+  "ScheduleSessionScreen": {
+    "skillToLearn": "اختر مهارة لتعلمها",
+    "skillToOffer": "اختر مهارة لعرضها",
+    "trade": "تبادل مهارة",
+    "payment": "ادفع للجلسات",
+    "notes": "اضافة ملاحظة",
+    "button": "ارسل الطلب",
+    "activeTradeCountError": "لقد وصلت إلى الحد الأقصى لعدد التداولات النشطة المجانية. يرجى إكمال أو إلغاء التداولات الحالية قبل بدء جديدة أو الترقية إلى برو للوصول غير المحدود."
+  },
+  "ChatScreen": {
+    "title": "الدردشة مع",
+    "input": "اكتب رسالة...",
+    "you": "انت",
+    "loading": "جاري تحميل الرسائل..."
+  },
+  "CompleteProfileScreen": {
+    "uploadImage": "رفع صورة شخصيه",
+    "bioPlaceholder": "اخبرنا عن نفسك",
+    "skillsToLearn": "مهارات لتعلمها",
+    "skillsToOffer": "مهارات لعرضها",
+    "skillSearchPlaceholder": "ابحث عن مهارات...",
+    "locationPlaceholder": "ادخل المدينة او الدولة",
+    "phonePlaceholder": "ادخل رقم الهاتف",
+    "countryPlaceholder": "ابحث عن دولة",
+    "about": "حول",
+    "location": "الموقع",
+    "phone": "رقم الهاتف",
+    "next": "التالي",
+    "previous": "السابق",
+    "finish": "اكمل",
+    "freePlanSkillLimitError": "يمكنك اختيار مهارتين فقط لتعلمها ومهارتين لتعليمها في الخطة المجانية. يرجى إزالة بعض المهارات أو الترقية إلى برو للوصول غير المحدود."
+  },
+  "MessagesScreen": {
+    "title": "الرسائل",
+    "description": "التواصل مع المطابقين المحتملين، ومناقشة تفاصيل تبادل المهارات، وجدولة الجلسات.",
+    "all": "الكل",
+    "unread": "غير مقروءة",
+    "loading": "جاري تحميل الرسائل..."
+  },
+  "SearchScreen": {
+    "searchPlaceholder": "ابحث بالاسم او المهارة...",
+    "skillsOffered": "المهارات المقدمة",
+    "skillsDesired": "المهارات المطلوبة",
+    "noUsers": "لا يوجد مستخدمين",
+    "offering": "يعرض",
+    "desiring": "يريد",
+    "viewProfile": "عرض الملف الشخصي"
+  },
+  "ProfileScreen": {
+    "location": "الموقع",
+    "phone": "رقم الهاتف",
+    "skillsToLearn": "مهارات لتعلمها",
+    "skillsToOffer": "مهارات لعرضها",
+    "ratingsAndReviews": "التقييمات والمراجعات",
+    "reviews": "المراجعات"
+  },
+  "SettingsScreen": {
+    "profile": "الملف الشخصي",
+    "language": "تغيير اللغة",
+    "theme": "تغيير الثيم",
+    "logout": "تسجيل الخروج"
+  },
+  "ReviewScreen": {
+    "title": "تقييم ومراجعة",
+    "description": "تقييم تجربتك مع",
+    "button": "ارسل المراجعة",
+    "overall": "تقييم عام",
+    "ascpects": "تقييم المواضيع",
+    "teaching": "مهارات التعليم",
+    "communication": "الاتصال",
+    "punctuality": "الوقت",
+    "textPlaceholder": "اكتب مراجعتك هنا..."
+  },
+  "PlansScreen": {
+    "chooseYourPlan": "اختر خطتك",
+    "startFreeOrPro": "ابدأ مجانًا أو انتقل إلى برو لتجربة تداول مهارات لا مثيل لها.",
+    "free": "مجاني",
+    "default": "افتراضي",
+    "perMonth": "/شهر",
+    "freeDescription": "مثالي للبدء في تداول المهارات",
+    "features": "الميزات",
+    "selectUpTo2SkillsToLearn": "اختر حتى مهارتين للتعلم",
+    "selectUpTo2SkillsToTeach": "اختر حتى مهارتين للتعليم",
+    "commissionOnPaidSkillTrades": "20% عمولة على تداول المهارات المدفوعة",
+    "oneActiveSkillTrade": "تداول مهارة نشط واحد فقط في نفس الوقت",
+    "noProBadge": "بدون شارة برو",
+    "stayOnFreePlan": "ابق على الخطة المجانية",
+    "pro": "برو",
+    "bestValue": "أفضل قيمة",
+    "proDescription": "افتح إمكانيات غير محدودة مع ميزات برو",
+    "proFeatures": "ميزات برو",
+    "skillsToLearn": "مهارات للتعلم",
+    "skillsToTeach": "مهارات للتعليم",
+    "onPaidTrades": "على التداولات المدفوعة",
+    "noCommissions": "بدون عمولة",
+    "activeSkillTrades": "تداولات مهارات نشطة",
+    "unlimited": "غير محدود",
+    "proVerificationBadge": "شارة تحقق برو",
+    "upgradeToPro": "الترقية إلى برو",
+    "planComparison": "مقارنة الخطط",
+    "feature": "الميزة",
+    "commissionRate": "معدل العمولة",
+    "activeTrades": "تداولات نشطة",
+    "proBadge": "شارة برو",
+    "faq": "الأسئلة الشائعة",
+    "faqSwitchQuestion": "هل يمكنني التبديل بين الخطط؟",
+    "faqSwitchAnswer": "نعم، يمكنك الترقية إلى برو أو الرجوع إلى المجانية في أي وقت. عند الرجوع، ستحتفظ بميزات برو حتى نهاية فترة الفوترة الحالية.",
+    "faqCommissionQuestion": "كيف يتم حساب العمولات؟",
+    "faqCommissionAnswer": "لمستخدمي الخطة المجانية، يتم تطبيق عمولة 20% على أي تداول مهارات مدفوع. على سبيل المثال، إذا تقاضيت 50 دولارًا للجلسة، يذهب 10 دولارات كرسوم للمنصة. مستخدمو برو يحتفظون بكامل أرباحهم.",
+    "faqLimitQuestion": "ماذا يحدث إذا تجاوزت حدود الخطة المجانية؟",
+    "faqLimitAnswer": "ستحتاج إلى إكمال أو إلغاء التداولات الحالية قبل بدء جديدة، ولن تتمكن من إضافة مهارات جديدة بعد الحد. يمكنك الترقية إلى برو للوصول غير المحدود.",
+    "downgradeToFree": "الرجوع إلى الخطة المجانية",
+    "alreadyPro": "أنت بالفعل على خطة برو",
+    "upgradeSuccess": "تم الترقية إلى برو بنجاح!",
+    "upgradeError": "فشل الترقية إلى برو. يرجى المحاولة مرة أخرى.",
+    "alreadyFree": "أنت بالفعل على الخطة المجانية",
+    "downgradeSuccess": "تم الرجوع إلى الخطة المجانية بنجاح!",
+    "downgradeError": "فشل الرجوع إلى الخطة المجانية. يرجى المحاولة مرة أخرى."
+  },
+  "feedback": {
+    "imagePermissionFeedbackTitle": "الاذن المطلوب",
+    "imagePermissionFeedbackDescription": "الاذن لمعرض الصور مطلوب!",
+    "bioRequired": "السيرة الذاتية مطلوبة",
+    "locationRequired": "الموقع مطلوب",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "passwordResetSuccess": "تم ارسال بريد تغيير كلمة المرور بنجاح.",
+    "passwordResetFailed": "فشل ارسال بريد تغيير كلمة المرور.",
+    "googleSignInFailed": "فشل تسجيل الدخول بواسطة جوجل",
+    "registerSuccess": "تسجيل التسجيل بنجاح.",
+    "logoutSuccess": "تسجيل الخروج بنجاح.",
+    "reviewSuccess": "تم ارسال المراجعة بنجاح."
+  },
+  "skillLevels": {
+    "beginner": "مبتدئ",
+    "intermediate": "متوسط",
+    "advanced": "متقدم"
+  },
+  "pages": {
+    "home": "الرئيسية",
+    "matches": "المطابقين",
+    "messages": "الرسائل",
+    "profile": "الملف الشخصي",
+    "search": "البحث",
+    "settings": "الاعدادات"
   }
 }

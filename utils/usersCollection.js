@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
 
 export const getAllOtherUsers = async (userId) => {
@@ -52,4 +52,45 @@ export const getUserById = async (userId) => {
         console.error('Error getting user by ID:', error);
         throw error;
     }
+}
+
+export const reviewUser = async (otherUserId, user, review) => {
+    try {
+        const userRef = doc(db, "users", otherUserId);
+        const userSnap = await getDoc(userRef);
+        const userData = userSnap.data();
+        const reviews = userData.reviews;
+        const newReview = {
+            authorName: user.name,
+            authorPhoto: user.profilePicture,
+            communication: review.communication,
+            createdAt: new Date().toISOString(),
+            punctuality: review.punctuality,
+            rating: review.rating,
+            reviewId: `${user.uid}_${Date.now()}`,
+            reviewerId: user.uid,
+            teachingSkill: review.teachingSkill,
+            text: review.text ? review.text : ""
+        };
+        reviews.push(newReview);
+        const totalRatings = reviews.length;
+        const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / totalRatings;
+        await updateDoc(userRef, {
+            rating: averageRating,
+            totalSessions: totalRatings,
+            reviews: reviews
+        });
+    } catch (error) {
+        console.error("Error submitting rating:", error);
+        throw error;
+    }
+}
+
+export const updateUserById = async (userId, userData) => {
+  try {
+    const userDocRef = doc(db, "users", userId)
+    await updateDoc(userDocRef, userData)
+  } catch (error) {
+    console.error("Error updating user by ID:", error)
+  }
 }
