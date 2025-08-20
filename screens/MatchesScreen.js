@@ -6,13 +6,14 @@ import { generateFromGemini } from '../api/gemini';
 import { skillMatch } from '../helpers/prompts';
 import { useTheme } from "../contexts/ThemeContext";
 import { theme as themeColors } from "../theme";
+import { useTranslation } from 'react-i18next';
 import MatchingUserCard from '../components/MatchingUserCard';
 import GradientBackground from '../components/GradientBackground';
-import { useTranslation } from 'react-i18next';
 
 const MatchesScreen = () => {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const { user } = useAuth();
     const { theme } = useTheme();
     const { t, i18n } = useTranslation();
@@ -22,14 +23,37 @@ const MatchesScreen = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
+            setError(false);
             const users = await getAllOtherUsersFiltered(user.uid);
-            const results = await generateFromGemini(skillMatch(user, users));
-            setMatches(JSON.parse(results.replace("```json", "").replace("```", "")));
-            setLoading(false);
+            generateFromGemini(skillMatch(user, users)).then((res) => {
+                res = res.replace("```json", "").replace("```", "");
+                setMatches(JSON.parse(res));
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.log(err);
+            });
         };
 
         fetchUsers();
     }, []);
+
+    if (error) {
+        return (
+            <View className="flex-1 items-center justify-center p-4">
+                <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.error")}</Text>
+            </View>
+        );
+    }
+
+    if (!loading && matches.length === 0) {
+        return (
+            <View className="flex-1 items-center justify-center p-4">
+                <Text className={`text-2xl text-center font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.noMatches")}</Text>
+            </View>
+        );
+    }
 
     return (
         <View className="flex-1 px-5 pt-5" style={{ marginTop: 30 }}>

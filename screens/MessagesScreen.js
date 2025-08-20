@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { getUnreadCount, subscribeToUserChats } from '../utils/chatUtils';
+import { useTranslation } from 'react-i18next';
 import Messages from '../components/Messages';
 import GradientBackground from '../components/GradientBackground';
-import { useTranslation } from 'react-i18next';
 
 const MessagesScreen = () => {
     const [isClicked, setIsClicked] = useState("All");
@@ -27,6 +27,14 @@ const MessagesScreen = () => {
         return (
             <View className="flex-1 items-center justify-center">
                 <Text>{t("MessagesScreen.loading")}</Text>
+            </View>
+        )
+    }
+
+    if (chats.length === 0) {
+        return (
+            <View className="flex-1 items-center justify-center">
+                <Text>{t("MessagesScreen.noChats")}</Text>
             </View>
         )
     }
