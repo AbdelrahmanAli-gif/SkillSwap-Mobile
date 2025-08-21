@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import { ActivityIndicator, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createSkillDoc } from '../utils/skillsCollections';
@@ -26,12 +26,6 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
     const isRTL = i18n.dir() === 'rtl';
     const { theme } = useTheme();
     const colors = themeColors(theme);
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            title: stepTitles[steps],
-        });
-    }, [steps]);
 
     const handleChangeSteps = (value) => {
         if (steps + value < 0 || steps + value > 3) return;

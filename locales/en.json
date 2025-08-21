@@ -141,7 +141,9 @@
     "skillsToLearn": "Skills to learn",
     "skillsToOffer": "Skills to offer",
     "ratingsAndReviews": "Ratings and Reviews",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "info": "Info",
+    "trades": "Trades"
   },
   "SettingsScreen": {
     "profile": "Profile",
@@ -236,10 +238,11 @@
   },
   "pages": {
     "home": "Home",
-    "matches": "Matches",
+    "matches": "Explore",
     "messages": "Messages",
     "profile": "Profile",
     "search": "Search",
-    "settings": "Settings"
+    "settings": "Settings",
+    "notifications": "Notifications"
   }
 }

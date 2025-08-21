@@ -22,7 +22,7 @@ const MessagesScreen = () => {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [user.uid]);
 
     if (loading) {
         return (

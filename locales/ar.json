@@ -141,7 +141,9 @@
     "skillsToLearn": "مهارات لتعلمها",
     "skillsToOffer": "مهارات لعرضها",
     "ratingsAndReviews": "التقييمات والمراجعات",
-    "reviews": "المراجعات"
+    "reviews": "المراجعات",
+    "info": "المعلومات",
+    "trades": "التداولات"
   },
   "SettingsScreen": {
     "profile": "الملف الشخصي",
@@ -236,10 +238,11 @@
   },
   "pages": {
     "home": "الرئيسية",
-    "matches": "المطابقين",
+    "matches": "اكتشاف",
     "messages": "الرسائل",
     "profile": "الملف الشخصي",
     "search": "البحث",
-    "settings": "الاعدادات"
+    "settings": "الاعدادات",
+    "notifications": "الاشعارات"
   }
 }

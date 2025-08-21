@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import { theme as themeColors } from '../theme';
+import { useTranslation } from 'react-i18next';
 import CheckBox from '@react-native-community/checkbox';
 import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import Toast from 'react-native-toast-message';
-import { useTranslation } from 'react-i18next';
 
 const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMilestonesState }) => {
     const [checked, setChecked] = useState(milestone.isCompleted);

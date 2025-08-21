@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { subscribeToUserChats, getUnreadCount } from "../utils/chatUtils";
 import { useAuth } from "../contexts/AuthContext";
 
-export const useUnreadCount = () => {
+export const useUnreadMessages = () => {
     const [totalUnread, setTotalUnread] = useState(0);
     const { user } = useAuth();
 

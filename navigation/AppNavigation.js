@@ -1,21 +1,21 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useUnreadCount } from '../hooks/useUnreadCount';
+import { useUnreadMessages } from '../hooks/useUnreadMessages';
 import { useTheme } from "../contexts/ThemeContext";
 import { theme as themeColors } from "../theme";
 import { useTranslation } from 'react-i18next';
 import LandingScreen from '../screens/LandingScreen';
 import MatchesScreen from '../screens/MatchesScreen';
 import MessagesScreen from '../screens/MessagesScreen';
-import SearchScreen from '../screens/SearchScreen';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SettingsScreen from '../screens/SettingsScreen';
-import Plans from '../screens/Plans';
-import MilestoneScreen from '../screens/MilestoneScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
+import { useUnreadRequests } from '../hooks/useUnreadRequests';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = () => {
-    const unreadCount = useUnreadCount();
+    const unreadMessages = useUnreadMessages();
+    const unreadRequests = useUnreadRequests();
     const { theme } = useTheme();
     const colors = themeColors(theme);
     const { t } = useTranslation();
@@ -34,30 +34,38 @@ const AppNavigation = () => {
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
                     if (route.name === t("pages.home")) iconName = 'home';
-                    else if (route.name === t("pages.matches")) iconName = 'favorite';
+                    else if (route.name === t("pages.matches")) iconName = 'explore';
                     else if (route.name === t("pages.messages")) iconName = 'message';
-                    else if (route.name === t("pages.search")) iconName = 'search';
+                    else if (route.name === t("pages.notifications")) iconName = 'notifications';
                     else if (route.name === t("pages.settings")) iconName = 'settings';
                     return <MaterialIcons name={iconName} size={size} color={color} />;
                 },
             })}
         >
-            <Tab.Screen name="Plans" component={Plans} />
-            <Tab.Screen name="Milestones" component={MilestoneScreen} />
             <Tab.Screen name={t("pages.home")} component={LandingScreen} />
             <Tab.Screen name={t("pages.matches")} component={MatchesScreen} />
             <Tab.Screen
                 name={t("pages.messages")}
                 component={MessagesScreen}
                 options={{
-                    tabBarBadge: unreadCount > 0 ? unreadCount : undefined,
+                    tabBarBadge: unreadMessages > 0 ? unreadMessages : undefined,
                     tabBarBadgeStyle: {
                         backgroundColor: 'red',
                         color: 'white',
                     },
                 }}
             />
-            <Tab.Screen name={t("pages.search")} component={SearchScreen} />
+            <Tab.Screen
+                name={t("pages.notifications")}
+                component={NotificationsScreen}
+                options={{
+                    tabBarBadge: unreadRequests > 0 ? unreadRequests : undefined,
+                    tabBarBadgeStyle: {
+                        backgroundColor: "red",
+                        color: "white",
+                    },
+                }}
+            />
             <Tab.Screen name={t("pages.settings")} component={SettingsScreen} />
         </Tab.Navigator>
     );

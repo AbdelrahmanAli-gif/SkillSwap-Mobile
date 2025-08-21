@@ -11,64 +11,11 @@ import UserSkillCard from '../components/UserSkillCard';
 import MilestoneCard from '../components/MilestoneCard';
 
 const MilestoneScreen = () => {
-    const [offeredSkillMilestones, setOfferedSkillMilestones] = useState([
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e111",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e112",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e113",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-    ],)
-    const [requestedSkillMilestones, setRequestedSkillMilestones] = useState([
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e114",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e115",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-        {
-            AI: true,
-            description: "Choose one popular front-end framework (React, Angular, or Vue) and learn its core concepts: components, data binding, routing, and state management. Build a small, interactive application like a to-do list or a simple calculator.",
-            id: "b9c3d7e1-f2a3-4c4d-8e5f-6a8b7c9d0e116",
-            isCompleted: false,
-            price: 0,
-            title: "Introduction to a Front-End Framework (React, Angular, or Vue)"
-        },
-    ],)
+    const router = useRoute();
     const { user } = useAuth();
-    // const{request}=router.params
-    // const offeredSkill=request.offeredSkill.skillName
-    // const offeredSkillLevel=request.offeredSkill.skillLevel
-    // const requestedSkill=request.requestedSkill.skillName
-    // const requestedSkillLevel=request.requestedSkill.skillLevel
+    const { trade } = router.params
+    const [milestonesA, setMilestonesA] = useState(trade.milestonesA || []);
+    const [milestonesB, setMilestonesB] = useState(trade.milestonesB || []);
 
     const addMilestoneWithID = async (trade) => {
         try {
@@ -79,40 +26,41 @@ const MilestoneScreen = () => {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [resultsA, resultsB] = await Promise.all([
-                    generateFromGemini(generateMilestonesPrompt("egyptian dancing", "Advanced")),
-                    generateFromGemini(generateMilestonesPrompt("valorant", "Beginner"))
-                ]);
-                const cleanedA = resultsA.replace("```json", "").replace("```", "");
-                const cleanedB = resultsB.replace("```json", "").replace("```", "");
-                const jsonA = JSON.parse(cleanedA);
-                const jsonB = JSON.parse(cleanedB);
-                const trade = {
-                    milestoneA: jsonA,
-                    milestoneB: jsonB
-                }
-                // addMilestoneWithID(trade)
-                setOfferedSkillMilestones(jsonA);
-                setRequestedSkillMilestones(jsonB);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const [resultsA, resultsB] = await Promise.all([
+    //                 generateFromGemini(generateMilestonesPrompt("egyptian dancing", "Advanced")),
+    //                 generateFromGemini(generateMilestonesPrompt("valorant", "Beginner"))
+    //             ]);
+    //             const cleanedA = resultsA.replace("```json", "").replace("```", "");
+    //             const cleanedB = resultsB.replace("```json", "").replace("```", "");
+    //             const jsonA = JSON.parse(cleanedA);
+    //             const jsonB = JSON.parse(cleanedB);
+    //             const trade = {
+    //                 milestoneA: jsonA,
+    //                 milestoneB: jsonB
+    //             }
+    //             addMilestoneWithID(trade)
+    //             setMilestonesA(jsonA);
+    //             setMilestonesB(jsonB);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+    //     fetchData();
+    // }, []);
 
     return (
         <View className="flex-1 mt-[30px]">
             <GradientBackground />
             <ScrollView className="flex-1 p-5">
-                <UserSkillCard image={user.profilePicture} name={user.name} skill="Photography" messaging={false} />
-                <UserSkillCard name={user.name} skill="Cooking" messaging={true} />
+                <UserSkillCard user={trade.userA} skill={trade.skillA} />
+                <UserSkillCard user={trade.userB} skill={trade.skillB} />
 
-                <MilestoneCard teaching={true} skill="Photography" skillLevel="Beginner" milestonesState={offeredSkillMilestones} setMilestonesState={setOfferedSkillMilestones} />
-                <MilestoneCard skill="Cooking" skillLevel="Beginner" milestonesState={requestedSkillMilestones} setMilestonesState={setRequestedSkillMilestones} />
+                <MilestoneCard tradeId={trade.id} teaching={trade.userA.id === user.uid} skill={trade.skillA} skillLevel={trade.skillALevel} milestonesState={milestonesA} setMilestonesState={setMilestonesA} />
+                <MilestoneCard tradeId={trade.id} teaching={trade.userB.id === user.uid} skill={trade.skillB} skillLevel={trade.skillBLevel} milestonesState={milestonesB} setMilestonesState={setMilestonesB} />
+                <View className="mt-12" />
             </ScrollView>
         </View>
     );

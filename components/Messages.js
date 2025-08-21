@@ -9,7 +9,7 @@ const Messages = ({ chat, unreadCount }) => {
   const [otherUser, setOtherUser] = useState({});
   const { user } = useAuth();
   const navigation = useNavigation();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isRTL = i18n.dir() === 'rtl';
 
   useEffect(() => {
