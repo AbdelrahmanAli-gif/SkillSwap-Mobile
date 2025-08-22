@@ -47,7 +47,7 @@ const MatchesScreen = () => {
         <View className="flex-1 px-5 pt-5" style={{ marginTop: 30 }}>
             <GradientBackground />
             <View className="flex-row items-center justify-between">
-                <Text className={`text-3xl font-medium my-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.title")}</Text>
+                <Text className={`text-3xl font-medium mb-2 text-main-color-light dark:text-main-color-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.title")}</Text>
                 <FontAwesome onPress={() => navigation.navigate("Search")} name="search" size={20} color={colors.colors.textSecondary} />
             </View>
             <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark ${isRTL ? "text-right" : "text-left"}`}>{t("MatchesScreen.description")}</Text>

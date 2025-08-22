@@ -3,9 +3,9 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { getUserById } from '../utils/usersCollection';
 import { useTheme } from '../contexts/ThemeContext';
 import { theme as themeColors } from '../theme';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const TradeCard = ({ item }) => {
     const [firstUser, setFirstUser] = useState(null);
@@ -30,7 +30,7 @@ const TradeCard = ({ item }) => {
     return (
         <TouchableOpacity
             className="bg-card-background-light dark:bg-gray-950/35 my-2 p-3 rounded-lg"
-            onPress={() => (user.uid === item.userA || user.uid === item.userB) && navigator.navigate("Milestones", { trade: { ...item, userA: firstUser, userB: secondUser } })}
+            onPress={() => (user.uid === item.userA || user.uid === item.userB) && navigator.navigate("Milestones", { trade: item })}
         >
             {loading ?
                 <Text>Loading...</Text>

@@ -6,6 +6,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 import RootNavigation from "./navigation/RootNavigation";
 import Toast from "react-native-toast-message";
+import 'react-native-get-random-values';
 import "./global.css";
 import "./i18n";
 

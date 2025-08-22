@@ -1,6 +1,6 @@
 import { View, Image, Text, ScrollView, TouchableOpacity, FlatList } from "react-native";
 import { useState, useEffect } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { theme as themeColors } from "../theme";
@@ -12,10 +12,11 @@ import Reviews from "../components/Reviews";
 import GradientBackground from "../components/GradientBackground";
 import Tag from "../components/Tag";
 import CompleteProfileScreen from "./CompleteProfileScreen";
-import TradeCard from "./TradeCard";
+import TradeCard from "../components/TradeCard";
 
 const ProfileScreen = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const { user: currentUser } = useAuth();
   const { user } = route.params;
   const [editing, setEditing] = useState(false);
@@ -104,21 +105,43 @@ const ProfileScreen = () => {
             </View>
           )}
 
+          {user.subscribtion && (
+            <>
+              <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.subscription")}</Text>
+              <View className="w-full flex-row items-center justify-between">
+                <View className="items-start">
+                  <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark capitalize font-semibold">{user.subscribtion.plan === "pro" ? t("ProfileScreen.proPlan") : t("ProfileScreen.freePlan")}</Text>
+                  <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{t("ProfileScreen.renewalDate")}: {new Date(user.subscribtion.currentPeriodEnd).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}</Text>
+                </View>
+                <TouchableOpacity
+                  className="bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark px-3 py-1 rounded"
+                  onPress={() => navigation.navigate("Plans")}
+                >
+                  <Text className="text-white font-semibold">{t("ProfileScreen.manage")}</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+
           {user.hasSkills?.length > 0 && (
             <View className="w-full gap-2 py-2">
               <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.skillsToOffer")}</Text>
-              {user.hasSkills?.map((s) => (
-                <Tag key={s.skillId} teaching={true}>{s.skillName}</Tag>
-              ))}
+              <View className="flex-row gap-2 flex-wrap">
+                {user.hasSkills?.map((s) => (
+                  <Tag key={s.skillId} teaching={true}>{s.skillName}</Tag>
+                ))}
+              </View>
             </View>
           )}
 
           {user.needSkills?.length > 0 && (
             <View className="w-full gap-2 py-2">
               <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.skillsToLearn")}</Text>
-              {user.needSkills?.map((s) => (
-                <Tag key={s.skillId}>{s.skillName}</Tag>
-              ))}
+              <View className="flex-row gap-2 flex-wrap">
+                {user.needSkills?.map((s) => (
+                  <Tag key={s.skillId}>{s.skillName}</Tag>
+                ))}
+              </View>
             </View>
           )}
 
@@ -143,7 +166,7 @@ const ProfileScreen = () => {
               <View className="flex-1">
                 {[5, 4, 3, 2, 1].map((key) => (
                   <View key={key} className="flex-row items-center mb-2">
-                    <Text className="w-4 text-text-primary-light dark:text-text-primary-dark text-sm">{key}</Text>
+                    <Text className="text-text-primary-light dark:text-text-primary-dark text-sm">{key}</Text>
                     <Progress.Bar
                       height={10}
                       width={150}
@@ -152,7 +175,7 @@ const ProfileScreen = () => {
                       unfilledColor="transparent"
                       borderColor={colors.colors.main}
                       borderWidth={1}
-                      className="mx-2"
+                      className="mx-1"
                     />
                     <Text className="text-text-secondary-light text-sm">{reviewsPercentage[key]}</Text>
                   </View>
@@ -180,7 +203,7 @@ const ProfileScreen = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <TradeCard item={item} />}
           ListEmptyComponent={
-            <Text className="text-gray-400 mt-4 text-center">{t("No trades yet")}</Text>
+            <Text className="text-gray-400 mt-4 text-center">{t("ProfileScreen.noTrades")}</Text>
           }
         />
       )}

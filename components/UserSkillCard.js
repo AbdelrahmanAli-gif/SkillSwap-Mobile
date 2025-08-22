@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import Icon from "react-native-vector-icons/FontAwesome5"
+import FaIcon from "react-native-vector-icons/FontAwesome5"
+import MIcon from "react-native-vector-icons/MaterialIcons"
 
 const UserSkillCard = ({ user, skill }) => {
     const { t, i18n } = useTranslation();
@@ -30,10 +31,14 @@ const UserSkillCard = ({ user, skill }) => {
                 </View>
             </View>
             {currentUser.uid !== user.uid &&
-                <TouchableOpacity onPress={() => navigator.navigate("Chat", { otherUser: user })} className={`flex-row items-center gap-1 ${isRTL ? "mr-auto" : "ml-auto"} bg-main-color-light dark:bg-main-color-dark px-2 py-1 rounded-full`}>
-                    <Icon size={18} color="white" name="comment-dots" />
-                    <Text className="text-white">{t("MilestoneScreen.message")}</Text>
-                </TouchableOpacity>
+                <View className={`items-center gap-2 ${isRTL ? "mr-auto" : "ml-auto"}`}>
+                    <TouchableOpacity onPress={() => navigator.navigate("Chat", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark px-2 py-1 rounded-full`}>
+                        <FaIcon size={18} color="white" name="comment-dots" />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigator.navigate("Review", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark px-2 py-1 rounded-full`}>
+                        <MIcon size={18} color="white" name="rate-review" />
+                    </TouchableOpacity>
+                </View>
             }
         </View>
     );

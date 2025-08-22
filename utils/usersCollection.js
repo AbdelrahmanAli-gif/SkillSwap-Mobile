@@ -87,10 +87,10 @@ export const reviewUser = async (otherUserId, user, review) => {
 }
 
 export const updateUserById = async (userId, userData) => {
-  try {
-    const userDocRef = doc(db, "users", userId)
-    await updateDoc(userDocRef, userData)
-  } catch (error) {
-    console.error("Error updating user by ID:", error)
-  }
+    try {
+        const userDocRef = doc(db, "users", userId)
+        await updateDoc(userDocRef, userData)
+    } catch (error) {
+        console.error("Error updating user by ID:", error)
+    }
 }

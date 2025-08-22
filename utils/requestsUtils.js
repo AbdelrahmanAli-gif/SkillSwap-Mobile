@@ -1,4 +1,4 @@
-import { doc, setDoc, collection, query, where, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 export const createRequest = async (request, user, otherUser) => {
@@ -45,4 +45,14 @@ export const subscribeToUserRequests = (userId, callback) => {
         }));
         callback(requests);
     });
+};
+
+export const updateRequestStatus = async (requestId, status) => {
+    try {
+        const requestRef = doc(db, "requests", requestId);
+        await updateDoc(requestRef, { requestStatus: status });
+    }
+    catch (error) {
+        throw new Error(error.message);
+    }
 };

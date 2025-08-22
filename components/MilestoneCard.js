@@ -8,7 +8,7 @@ import * as Progress from "react-native-progress";
 import MilestoneContent from './MilestoneContent';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-const MilestoneCard = ({ tradeId, teaching, skill, skillLevel, milestonesState, setMilestonesState }) => {
+const MilestoneCard = ({ teaching, skill, skillLevel, milestonesState, setMilestonesState }) => {
     const [adding, setAdding] = useState(false);
     const [newMilestone, setNewMilestone] = useState({});
     const { theme } = useTheme();
@@ -22,8 +22,9 @@ const MilestoneCard = ({ tradeId, teaching, skill, skillLevel, milestonesState, 
         setNewMilestone({});
     }
 
-    const handleAdd = () => {
-        setMilestonesState([...milestonesState, { AI: false, isCompleted: false, price: 0, id: uuid(), ...newMilestone }]);
+    const handleAdd = async () => {
+        const updatedMilestones = [...milestonesState, { AI: false, isCompleted: false, price: 0, id: uuid(), ...newMilestone }];
+        await setMilestonesState(updatedMilestones);
         setAdding(false);
         setNewMilestone({});
     }
@@ -31,7 +32,7 @@ const MilestoneCard = ({ tradeId, teaching, skill, skillLevel, milestonesState, 
     return (
         <View className="mt-6 items-center border border-main-color-light/50 dark:border-main-color-dark/50 rounded-lg" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <View className="flex-row items-center justify-between w-full h-14 px-2 bg-card-background-light dark:bg-gray-950/35 border-b border-text-secondary-light dark:border-text-secondary-dark">
-                <Text className="text-text-primary-light dark:text-text-primary-dark text-lg font-bold text-center">{teaching ? t("MilestoneScreen.skillTeaching") : t("MilestoneScreen.skillLearning")}: {skill}</Text>
+                <Text className="text-text-primary-light dark:text-text-primary-dark text-lg font-bold text-center">{teaching ? t("MilestoneScreen.skillTeaching") : t("MilestoneScreen.skillLearning")}: {skill.charAt(0).toUpperCase() + skill.slice(1)}</Text>
                 <Text className="text-text-primary-light dark:text-text-primary-dark font-bold">{skillLevel.charAt(0).toUpperCase() + skillLevel.slice(1)}</Text>
             </View>
             <View className="items-center justify-between w-full px-2 mt-2">
@@ -43,7 +44,9 @@ const MilestoneCard = ({ tradeId, teaching, skill, skillLevel, milestonesState, 
             </View>
             <View className="flex-row w-full px-4 items-center justify-between mt-2">
                 <Text className="text-text-secondary-light dark:text-text-secondary-dark font-bold">{t("MilestoneScreen.milestones")}</Text>
-                <FontAwesome onPress={() => setAdding(true)} name="plus" size={16} color={colors.colors.textSecondary} />
+                {teaching &&
+                    <FontAwesome onPress={() => setAdding(true)} name="plus" size={16} color={colors.colors.textSecondary} />
+                }
             </View>
             {adding &&
                 <View className="bg-card-background-light dark:bg-gray-950/35 w-[95%] rounded-lg p-4 gap-2 mt-2">

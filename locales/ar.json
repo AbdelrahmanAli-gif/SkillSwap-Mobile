@@ -143,7 +143,13 @@
     "ratingsAndReviews": "التقييمات والمراجعات",
     "reviews": "المراجعات",
     "info": "المعلومات",
-    "trades": "التداولات"
+    "trades": "التداولات",
+    "subscription": "الاشتراك",
+    "proPlan": "الخطة المميزة",
+    "freePlan": "الخطة المجانية",
+    "manage": "ادارة",
+    "renewalDate": "تاريخ التجديد",
+    "noTrades": "لا يوجد تداولات"
   },
   "SettingsScreen": {
     "profile": "الملف الشخصي",
@@ -216,6 +222,16 @@
     "learning": "تعلم",
     "progress": "تقدم",
     "milestones": "ميلستونات"
+  },
+  "NotificationsScreen": {
+    "title": "الاشعارات",
+    "noNotifications": "لا يوجد اشعارات.",
+    "tradeRequest": "طلب تداول جديد من ",
+    "accept": "قبول",
+    "decline": "رفض",
+    "loading": "جاري تحميل الاشعارات...",
+    "accepted": "تم قبول طلب التداول.",
+    "declined": "تم رفض طلب التداول."
   },
   "feedback": {
     "imagePermissionFeedbackTitle": "الاذن المطلوب",
