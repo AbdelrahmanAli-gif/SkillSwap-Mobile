@@ -8,22 +8,29 @@ import PlanFeature from "../components/PlanFeature"
 import PlanFAQ from "../components/PlanFAQ"
 import { useAuth } from "../contexts/AuthContext"
 import Toast from "react-native-toast-message"
-import { updateUserById } from "../utils/usersCollection"
+import { getUserById, updateUserById } from "../utils/usersCollection"
 import { useEffect, useState } from "react"
+import { subscribeToProMobile } from "../utils/stripeMobile"
 
 export default function Plans() {
   const { t, i18n } = useTranslation()
   const isRTL = i18n.dir() === "rtl"
   const { theme } = useTheme()
   const colors = themeColors(theme)
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
   const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
-    if (user) {
-      setCurrentUser(user)
-    }
-  }, [user])
+    const updateUserInterval = setInterval(async () => {
+      if (user) {
+        const u = await getUserById(user.uid)
+        setCurrentUser(u)
+        setUser(u)
+      }
+    }, 2000)
+
+    return () => clearInterval(updateUserInterval)
+  }, [])
 
   async function upgradeToPro() {
     if (currentUser && currentUser.subscribtion?.plan === "pro") {
@@ -32,17 +39,14 @@ export default function Plans() {
         text1: t("PlansScreen.alreadyPro"),
       })
     } else {
-      const newUserData = {
-        ...currentUser,
-        subscribtion: { ...currentUser.subscribtion, plan: "pro" },
-      }
       try {
-        await updateUserById(currentUser.uid, newUserData)
-        setCurrentUser(newUserData)
-        Toast.show({
-          type: "success",
-          text1: t("PlansScreen.upgradeSuccess"),
+        await subscribeToProMobile({
+          backendUrl: "http://10.0.2.2:4242", // Use your backend URL or env variable
+          userId: currentUser.uid,
+          email: currentUser.email,
+          customerId: currentUser.stripeCustomerId || null,
         })
+        // The rest of the flow (updating user, showing success) will be handled after payment success via deep link
       } catch (error) {
         console.error("Error upgrading to Pro:", error)
         Toast.show({
@@ -60,9 +64,10 @@ export default function Plans() {
         text1: t("PlansScreen.alreadyFree"),
       })
     } else {
+      // Directly update user to free plan (no Stripe needed for downgrade)
       const newUserData = {
         ...currentUser,
-        subscribtion: { ...currentUser.subscribtion, plan: "free" },
+        subscribtion: { activeTradeCount: currentUser.subscribtion.activeTradeCount, plan: "free" },
       }
       try {
         await updateUserById(currentUser.uid, newUserData)
