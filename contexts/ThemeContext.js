@@ -1,26 +1,35 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { Appearance } from "react-native";
 import { useColorScheme as useNativewindColorScheme } from "nativewind";
+import { THEME_KEY, setItem, getItem } from "../services/storage";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    const systemTheme = Appearance.getColorScheme();
-    const [theme, setTheme] = useState(systemTheme || "light");
     const { setColorScheme } = useNativewindColorScheme();
+    const [theme, setTheme] = useState("light");
 
     useEffect(() => {
-        const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-            setTheme(colorScheme || "light");
-            setColorScheme(colorScheme || "light");
-        });
-        return () => subscription.remove();
+        const loadTheme = async () => {
+            const savedTheme = await getItem(THEME_KEY);
+            if (savedTheme) {
+                setTheme(savedTheme);
+                setColorScheme(savedTheme);
+            } else {
+                const systemTheme = Appearance.getColorScheme() || "light";
+                setTheme(systemTheme);
+                setColorScheme(systemTheme);
+            }
+        };
+
+        loadTheme();
     }, []);
 
-    const toggleTheme = () => {
+    const toggleTheme = async () => {
         setTheme((prev) => {
             const newTheme = prev === "light" ? "dark" : "light";
             setColorScheme(newTheme);
+            setItem(THEME_KEY, newTheme);
             return newTheme;
         });
     };

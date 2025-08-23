@@ -1,12 +1,41 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { USER_KEY, setItem, getItem, removeItem } from "../services/storage";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUserState] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                const savedUser = await getItem(USER_KEY);
+                if (savedUser) {
+                    setUserState(JSON.parse(savedUser));
+                }
+            } catch (e) {
+                console.log("Failed to load user from storage", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadUser();
+    }, []);
+
+    const setUser = async (userData) => {
+        if (userData) {
+            setUserState(userData);
+            await setItem(USER_KEY, JSON.stringify(userData));
+        } else {
+            setUserState(null);
+            await removeItem(USER_KEY);
+        }
+    };
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -12,7 +12,7 @@ import FontAwesome6Icon from "react-native-vector-icons/FontAwesome6"
 import { useEffect, useState } from "react"
 
 const SettingsScreen = () => {
-  const { user } = useAuth()
+  const { user, setUser } = useAuth()
   const { t, i18n } = useTranslation()
   const { theme, toggleTheme } = useTheme()
   const navigation = useNavigation()
@@ -34,6 +34,7 @@ const SettingsScreen = () => {
   const handleLogout = async () => {
     try {
       await logout()
+      await setUser(null)
       Toast.show({ type: "success", text1: "Logged out successfully" })
       navigation.reset({ index: 0, routes: [{ name: "Login" }] })
     } catch (error) {

@@ -31,7 +31,7 @@ const LoginScreen = () => {
             const userCredentials = await login(email, password);
             const user = userCredentials.user;
             const userDoc = await getDoc(doc(db, "users", user.uid));
-            setUser({ uid: user.uid, ...userDoc.data() });
+            await setUser({ uid: user.uid, ...userDoc.data() });
             if (userDoc.data().bio === null) navigation.navigate('Complete Profile');
             else navigation.navigate("App");
         } catch (error) {

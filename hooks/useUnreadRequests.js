@@ -21,7 +21,7 @@ export const useUnreadRequests = () => {
         });
 
         return () => unsubscribe();
-    }, [user.uid]);
+    }, [user?.uid]);
 
     return unreadCount;
 };

@@ -35,7 +35,7 @@ const AuthForm = ({ inputs, buttonText, onSubmit, validationRules, submitError, 
     const onGoogleSubmit = async () => {
         try {
             const user = await signIn();
-            setUser(user);
+            await setUser(user);
             if (user.bio === null) navigation.navigate('Complete Profile');
             else navigation.navigate('App');
         } catch (error) {
