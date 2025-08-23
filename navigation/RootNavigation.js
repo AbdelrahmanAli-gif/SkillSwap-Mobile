@@ -11,6 +11,9 @@ import ProfileScreen from "../screens/ProfileScreen"
 import MilestoneScreen from "../screens/MilestoneScreen"
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen"
 import PaymentSuccess from "../screens/PaymentSuccess";
+import SearchScreen from "../screens/SearchScreen";
+import Plans from "../screens/Plans";
+import ReviewUserScreen from "../screens/ReviewUserScreen";
 
 const Stack = createNativeStackNavigator()
 
@@ -28,18 +31,22 @@ const RootNavigation = () => {
           headerStyle: { backgroundColor: colors.colors.navigationBackground },
           headerShadowVisible: false,
           headerTitleStyle: { color: colors.colors.main, },
+          headerShown: false
         }}
       >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: true }} />
+        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} options={{ headerShown: true }} />
         <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
         <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
         <Stack.Screen name="Chat" component={ChatScreen} />
-        <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
+        <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
         <Stack.Screen name="Milestones" component={MilestoneScreen} />
         <Stack.Screen name="PaymentSuccess" component={PaymentSuccess}></Stack.Screen>
+        <Stack.Screen name="Plans" component={Plans} />
+        <Stack.Screen name="Review" component={ReviewUserScreen} />
       </Stack.Navigator>
     </>
   )

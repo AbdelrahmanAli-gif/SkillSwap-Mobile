@@ -141,7 +141,15 @@
     "skillsToLearn": "Skills to learn",
     "skillsToOffer": "Skills to offer",
     "ratingsAndReviews": "Ratings and Reviews",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "info": "Info",
+    "trades": "Trades",
+    "subscription": "Subscription",
+    "proPlan": "Pro Plan",
+    "freePlan": "Free Plan",
+    "manage": "Manage",
+    "renewalDate": "Renewal Date",
+    "noTrades": "No trades found"
   },
   "SettingsScreen": {
     "profile": "Profile",
@@ -215,6 +223,16 @@
     "progress": "Progress",
     "milestones": "Milestones"
   },
+  "NotificationsScreen": {
+    "title": "Notifications",
+    "noNotifications": "No notifications found.",
+    "tradeRequest": "A new trade request from ",
+    "accept": "Accept",
+    "decline": "Decline",
+    "loading": "Loading notifications...",
+    "accepted": "Trade request accepted.",
+    "declined": "Trade request declined."
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "Permission required",
     "imagePermissionFeedbackDescription": "Permission to access gallery is required!",
@@ -236,10 +254,11 @@
   },
   "pages": {
     "home": "Home",
-    "matches": "Matches",
+    "matches": "Explore",
     "messages": "Messages",
     "profile": "Profile",
     "search": "Search",
-    "settings": "Settings"
+    "settings": "Settings",
+    "notifications": "Notifications"
   }
 }

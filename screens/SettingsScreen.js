@@ -48,12 +48,12 @@ const SettingsScreen = () => {
       icon: <MaterialIcons name="person" size={24} color={colors.colors.main} />,
       action: () => navigation.navigate("Profile", { user }),
     },
-    {
-      id: "trades",
-      label: "Trades",
-      icon: <MaterialIcons name="notifications" size={24} color={colors.colors.main} />,
-      action: () => navigation.navigate("Trades"),
-    },
+    // {
+    //   id: "trades",
+    //   label: "Trades",
+    //   icon: <MaterialIcons name="notifications" size={24} color={colors.colors.main} />,
+    //   action: () => navigation.navigate("Trades"),
+    // },
     {
       id: "theme",
       label: t("SettingsScreen.theme"),

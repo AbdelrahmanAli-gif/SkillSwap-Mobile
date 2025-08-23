@@ -1,4 +1,3 @@
-// App.js
 import React, { useEffect } from "react"
 import { NavigationContainer, createNavigationContainerRef } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
@@ -28,6 +27,7 @@ async function verifySessionWithServer(backendBase, sessionId) {
   }
   return res.json()
 }
+import 'react-native-get-random-values';
 
 function AppContent() {
   const { theme } = useTheme()

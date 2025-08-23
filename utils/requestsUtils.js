@@ -1,4 +1,4 @@
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 
 export const createRequest = async (request, user, otherUser) => {
@@ -24,6 +24,33 @@ export const createRequest = async (request, user, otherUser) => {
         };
         await setDoc(docRef, newRequest);
         return newRequest;
+    }
+    catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const subscribeToUserRequests = (userId, callback) => {
+    if (!userId) return () => { };
+
+    const q = query(
+        collection(db, "requests"),
+        where("requestedUser.uid", "==", userId),
+    );
+
+    return onSnapshot(q, (snapshot) => {
+        const requests = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        callback(requests);
+    });
+};
+
+export const updateRequestStatus = async (requestId, status) => {
+    try {
+        const requestRef = doc(db, "requests", requestId);
+        await updateDoc(requestRef, { requestStatus: status });
     }
     catch (error) {
         throw new Error(error.message);

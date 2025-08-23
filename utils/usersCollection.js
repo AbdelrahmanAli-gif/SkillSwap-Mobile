@@ -93,4 +93,5 @@ export async function updateUserById(uid, newData) {
   // OR update specific fields:
   // await updateDoc(ref, { "subscribtion.plan": "free" })
   // return updated doc or just true
+
 }

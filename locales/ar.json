@@ -141,7 +141,15 @@
     "skillsToLearn": "مهارات لتعلمها",
     "skillsToOffer": "مهارات لعرضها",
     "ratingsAndReviews": "التقييمات والمراجعات",
-    "reviews": "المراجعات"
+    "reviews": "المراجعات",
+    "info": "المعلومات",
+    "trades": "التداولات",
+    "subscription": "الاشتراك",
+    "proPlan": "الخطة المميزة",
+    "freePlan": "الخطة المجانية",
+    "manage": "ادارة",
+    "renewalDate": "تاريخ التجديد",
+    "noTrades": "لا يوجد تداولات"
   },
   "SettingsScreen": {
     "profile": "الملف الشخصي",
@@ -215,6 +223,16 @@
     "progress": "تقدم",
     "milestones": "ميلستونات"
   },
+  "NotificationsScreen": {
+    "title": "الاشعارات",
+    "noNotifications": "لا يوجد اشعارات.",
+    "tradeRequest": "طلب تداول جديد من ",
+    "accept": "قبول",
+    "decline": "رفض",
+    "loading": "جاري تحميل الاشعارات...",
+    "accepted": "تم قبول طلب التداول.",
+    "declined": "تم رفض طلب التداول."
+  },
   "feedback": {
     "imagePermissionFeedbackTitle": "الاذن المطلوب",
     "imagePermissionFeedbackDescription": "الاذن لمعرض الصور مطلوب!",
@@ -236,10 +254,11 @@
   },
   "pages": {
     "home": "الرئيسية",
-    "matches": "المطابقين",
+    "matches": "اكتشاف",
     "messages": "الرسائل",
     "profile": "الملف الشخصي",
     "search": "البحث",
-    "settings": "الاعدادات"
+    "settings": "الاعدادات",
+    "notifications": "الاشعارات"
   }
 }

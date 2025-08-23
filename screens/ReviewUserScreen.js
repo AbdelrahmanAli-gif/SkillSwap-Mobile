@@ -3,32 +3,14 @@ import { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAuth } from '../contexts/AuthContext';
 import { reviewUser } from '../utils/usersCollection';
+import { useTranslation } from 'react-i18next';
 import GradientBackground from '../components/GradientBackground';
 import RatingStars from '../components/RatingStars';
 import Toast from 'react-native-toast-message';
-import { useTranslation } from 'react-i18next';
-
-const otherUser = {
-    availability: true,
-    bio: "test test test",
-    email: "test@gmail.com",
-    hasSkills: [],
-    isAvailableForPaid: false,
-    isAvailableForTrade: true,
-    location: { city: "Bad Tennstedt", country: "Germany" },
-    name: "test",
-    needSkills: [],
-    phone: "+49 66666666",
-    profilePicture: "https://res.cloudinary.com/dplcc4igl/image/upload/v1754859375/profile_pictures/vyebwvdvrtksgrnwygos.jpg",
-    rating: 0,
-    reviews: [],
-    totalSessions: 0,
-    uid: "8GDuZiIZ09RSl1dV2nPFbKRr8yn2",
-}
 
 const ReviewUserScreen = () => {
     const route = useRoute();
-    // const { otherUser } = route.params;
+    const { otherUser } = route.params;
     const { user } = useAuth();
     const [review, setReview] = useState({});
     const navigation = useNavigation();

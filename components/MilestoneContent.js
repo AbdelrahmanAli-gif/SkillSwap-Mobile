@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import { theme as themeColors } from '../theme';
+import { useTranslation } from 'react-i18next';
 import CheckBox from '@react-native-community/checkbox';
 import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import Toast from 'react-native-toast-message';
-import { useTranslation } from 'react-i18next';
 
 const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMilestonesState }) => {
     const [checked, setChecked] = useState(milestone.isCompleted);
@@ -16,12 +16,12 @@ const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMil
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === 'rtl';
 
-    const deleteMilestone = () => {
+    const deleteMilestone = async () => {
         const filteredMilestones = milestonesState.filter((currentMilestone) => currentMilestone.id != milestone.id);
-        setMilestonesState(filteredMilestones);
+        await setMilestonesState(filteredMilestones);
     }
 
-    const editMilestone = () => {
+    const editMilestone = async () => {
         const updatedMilestones = milestonesState.map((currentMilestone) => {
             if (currentMilestone.id === milestone.id) {
                 return { ...currentMilestone, ...data };
@@ -30,17 +30,17 @@ const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMil
         });
         setEditing(false);
         Toast.show({ type: 'success', text1: t("feedback.milestoneUpdate") });
-        setMilestonesState(updatedMilestones);
+        await setMilestonesState(updatedMilestones);
     };
 
-    const toggleChecked = (status) => {
+    const toggleChecked = async (status) => {
         setChecked(status);
         const updatedMilestones = milestonesState.map((currentMilestone) => {
             if (currentMilestone.id === milestone.id)
                 return { ...currentMilestone, isCompleted: status };
             return currentMilestone;
         })
-        setMilestonesState(updatedMilestones);
+        await setMilestonesState(updatedMilestones);
     }
 
     return (
