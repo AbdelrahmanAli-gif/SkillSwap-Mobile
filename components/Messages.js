@@ -24,7 +24,7 @@ const Messages = ({ chat, unreadCount }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("Chat", { otherUser })}
-      className="w-full flex-row mt-3 p-2 bg-card-background-light dark:bg-gray-950/35 rounded-lg"
+      className="w-full flex-row mt-3 p-2 bg-card-background-light dark:bg-gray-950/35 rounded-lg shadow-sm shadow-black dark:shadow-gray-950/35"
     >
       <View className="flex-row justify-between items-center w-full">
         <View className="flex-row items-center">

@@ -39,7 +39,7 @@ const RootNavigation = () => {
       <Stack.Navigator
         screenOptions={{
           header: () => (
-            <View className="flex-row items-center justify-center mt-[30px] py-4" style={{ backgroundColor: colors.colors.navigationBackground }}>
+            <View className="flex-row items-center justify-center mt-[30px] py-4" style={{ backgroundColor: colors.colors.headerBackground }}>
               <Image
                 source={require("../assets/images/logo.png")}
                 className="w-8 h-8"
@@ -55,25 +55,24 @@ const RootNavigation = () => {
       >
         {user ? (
           <>
-            <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
-            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
+            <Stack.Screen name="App" component={AppNavigation} />
+            <Stack.Screen name="Login" component={LoginScreen} />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }} />
-            <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="App" component={AppNavigation} />
           </>
         )}
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: true }} />
-        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} options={{ headerShown: true }} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
         <Stack.Screen name="Complete Profile" component={CompleteProfileScreen} />
-        {/* <Stack.Screen name="App" options={{ headerShown: false }} component={AppNavigation} /> */}
         <Stack.Screen name="Chat" component={ChatScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="ScheduleSession" component={ScheduleSessionsScreen} />
         <Stack.Screen name="Milestones" component={MilestoneScreen} />
-        <Stack.Screen name="PaymentSuccess" component={PaymentSuccess}></Stack.Screen>
+        <Stack.Screen name="PaymentSuccess" component={PaymentSuccess} />
         <Stack.Screen name="Plans" component={Plans} />
         <Stack.Screen name="Review" component={ReviewUserScreen} />
       </Stack.Navigator>

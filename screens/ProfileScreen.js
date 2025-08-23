@@ -27,16 +27,16 @@ const ProfileScreen = () => {
   const isRTL = i18n.dir() === "rtl";
   const colors = themeColors(theme);
 
-    useEffect(() => {
-      const updateUserInterval = setInterval(async () => {
-        if (user) {
-          const u = await getUserById(user.uid)
-          setUser(u)
-        }
-      }, 2000)
-  
-      return () => clearInterval(updateUserInterval)
-    }, [])
+  useEffect(() => {
+    const updateUserInterval = setInterval(async () => {
+      if (user) {
+        const u = await getUserById(user.uid)
+        setUser(u)
+      }
+    }, 2000)
+
+    return () => clearInterval(updateUserInterval)
+  }, [])
 
   useEffect(() => {
     if (!user?.uid) return;
@@ -124,12 +124,14 @@ const ProfileScreen = () => {
                   <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark capitalize font-semibold">{currentUser.subscribtion.plan === "pro" ? t("ProfileScreen.proPlan") : t("ProfileScreen.freePlan")}</Text>
                   {currentUser.subscribtion.currentPeriodEnd && <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{t("ProfileScreen.renewalDate")}: {new Date(currentUser.subscribtion.currentPeriodEnd).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</Text>}
                 </View>
-                <TouchableOpacity
-                  className="bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark px-3 py-1 rounded"
-                  onPress={() => navigation.navigate("Plans")}
-                >
-                  <Text className="text-white font-semibold">{t("ProfileScreen.manage")}</Text>
-                </TouchableOpacity>
+                {user.uid === currentUser.uid &&
+                  <TouchableOpacity
+                    className="bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark px-3 py-1 rounded"
+                    onPress={() => navigation.navigate("Plans")}
+                  >
+                    <Text className="text-white font-semibold">{t("ProfileScreen.manage")}</Text>
+                  </TouchableOpacity>
+                }
               </View>
             </>
           )}

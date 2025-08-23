@@ -2,6 +2,7 @@ import { ImageBackground, ScrollView, Text, TouchableOpacity, View, } from "reac
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
+import { theme as themeColors } from "../theme";
 import GradientBackground from "../components/GradientBackground";
 import Card from "../components/Card";
 import Feather from '@expo/vector-icons/Feather';
@@ -11,23 +12,24 @@ const LandingScreen = () => {
   const navigate = useNavigation();
   const { t, i18n } = useTranslation();
   const { theme } = useTheme();
+  const colors = themeColors(theme);
   const isRTL = i18n.dir() === 'rtl';
 
   const howWorks = [
     {
       title: t("HowWorksCards.card1.title"),
       description: t("HowWorksCards.card1.description"),
-      icon: <Feather name="users" size={26} color={theme === 'dark' ? "black" : "white"} />,
+      icon: <Feather name="users" size={26} color={theme === 'dark' ? colors.colors.main : colors.colors.textPrimary} />,
     },
     {
       title: t("HowWorksCards.card2.title"),
       description: t("HowWorksCards.card2.description"),
-      icon: <FontAwesome6 name="lightbulb" size={26} color={theme === 'dark' ? "black" : "white"} />,
+      icon: <FontAwesome6 name="lightbulb" size={26} color={theme === 'dark' ? colors.colors.main : colors.colors.textPrimary} />,
     },
     {
       title: t("HowWorksCards.card3.title"),
       description: t("HowWorksCards.card3.description"),
-      icon: <FontAwesome6 name="handshake" size={26} color={theme === 'dark' ? "black" : "white"} />,
+      icon: <FontAwesome6 name="handshake" size={26} color={theme === 'dark' ? colors.colors.main : colors.colors.textPrimary} />,
     }
   ]
 
@@ -75,7 +77,7 @@ const LandingScreen = () => {
         >
           <View className="flex-1 w-full h-full bg-black/55 px-4 py-4">
             <View className="flex-1 items-center justify-center">
-              <Text className="font-normal text-center text-neutral-400 dark:text-text-primary-dark text-xl">
+              <Text className="font-normal text-center text-white dark:text-text-primary-dark text-xl">
                 {t("HeroSection.description")}
               </Text>
             </View>

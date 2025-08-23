@@ -33,9 +33,9 @@ const TradeCard = ({ item }) => {
             onPress={() => (user.uid === item.userA || user.uid === item.userB) && navigator.navigate("Milestones", { trade: item })}
         >
             {loading ?
-                <Text>Loading...</Text>
+                <Text className="text-text-primary-light dark:text-text-primary-dark">Loading...</Text>
                 :
-                <View className="flex-row items-center gap-2 justify-between">
+                <View className="flex-row items-center gap-2 justify-between shadow-sm shadow-black dark:shadow-gray-950/35">
                     <View className="flex-row flex-1 items-center gap-1">
                         {firstUser.profilePicture ?
                             <Image className="w-14 h-14 rounded-full" source={{ uri: firstUser.profilePicture }} />
@@ -51,7 +51,7 @@ const TradeCard = ({ item }) => {
                             >
                                 {firstUser?.name}
                             </Text>
-                            <Text className="font-bold capitalize"
+                            <Text className="text-text-secondary-light dark:text-text-secondary-dark font-bold capitalize"
                                 numberOfLines={1}
                                 ellipsizeMode="tail"
                             >
@@ -59,7 +59,7 @@ const TradeCard = ({ item }) => {
                             </Text>
                         </View>
                     </View>
-                    <FontAwesome style={{ marginHorizontal: 10 }} name="arrows-h" size={20} color={colors.colors.textPrimary} />
+                    <FontAwesome style={{ marginHorizontal: 10 }} name="arrows-h" size={20} color={colors.colors.main} />
                     <View className="flex-row flex-1 items-center gap-1">
                         {secondUser.profilePicture ?
                             <Image className="w-14 h-14 rounded-full" source={{ uri: secondUser.profilePicture }} />
@@ -76,7 +76,7 @@ const TradeCard = ({ item }) => {
                                 {secondUser?.name}
                             </Text>
                             <Text
-                                className="font-bold capitalize"
+                                className="text-text-secondary-light dark:text-text-secondary-dark font-bold capitalize"
                                 numberOfLines={1}
                                 ellipsizeMode="tail"
                             >

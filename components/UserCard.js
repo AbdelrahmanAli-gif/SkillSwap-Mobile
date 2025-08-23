@@ -11,10 +11,10 @@ export default function UserCard({ user }) {
     const isRTL = i18n.dir() === 'rtl';
     const { theme, toggleTheme } = useTheme();
     const colors = themeColors(theme);
-    
+
 
     return (
-        <View className="rounded-lg p-4 mb-4 bg-card-background-light dark:bg-gray-950/35" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+        <View className="rounded-lg p-4 mb-4 bg-card-background-light dark:bg-gray-950/35 shadow-sm shadow-black dark:shadow-gray-950/35" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <View className="flex-row gap-4 items-center">
                 <View className="w-16 h-16 rounded-full bg-gray-300 items-center justify-center">
                     {user.profilePicture ?

@@ -40,7 +40,7 @@ const ForgotPasswordScreen = () => {
     }
 
     return (
-        <View className="flex-1 items-center pt-5">
+        <View className="flex-1 items-center mt-[30px] pt-10">
             <GradientBackground />
             <Text className="text-2xl font-bold text-main-color-light dark:text-main-color-dark">
                 {t("ForgotPasswordScreen.title")}

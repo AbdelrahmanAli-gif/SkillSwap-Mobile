@@ -23,7 +23,7 @@ const TradeRequestCard = ({ request }) => {
     }
 
     return (
-        <View className="p-3 rounded-lg my-2 bg-card-background-light dark:bg-gray-950/35" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+        <View className="p-3 rounded-lg my-2 bg-card-background-light dark:bg-gray-950/35 shadow-sm shadow-black dark:shadow-gray-950/35" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             <View className="flex-row items-center gap-3">
                 {request.requestingUser.profilePicture ?
                     <Image className="rounded-full w-14 h-14" source={{ uri: request.requestingUser.profilePicture }} />
@@ -36,7 +36,7 @@ const TradeRequestCard = ({ request }) => {
                 }
                 <View className="items-start justify-between">
                     <Text className="text-text-primary-light dark:text-text-primary-dark">{t("NotificationsScreen.tradeRequest")}
-                        <Text className="font-bold">{request.requestingUser.name}</Text>
+                        <Text className="font-bold text-main-color-light dark:text-main-color-dark">{request.requestingUser.name}</Text>
                     </Text>
                     <View className="flex-row items-center justify-between flex-wrap">
                         <Text className="font-semibold capitalize text-text-secondary-light dark:text-text-secondary-dark">{request.requestedSkill.skillName}</Text>
@@ -65,7 +65,7 @@ const TradeRequestCard = ({ request }) => {
                 </View>
             ) : (
                 <View className="flex-row items-center justify-center mt-2">
-                    <Text className="text-text-secondary-light dark:text-text-secondary-dark font-bold capitalize">{request.requestStatus === "accepted" ? t("NotificationsScreen.accepted") : t("NotificationsScreen.declined")}{request.requestStatus === "accepted" ? "!" : "."}</Text>
+                    <Text className="text-main-color-light dark:text-main-color-dark font-bold capitalize">{request.requestStatus === "accepted" ? t("NotificationsScreen.accepted") : t("NotificationsScreen.declined")}{request.requestStatus === "accepted" ? "!" : "."}</Text>
                 </View>
             )}
         </View>

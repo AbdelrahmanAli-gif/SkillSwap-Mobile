@@ -10,11 +10,11 @@ const MatchingUserCard = ({ user }) => {
     const navigation = useNavigation();
     const { t, i18n } = useTranslation();
     const isRTL = i18n.dir() === 'rtl';
-    const { theme, toggleTheme } = useTheme();
+    const { theme } = useTheme();
     const colors = themeColors(theme);
 
     return (
-        <View className={`items-center bg-card-background-light dark:bg-gray-950/35 rounded-xl p-4 w-full self-center mt-4 ${isRTL ? 'flex-row-reverse' : 'flex-row '}`}>
+        <View className={`items-center bg-card-background-light dark:bg-gray-950/35 shadow-sm shadow-black dark:shadow-gray-950/35 rounded-xl p-4 w-full self-center mt-4 ${isRTL ? 'flex-row-reverse' : 'flex-row '}`}>
             <View className="w-16 h-16 rounded-full bg-gray-300 items-center justify-center">
                 {user.profilePicture ?
                     <Image className="w-16 h-16 rounded-full" source={{ uri: user.profilePicture }} />
@@ -24,7 +24,7 @@ const MatchingUserCard = ({ user }) => {
             <View className={`flex-1 ${isRTL ? 'mr-4' : 'ml-4'}`}>
                 <View className="flex-row items-center gap-2">
                     <Text className={`text-lg font-medium text-text-primary-light dark:text-text-primary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>{user.name}</Text>
-                    { user.subscribtion.plan === 'pro' && <FontAwesome6Icon name='certificate' size={12} color={colors.colors.main} />}
+                    {user.subscribtion.plan === 'pro' && <FontAwesome6Icon name='certificate' size={12} color={colors.colors.main} />}
                 </View>
                 {user.needSkills?.length > 0 &&
                     <Text className={`text-sm text-text-secondary-light dark:text-text-secondary-dark capitalize ${isRTL ? 'text-right' : 'text-left'}`}>

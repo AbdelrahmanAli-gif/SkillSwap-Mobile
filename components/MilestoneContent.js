@@ -76,12 +76,12 @@ const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMil
                                 ) : (
                                     <FontAwesome6Icon
                                         onPress={() => setEditing(true)}
-                                        color={colors.colors.textSecondary}
+                                        color={colors.colors.btnSubmitBg}
                                         size={16}
                                         name="edit"
                                     />
                                 )}
-                                <FontAwesome6Icon onPress={deleteMilestone} color={colors.colors.textSecondary} size={16} name='trash' />
+                                <FontAwesome6Icon onPress={deleteMilestone} color={"#c70000"} size={16} name='trash' />
                             </View>
                         )
                     }

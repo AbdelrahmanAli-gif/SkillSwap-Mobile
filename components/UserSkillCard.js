@@ -24,18 +24,18 @@ const UserSkillCard = ({ user, skill }) => {
             }
             <View className={`${isRTL ? "mr-3" : "ml-3"}`}>
                 <Text className="text-text-primary-light dark:text-text-primary-dark text-2xl font-bold">{user.name}</Text>
-                <View className="bg-card-background-light dark:bg-gray-950/35 rounded-full mt-1 py-0.5 px-1.5 self-start">
-                    <Text className="text-text-secondary-light dark:text-text-secondary-dark">
+                <View className={`${currentUser.uid !== user.uid ? "bg-skill-learn-bg" : "bg-skill-teach-bg-light dark:bg-skill-teach-bg-dark"} rounded mt-1 py-0.5 px-1.5 self-start`}>
+                    <Text className={`${currentUser.uid !== user.uid ? "text-white" : ""} text-text-secondary-light dark:text-text-secondary-dark`}>
                         {t("MilestoneScreen.teaching")}: <Text className="font-bold">{skill.charAt(0).toUpperCase() + skill.slice(1)}</Text>
                     </Text>
                 </View>
             </View>
             {currentUser.uid !== user.uid &&
                 <View className={`items-center gap-2 ${isRTL ? "mr-auto" : "ml-auto"}`}>
-                    <TouchableOpacity onPress={() => navigator.navigate("Chat", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark px-2 py-1 rounded-full`}>
+                    <TouchableOpacity onPress={() => navigator.navigate("Chat", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark p-1 rounded-full`}>
                         <FaIcon size={18} color="white" name="comment-dots" />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigator.navigate("Review", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark px-2 py-1 rounded-full`}>
+                    <TouchableOpacity onPress={() => navigator.navigate("Review", { otherUser: user })} className={`flex-row items-center gap-1 bg-main-color-light dark:bg-main-color-dark p-1 rounded-full`}>
                         <MIcon size={18} color="white" name="rate-review" />
                     </TouchableOpacity>
                 </View>

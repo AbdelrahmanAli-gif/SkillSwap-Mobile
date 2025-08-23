@@ -6,9 +6,9 @@ const Card = ({ title, description, image, icon }) => {
     const isRTL = i18n.dir() === 'rtl';
 
     return (
-        <View className="w-72 bg-card-background-light dark:bg-gray-950/35 rounded-2xl m-2 p-4">
+        <View className="w-72 bg-card-background-light dark:bg-gray-950/35 rounded-2xl m-2 p-4 shadow-sm shadow-black dark:shadow-gray-950/35">
             {icon ? (
-                <View className={`w-14 h-14 rounded-full bg-btn-submit-hover-light dark:bg-btn-submit-bg-dark mb-2 items-center justify-center ${isRTL ? 'ml-auto' : 'mr-auto'}`}>
+                <View className={`w-14 h-14 rounded-full mb-2 items-center justify-center ${isRTL ? 'ml-auto' : 'mr-auto'}`}>
                     {icon}
                 </View>
             ) : (

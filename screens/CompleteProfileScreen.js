@@ -115,10 +115,10 @@ const CompleteProfileScreen = ({ navigationRoute }) => {
                 {steps > 0 ? (
                     <>
                         <TouchableOpacity
-                            className="bg-btn-submit-hover-light dark:bg-btn-submit-hover-dark px-4 py-2 rounded-lg"
+                            className="px-4 py-2 rounded-lg border border-btn-submit-bg-light dark:border-btn-submit-bg-dark"
                             onPress={() => handleChangeSteps(-1)}
                         >
-                            <Text className="text-white">{t("CompleteProfileScreen.previous")}</Text>
+                            <Text className="text-black dark:text-white">{t("CompleteProfileScreen.previous")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             className={`px-4 py-2 rounded-lg ${isStepValid ? 'bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark' : 'bg-gray-400'}`}
