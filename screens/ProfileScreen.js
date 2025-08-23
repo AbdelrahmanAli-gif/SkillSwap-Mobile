@@ -17,7 +17,7 @@ import TradeCard from "../components/TradeCard";
 const ProfileScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, setUser } = useAuth();
   const { user } = route.params;
   const [editing, setEditing] = useState(false);
   const [isClicked, setIsClicked] = useState("Info");
@@ -26,6 +26,17 @@ const ProfileScreen = () => {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
   const colors = themeColors(theme);
+
+    useEffect(() => {
+      const updateUserInterval = setInterval(async () => {
+        if (user) {
+          const u = await getUserById(user.uid)
+          setUser(u)
+        }
+      }, 2000)
+  
+      return () => clearInterval(updateUserInterval)
+    }, [])
 
   useEffect(() => {
     if (!user?.uid) return;
@@ -110,8 +121,8 @@ const ProfileScreen = () => {
               <Text className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark">{t("ProfileScreen.subscription")}</Text>
               <View className="w-full flex-row items-center justify-between">
                 <View className="items-start">
-                  <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark capitalize font-semibold">{user.subscribtion.plan === "pro" ? t("ProfileScreen.proPlan") : t("ProfileScreen.freePlan")}</Text>
-                  <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{t("ProfileScreen.renewalDate")}: {new Date(user.subscribtion.currentPeriodEnd).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })}</Text>
+                  <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark capitalize font-semibold">{currentUser.subscribtion.plan === "pro" ? t("ProfileScreen.proPlan") : t("ProfileScreen.freePlan")}</Text>
+                  {currentUser.subscribtion.currentPeriodEnd && <Text className="text-base text-text-secondary-light dark:text-text-secondary-dark">{t("ProfileScreen.renewalDate")}: {new Date(currentUser.subscribtion.currentPeriodEnd).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</Text>}
                 </View>
                 <TouchableOpacity
                   className="bg-btn-submit-bg-light dark:bg-btn-submit-bg-dark px-3 py-1 rounded"

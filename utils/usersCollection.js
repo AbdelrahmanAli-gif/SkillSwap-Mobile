@@ -86,12 +86,11 @@ export const reviewUser = async (otherUserId, user, review) => {
     }
 }
 
-export async function updateUserById(uid, newData) {
-  const ref = doc(db, "users", uid);
-  // If you want to merge top-level keys:
-  await setDoc(ref, newData, { merge: true });
-  // OR update specific fields:
-  // await updateDoc(ref, { "subscribtion.plan": "free" })
-  // return updated doc or just true
-
+export const updateUserById = async (userId, userData) => {
+  try {
+    const userDocRef = doc(db, "users", userId)
+    await updateDoc(userDocRef, userData)
+  } catch (error) {
+    console.error("Error updating user by ID:", error)
+  }
 }
