@@ -36,6 +36,23 @@ const MilestoneScreen = () => {
     };
 
     useEffect(() => {
+        const checkCompletion = async () => {
+            if (!trade) return;
+
+            const allACompleted = milestonesA.every(m => m.isCompleted);
+            const allBCompleted = milestonesB.every(m => m.isCompleted);
+
+            if (allACompleted && allBCompleted && trade.status !== "completed") {
+                await updateTrade(trade.id, "status", "completed");
+                setTrade({ ...trade, status: "completed" });
+            }
+        };
+
+        checkCompletion();
+    }, [milestonesA, milestonesB]);
+
+
+    useEffect(() => {
         const createTrade = async () => {
             if (!request) {
                 setLoading(true);
@@ -98,8 +115,8 @@ const MilestoneScreen = () => {
                     <UserSkillCard user={firstUser} skill={trade.skillA} />
                     <UserSkillCard user={secondUser} skill={trade.skillB} />
 
-                    <MilestoneCard teaching={firstUser.id === user.uid} skill={trade.skillA} skillLevel={trade.skillALevel} milestonesState={milestonesA} setMilestonesState={updateMilestonesA} />
-                    <MilestoneCard teaching={secondUser.id === user.uid} skill={trade.skillB} skillLevel={trade.skillBLevel} milestonesState={milestonesB} setMilestonesState={updateMilestonesB} />
+                    <MilestoneCard completed={trade.status === "completed"} teaching={firstUser.id === user.uid} skill={trade.skillA} skillLevel={trade.skillALevel} milestonesState={milestonesA} setMilestonesState={updateMilestonesA} />
+                    <MilestoneCard completed={trade.status === "completed"} teaching={secondUser.id === user.uid} skill={trade.skillB} skillLevel={trade.skillBLevel} milestonesState={milestonesB} setMilestonesState={updateMilestonesB} />
                     <View className="mt-12" />
                 </ScrollView>
             }

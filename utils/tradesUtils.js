@@ -56,7 +56,8 @@ export const addTrade = async (request, milestones) => {
             skillALevel: request.requestedSkill.skillLevel,
             skillBLevel: request.offeredSkill.skillLevel,
             userA: request.requestedUser.uid,
-            userB: request.requestingUser.uid
+            userB: request.requestingUser.uid,
+            status: "active",
         }
         const docRef = await addDoc(collection(db, "trades"), trade);
         return { id: docRef.id, ...trade };

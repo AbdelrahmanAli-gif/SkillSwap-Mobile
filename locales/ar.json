@@ -245,7 +245,9 @@
     "registerSuccess": "تسجيل التسجيل بنجاح.",
     "logoutSuccess": "تسجيل الخروج بنجاح.",
     "reviewSuccess": "تم ارسال المراجعة بنجاح.",
-    "milestoneUpdate": "تم تحديث الميلستونات بنجاح."
+    "milestoneUpdate": "تم تحديث الميلستونات بنجاح.",
+    "tradeLimitReached": "لقد بلغت حد التداول الخاص بك. يرجى ترقية خطتك للمواصلة في التداول.",
+    "otherUserTradeLimitReached": "الطرف الآخر قد بلغ حد التداول الخاص به."
   },
   "skillLevels": {
     "beginner": "مبتدئ",

@@ -245,7 +245,9 @@
     "registerSuccess": "Registration successful.",
     "logoutSuccess": "Logout successful.",
     "reviewSuccess": "Review submitted successfully.",
-    "milestoneUpdate": "Milestone updated successfully."
+    "milestoneUpdate": "Milestone updated successfully.",
+    "tradeLimitReached": "You have reached your trade limit. Please upgrade your plan to continue trading.",
+    "otherUserTradeLimitReached": "The other user has reached their trade limit."
   },
   "skillLevels": {
     "beginner": "Beginner",

@@ -4,7 +4,9 @@ import { useTheme } from '../contexts/ThemeContext';
 import { theme as themeColors } from '../theme';
 import { useTranslation } from 'react-i18next';
 import { updateRequestStatus } from '../utils/requestsUtils';
+import { getUserById } from '../utils/usersCollection';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Toast from 'react-native-toast-message';
 
 const TradeRequestCard = ({ request }) => {
     const { theme } = useTheme();
@@ -14,8 +16,16 @@ const TradeRequestCard = ({ request }) => {
     const isRTL = i18n.dir() === 'rtl';
 
     const handleAcceptTrade = async () => {
-        await updateRequestStatus(request.requestId, "accepted");
-        navigator.navigate("Milestones", { request });
+        const requestedUser = await getUserById(request.requestedUser.uid);
+        const requestingUser = await getUserById(request.requestingUser.uid);
+        if (requestedUser.subscribtion.plan === "free" && requestedUser.subscribtion.activeTradeCount > 0)
+            Toast.show({ type: 'error', text1: t("feedback.tradeLimitReached") });
+        else if (requestingUser.subscribtion.plan === "free" && requestingUser.subscribtion.activeTradeCount > 0)
+            Toast.show({ type: 'error', text1: t("feedback.otherUserTradeLimitReached") });
+        else {
+            await updateRequestStatus(request.requestId, "accepted");
+            navigator.navigate("Milestones", { request });
+        }
     }
 
     const handleDeclineTrade = async () => {

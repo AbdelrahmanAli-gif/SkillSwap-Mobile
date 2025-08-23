@@ -7,7 +7,7 @@ import CheckBox from '@react-native-community/checkbox';
 import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import Toast from 'react-native-toast-message';
 
-const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMilestonesState }) => {
+const MilestoneContent = ({ completed, milestone, teaching = false, milestonesState, setMilestonesState }) => {
     const [checked, setChecked] = useState(milestone.isCompleted);
     const [data, setData] = useState({ title: milestone.title, description: milestone.description });
     const [editing, setEditing] = useState(false);
@@ -45,7 +45,7 @@ const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMil
 
     return (
         <View className="w-full bg-card-background-light dark:bg-gray-950/35 rounded-lg flex-row mt-3 items-center gap-2" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
-            <CheckBox tintColors={{ true: colors.colors.main }} onValueChange={toggleChecked} value={checked} />
+            <CheckBox disabled={completed} tintColors={{ true: colors.colors.main }} onValueChange={toggleChecked} value={checked} />
 
             <View className="w-10/12">
                 <View className="w-full flex-row justify-between">
@@ -64,7 +64,7 @@ const MilestoneContent = ({ milestone, teaching = false, milestonesState, setMil
                         </Text>
                     )}
                     {
-                        teaching && (
+                        teaching && !completed && (
                             <View className="flex-row w-2/12 items-center justify-around mx-2" >
                                 {editing ? (
                                     <FontAwesome6Icon

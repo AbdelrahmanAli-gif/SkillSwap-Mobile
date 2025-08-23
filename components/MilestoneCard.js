@@ -8,7 +8,7 @@ import * as Progress from "react-native-progress";
 import MilestoneContent from './MilestoneContent';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-const MilestoneCard = ({ teaching, skill, skillLevel, milestonesState, setMilestonesState }) => {
+const MilestoneCard = ({ completed, teaching, skill, skillLevel, milestonesState, setMilestonesState }) => {
     const [adding, setAdding] = useState(false);
     const [newMilestone, setNewMilestone] = useState({});
     const { theme } = useTheme();
@@ -44,7 +44,7 @@ const MilestoneCard = ({ teaching, skill, skillLevel, milestonesState, setMilest
             </View>
             <View className="flex-row w-full px-4 items-center justify-between mt-2">
                 <Text className="text-text-secondary-light dark:text-text-secondary-dark font-bold">{t("MilestoneScreen.milestones")}</Text>
-                {teaching &&
+                {teaching && !completed &&
                     <FontAwesome onPress={() => setAdding(true)} name="plus" size={16} color={colors.colors.textSecondary} />
                 }
             </View>
@@ -77,6 +77,7 @@ const MilestoneCard = ({ teaching, skill, skillLevel, milestonesState, setMilest
                             key={milestone.id}
                             milestone={milestone}
                             teaching={teaching}
+                            completed={completed}
                         />
                     )
                 ) : (
